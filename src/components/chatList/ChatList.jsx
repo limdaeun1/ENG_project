@@ -121,31 +121,28 @@ const TabBox = styled.div`
   width: 100px;
   background: #b2f2bb;
   cursor: pointer;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  font-size: 14px;
 `;
-const AciveTabBox = styled.button`
-  /* background: #51cf66;
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent; */
-
+const AciveTabBox = styled.div`
   padding: 8px;
   text-align: center;
   width: 100px;
   background: #51cf66;
   cursor: pointer;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  border:none;
+  font-size: 14px;
 `;
 const ContentBox = styled.div`
   background: white;
