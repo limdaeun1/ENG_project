@@ -77,17 +77,14 @@ const TabBox = styled.div`
   border-top-right-radius: 10px;
   margin-right: 2px;
 `;
-const AciveTabBox = styled.button`
-  /* background: #51cf66;
-  border-bottom: 1px solid transparent;
-  border-top: 1px solid transparent; */
 
+const AciveTabBox = styled.div`
+  border:none;
   padding: 8px;
   text-align: center;
   width: 100px;
   background: #51cf66;
   cursor: pointer;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -95,6 +92,7 @@ const AciveTabBox = styled.button`
   border-top-right-radius: 10px;
   margin-right: 2px;
 `;
+
 const ContentBox = styled.div`
   background: white;
   padding: 20px;
@@ -103,6 +101,7 @@ const ContentBox = styled.div`
   min-height: 500px;
   display: none;
 `;
+
 const ActiveContentBox = styled.div`
   display: block;
 `;
