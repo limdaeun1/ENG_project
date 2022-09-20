@@ -4,6 +4,7 @@ import { useState } from "react";
 
 
 const AddRoom = () => {
+  const [studyName, setStudyName] = useState("")
   const [category, setCategory] = useState("");
   const [memberCount, setMemberCount] = useState("");
 
@@ -24,8 +25,8 @@ const AddRoom = () => {
           {/* <div style={{display:"flex"}}>
             <div style={{dislpaly:"flex", flexDirection:"column"}}> */}
            <Inputcontainer>
-            <NameBox><p>제목</p></NameBox>
-            <InputBox placeholder="Room Name"/>
+            <NameBox><p>방제목</p></NameBox>
+            <InputBox placeholder="Study Name" onChange={(e)=>setStudyName(e.target.value)}/>
           </Inputcontainer>
           <Inputcontainer>
             <NameBox><p>카테고리</p></NameBox>
@@ -57,18 +58,18 @@ const AddRoom = () => {
             </SelectBox>
           </Inputcontainer>
           <Inputcontainer>
-          <NameBox><p>비밀번호</p></NameBox>
+          <NameBox><p>방설정</p></NameBox>
           {type === false 
           
           ?
           <div style={{display:"flex",marginLeft:"20px", padding:"5px", alignItems:"center"}}>
            <div>일반방 <input value="일반방" type="radio" name="type" checked="checked" onClick={()=>{onChangeFalse()}}/></div>
-           <div>비밀방 설정 <input value="비밀방 설정" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
+           <div>비밀방<input value="비밀방" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
           </div> 
           :
           <div style={{display:"flex",marginLeft:"20px", padding:"5px",alignItems:"center"}}>
            <div>일반방 <input value="일반방" type="radio" name="type"  onClick={()=>{onChangeFalse()}}/></div>
-           <div>비밀방 설정 <input value="비밀방 설정" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
+           <div>비밀방 <input value="비밀방" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
            <PasswordBox type = "password" placeholder="4자리" />
           </div> }
           
@@ -126,6 +127,7 @@ const NameBox = styled.div`
   border-radius: 5px;
   text-align: center;
   line-height: 0px;
+  font-weight: 600;
 `;
 
 const InputBox = styled.input`
@@ -147,7 +149,7 @@ const InputBox = styled.input`
 
 const PasswordBox = styled.input`
   /* background-color: #40c057; */
-  width: 70px;
+  width: 90px;
   height: 25px;
   border-radius: 5px;
   text-align: center;

@@ -107,6 +107,7 @@ const Container = styled.div`
   justify-content: center;
   max-width: 1000px;
   min-width: 705px;
+  /* background-color: green; */
 `;
 
 const BlocTabsContiner = styled.div`
@@ -127,11 +128,13 @@ const AddRoomBtn= styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-left: auto;
+  color:white;
+  font-weight: 600;
 `;
 
 const BannerBox = styled.img`
   height: 400px;
-  width: 200px;
+  width: 150px;
   background-color: #b2f2bb;
   margin-left: 20px;
 `
