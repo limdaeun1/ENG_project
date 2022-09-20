@@ -31,6 +31,7 @@ const Container = styled.div`
   background-color: #e9ecef;
   justify-content: center;
   align-items: center;
+  margin-bottom: 100px;
 `;
 
 const BtnContainer = styled.div`
