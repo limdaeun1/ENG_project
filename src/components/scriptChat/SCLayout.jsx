@@ -4,7 +4,6 @@ import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
 import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
-import "../scriptChat/SCLayout.css";
 
 
 
@@ -39,34 +38,24 @@ const SCLayout = () => {
 
             <ScriptContainer>
               <TabContainer>
-            <button
-              className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-              onClick={() => toggleTab(1)}
-            >
-              Script
-            </button>
-            <button
-              className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-              onClick={() => toggleTab(2)}
-            >
-              White Board
-            </button>
+            {toggleState === 1
+            ? <ActiveTabBox onClick={() => toggleTab(1)}>Script</ActiveTabBox>
+            :<TabBox onClick={() => toggleTab(1)} >Script</TabBox>}
+
+            {toggleState === 2
+            ? <ActiveTabBox onClick={() => toggleTab(2)}>White Board</ActiveTabBox>
+            :<TabBox onClick={() => toggleTab(2)} >White Board</TabBox>}          
             </TabContainer>
 
-            <div className="content-tabs">
-            <div
-              className={
-                toggleState === 1 ? "content active-content" : "content"
-              }>
-                <SCScript/>
-            </div>
+            <div style={{flexGrow : "1"}}>
+
+            {toggleState === 1 
+            ? <ActiveContentBox > <SCScript/> </ActiveContentBox>
+            :<ContentBox  > <SCScript/></ContentBox>}
             
-            <div
-              className={
-                toggleState === 2 ? "content active-content" : "content"
-              }>
-                <SCWhiteBoard/>
-            </div>
+            {toggleState === 2 
+            ? <ActiveContentBox > <SCWhiteBoard/></ActiveContentBox>
+            :<ContentBox  ><SCWhiteBoard/></ContentBox>}
           </div>
 
             </ScriptContainer>
@@ -183,4 +172,54 @@ const TabContainer = styled.div`
   height: 30px;
 margin-top: 10px;
 margin-left: 25px;
+`;
+
+const ActiveTabBox = styled.div`
+  padding: 8px;
+  text-align: center;
+  width: 90px;
+  background: #51cf66;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 2px;
+`;
+
+const TabBox = styled.div`
+  padding: 8px;
+  text-align: center;
+  width: 90px;
+  background: #b2f2bb;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 2px;
+`;
+
+const ActiveContentBox = styled.div`
+  padding: 8px;
+  text-align: center;
+  width: 100px;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 2px;
+`;
+
+const ContentBox = styled.div`
+  background: white;
+  padding: 20px;
+  max-width: 1000px;
+  min-width: 705px;
+  min-height: 500px;
+  display: none;
 `;
