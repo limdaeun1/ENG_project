@@ -186,6 +186,7 @@ const ActiveTabBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  font-size: small;
 `;
 
 const TabBox = styled.div`
@@ -200,6 +201,7 @@ const TabBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  font-size: small;
 `;
 
 const ActiveContentBox = styled.div`
