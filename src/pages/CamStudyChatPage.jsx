@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import CSLayout from "../components/camstudyChat/CSLayout";
 
 const CamStudyChatPage = () => {
   return (
-    <div>CamStudyChatPage</div>
+    <div>
+      <CSLayout/>
+    </div>
   )
 }
 
-export default CamStudyChatPage
+export default CamStudyChatPage;

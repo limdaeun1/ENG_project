@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import SCLayout from "../components/scriptChat/SCLayout";
+
 
 const ScriptChatPage = () => {
   return (
-    <div>ScriptChatPage</div>
+    <div>
+    <SCLayout />
+    </div>
   )
 }
 
-export default ScriptChatPage
+export default ScriptChatPage;
