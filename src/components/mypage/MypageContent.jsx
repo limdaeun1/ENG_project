@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from 'styled-components'
 import MyfeedBack from "./MyfeedBack";
-import "./MypageContent.css";
 import StudyTime from "./StudyTime";
 
 
@@ -16,35 +15,23 @@ const MypageContent = () => {
     <>
     <Container>
     <BlocTabsContiner>
-            <button
-              className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-              onClick={() => toggleTab(1)}
-            >
-              내 공부 시간
-            </button>
-            <button
-              className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-              onClick={() => toggleTab(2)}
-            >
-              내 피드백
-            </button>
-          </BlocTabsContiner>
+            {toggleState === 1 
+            ? <AciveTabBox onClick={() => toggleTab(1)}>내 공부 시간</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(1)} >내 공부 시간</TabBox>}
 
-          <div className="content-tabs">
-            <div
-              className={
-                toggleState === 1 ? "content active-content" : "content"
-              }>
-                <StudyTime/>
-                <StudyTime/>
-            </div>
+            {toggleState === 2 
+            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 피드백</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} >내 피드백</TabBox>}
+    </BlocTabsContiner>
+
+           <div style={{flexGrow : "1"}}>
+            {toggleState === 1 
+            ? <ActiveContentBox > <StudyTime/> </ActiveContentBox>
+            :<ContentBox  > <StudyTime/></ContentBox>}
             
-            <div
-              className={
-                toggleState === 2 ? "content active-content" : "content"
-              }>
-                <MyfeedBack/>
-            </div>
+            {toggleState === 2 
+            ? <ActiveContentBox > <MyfeedBack/></ActiveContentBox>
+            :<ContentBox  ><MyfeedBack/></ContentBox>}
           </div>
     </Container>
     </>
@@ -66,4 +53,56 @@ const BlocTabsContiner = styled.div`
   border-bottom: 1px solid #dee2e6;
   max-width: 1000px;
   min-width: 705px;
+`;
+
+const BannerBox = styled.img`
+  height: 400px;
+  width: 150px;
+  background-color: #b2f2bb;
+  margin-left: 20px;
+`
+
+
+const TabBox = styled.div`
+  padding: 8px;
+  text-align: center;
+  width: 100px;
+  background: #b2f2bb;
+  cursor: pointer;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 2px;
+`;
+const AciveTabBox = styled.button`
+  /* background: #51cf66;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent; */
+
+  padding: 8px;
+  text-align: center;
+  width: 100px;
+  background: #51cf66;
+  cursor: pointer;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 2px;
+`;
+const ContentBox = styled.div`
+  background: white;
+  padding: 20px;
+  max-width: 1000px;
+  min-width: 705px;
+  min-height: 500px;
+  display: none;
+`;
+const ActiveContentBox = styled.div`
+  display: block;
 `;
