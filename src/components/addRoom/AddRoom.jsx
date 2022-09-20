@@ -96,9 +96,6 @@ const AddRoom = () => {
 export default AddRoom;
 
 const Container = styled.div`
-  /* width: 100%;F
-  width: 1040px; */
-
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -131,7 +128,6 @@ const NameBox = styled.div`
 `;
 
 const InputBox = styled.input`
-  /* background-color: #40c057; */
   width: 300px;
   height: 25px;
   border-radius: 5px;
@@ -148,7 +144,6 @@ const InputBox = styled.input`
 `;
 
 const PasswordBox = styled.input`
-  /* background-color: #40c057; */
   width: 90px;
   height: 25px;
   border-radius: 5px;
@@ -183,9 +178,9 @@ const AddRoomBtn = styled.button`
   font-weight: 600;
   width: 100px;
   background: #fcc419;
-  /* position: relative; */
   outline: none;
   border-radius: 10px;
+  border:none;
 `;
 const SelectBox = styled.select`
   width: 300px;
