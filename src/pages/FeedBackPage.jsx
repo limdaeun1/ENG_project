@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import FeedBackList from '../components/feedBack/FeedBackList';
 
 const FeedBackPage = () => {
   return (
-    <div>FeedBackPage</div>
+    <div>
+      <FeedBackList />
+    </div>
   )
 }
 
-export default FeedBackPage
+export default FeedBackPage;

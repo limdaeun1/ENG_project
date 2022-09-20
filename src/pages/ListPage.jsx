@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ChatList from '../components/chatList/ChatList';
 
 const ListPage = () => {
   return (
-    <div>Listpage</div>
+    <div>
+      <ChatList />
+    </div>
+    
   )
 }
 
