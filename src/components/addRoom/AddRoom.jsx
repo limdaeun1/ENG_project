@@ -108,6 +108,7 @@ const Container = styled.div`
   min-width: 705px;
   background-color: #e9ecef;
   align-items: center;
+  margin-bottom: 100px;
 `;
 const Inputcontainer = styled.div`
   display: flex;
