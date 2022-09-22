@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const ChatListCard = (room) => {
   const id = room.id
+  const category = room.category
   const navigate = useNavigate();
 
 
@@ -19,7 +20,8 @@ const ChatListCard = (room) => {
 
         <PeopleParticipationBox>
           <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
-          <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/>
+          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => {navigate("/camchat/" + id) }}/> : <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/>}
+          {/* <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/> */}
         </PeopleParticipationBox>
 
       </Container>
