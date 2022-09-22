@@ -1,14 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createRoom } from "../../redux/modules/chatroom";
 
 
 const AddRoom = () => {
+  const dispatch = useDispatch();
   const [studyName, setStudyName] = useState("")
   const [category, setCategory] = useState("");
   const [memberCount, setMemberCount] = useState("");
-
   const [type, setType] = useState(false)
+  const [password, setPassWord] = useState("");
+
+  const roomData = {
+      roomName : studyName,  
+      category : category ,
+      memberCount : memberCount,
+      lock : type,
+      roomPw : password,
+  }
+
+  console.log(roomData)
+  const createRommhandle = () => {
+    dispatch(createRoom(roomData));
+  }
 
   const onChangeFalse = () => {
     setType(false)
@@ -70,7 +86,8 @@ const AddRoom = () => {
           <div style={{display:"flex",marginLeft:"20px", padding:"5px",alignItems:"center"}}>
            <div>일반방 <input value="일반방" type="radio" name="type"  onClick={()=>{onChangeFalse()}}/></div>
            <div>비밀방 <input value="비밀방" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
-           <PasswordBox type = "password" placeholder="4자리" />
+           <PasswordBox 
+              onChange={(e) => setPassWord(e.target.value)} type = "password" placeholder="4자리" />
           </div> }
           
 
@@ -86,7 +103,7 @@ const AddRoom = () => {
 
         {/* </form>           */}
         <BtnContainer>
-            <AddRoomBtn>방만들기</AddRoomBtn>
+            <AddRoomBtn onClick={createRommhandle}>방만들기</AddRoomBtn>
           </BtnContainer>
       </Container>
     </>

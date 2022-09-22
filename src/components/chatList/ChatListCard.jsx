@@ -3,52 +3,23 @@ import styled from "styled-components";
 import unlock from "../../img/unlock.png";
 import lock from "../../img/lock.png";
 import next from "../../img/next.png";
+import { useNavigate } from "react-router-dom";
 
-const ChatListCard = () => {
+const ChatListCard = (room) => {
+  const id = room.id
+  const navigate = useNavigate();
+
+
   return (
     <>
       <Container>
         <Round />
-        <TitleBox>10월 토익 준비반 </TitleBox>
+        <TitleBox>{room.roomName} </TitleBox>
         <LockStatusBox src={unlock} />
 
         <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>11월 토익 준비반 </TitleBox>
-        <LockStatusBox src={lock} />
-
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>토스 같이 공부하실 분 ㅠ</TitleBox>
-        <LockStatusBox src={lock} />
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>12월 토익 준비반 </TitleBox>
-        <LockStatusBox src={unlock} />
-
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
+          <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
+          <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/>
         </PeopleParticipationBox>
 
       </Container>
