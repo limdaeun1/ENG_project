@@ -18,7 +18,7 @@ const AddRoom = () => {
       category : category ,
       memberCount : memberCount,
       lock : type,
-      roomPw : password,
+      roomPw :password ,
   }
 
   console.log(roomData)
@@ -50,9 +50,9 @@ const AddRoom = () => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              {/* <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 카테고리를 선택하세요
-              </option> */}
+              </option>
               <option>스크립트</option>
               <option>생활영어</option>
               <option>시험대비</option>
@@ -65,9 +65,9 @@ const AddRoom = () => {
               value={memberCount}
               onChange={(e) => setMemberCount(e.target.value)}
             >
-              {/* <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 인원수를 선택하세요
-              </option> */}
+              </option>
               <option>2</option>
               <option>4</option>
               <option>6</option>
@@ -79,15 +79,16 @@ const AddRoom = () => {
           
           ?
           <div style={{display:"flex",marginLeft:"20px", padding:"5px", alignItems:"center"}}>
-           <div>일반방 <input value="일반방" type="radio" name="type" checked="checked" onClick={()=>{onChangeFalse()}}/></div>
-           <div>비밀방<input value="비밀방" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
+           <div>일반방 <input value="일반방" type="radio" name="type" checked="checked" onChange={()=>{onChangeFalse()}}/></div>
+           <div>비밀방<input value="비밀방" type="radio" name="type" onChange={()=>{onChangeTrue()}}/></div>
+           
           </div> 
           :
           <div style={{display:"flex",marginLeft:"20px", padding:"5px",alignItems:"center"}}>
-           <div>일반방 <input value="일반방" type="radio" name="type"  onClick={()=>{onChangeFalse()}}/></div>
-           <div>비밀방 <input value="비밀방" type="radio" name="type" onClick={()=>{onChangeTrue()}}/></div>
+           <div>일반방 <input value="일반방" type="radio" name="type"  onChange={()=>{onChangeFalse()}}/></div>
+           <div>비밀방 <input value="비밀방" type="radio" name="type" onChange={()=>{onChangeTrue()}}/></div>
            <PasswordBox 
-              onChange={(e) => setPassWord(e.target.value)} type = "password" placeholder="4자리" />
+              onChange={(e) => setPassWord(e.target.value)} type = "password" placeholder="4자리" id = "password"/>
           </div> }
           
 
