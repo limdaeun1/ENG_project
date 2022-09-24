@@ -1,13 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import ChatListCard from "./ChatListCard";
 import { useNavigate } from "react-router-dom";
+import { getChatrooms } from "../../redux/modules/chatroom";
+import { useDispatch , useSelector } from "react-redux";
 
 
 const ChatList = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { isLoading, error, roomlist } = useSelector((state) => state.chatroom);
   const [toggleState, setToggleState] = useState(1);
+
+  useEffect(() => {
+    dispatch(getChatrooms());
+  }, []);
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -17,26 +25,51 @@ const ChatList = () => {
    navigate("/createroom")
   }
 
+  let one = roomlist.filter((roomlist) => {
+    return roomlist.category === "생활영어";
+  });
+  
+
+  let two = roomlist.filter((roomlist) => {
+    return roomlist.category === "스크립트";
+  });
+
+  let three = roomlist.filter((roomlist) => {
+    return roomlist.category === "시험대비";
+  });
+ 
+   let four = roomlist.filter((roomlist) => {
+    return roomlist.category === "캠스터디";
+  });
+
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <div>
       <Container>
         <div>
           <BlocTabsContiner>
             {toggleState === 1 
-            ? <AciveTabBox onClick={() => toggleTab(1)}> tab1</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(1)} >tab1</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(1)}>생활영어</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(1)} >생활영어</TabBox>}
 
             {toggleState === 2 
-            ? <AciveTabBox onClick={() => toggleTab(2)}> tab2</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(2)} >tab2</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(2)}>스크립트</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} >스크립트</TabBox>}
 
             {toggleState === 3 
-            ? <AciveTabBox onClick={() => toggleTab(3)}> tab3</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(3)} >tab3</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(3)}>시험대비</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(3)} >시험대비</TabBox>}
 
             {toggleState === 4 
-            ? <AciveTabBox onClick={() => toggleTab(4)}> tab4</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(4)} >tab4</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(4)}>캠스터디</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(4)} >캠스터디</TabBox>}
 
             <AddRoomBtn onClick ={()=>{addRoom()}}>방만들기</AddRoomBtn>
           </BlocTabsContiner>
@@ -44,22 +77,58 @@ const ChatList = () => {
 
           <div style={{flexGrow : "1"}}>
             {toggleState === 1 
-            ? <ActiveContentBox > 1 <ChatListCard /> </ActiveContentBox>
+            ? <ActiveContentBox > 
+              {one.map((room) => {
+                return (<ChatListCard  
+                  category = {room.category}
+                  maxCount = {room.maxCount}
+                  nowCount ={room.nowCount}
+                  id = {room.roomId}
+                  roomName={room.roomName}
+                  key={room.roomId} /> )})}
+               </ActiveContentBox>
             :<ContentBox  > 1 <ChatListCard /></ContentBox>}
             
 
             {toggleState === 2 
-            ? <ActiveContentBox > 2 <ChatListCard /></ActiveContentBox>
+            ? <ActiveContentBox >  
+               {two.map((room) => {
+                return (<ChatListCard  
+                  category = {room.category}
+                  maxCount = {room.maxCount}
+                  nowCount ={room.nowCount}
+                  id = {room.roomId}
+                  roomName={room.roomName}
+                  key={room.roomId} /> )})}
+              </ActiveContentBox>
             :<ContentBox  > 2 <ChatListCard /></ContentBox>}
 
 
             {toggleState === 3 
-            ? <ActiveContentBox > 3 <ChatListCard /></ActiveContentBox>
+            ? <ActiveContentBox > 
+               {three.map((room) => {
+                return (<ChatListCard  
+                  category = {room.category}
+                  maxCount = {room.maxCount}
+                  nowCount ={room.nowCount}
+                  id = {room.roomId}
+                  roomName={room.roomName}
+                  key={room.roomId} /> )})}
+            </ActiveContentBox>
             :<ContentBox  > 3 <ChatListCard /></ContentBox>}
 
 
             {toggleState === 4 
-            ? <ActiveContentBox > 4 <ChatListCard /></ActiveContentBox>
+            ? <ActiveContentBox >
+                {four.map((room) => {
+                return (<ChatListCard  
+                  category = {room.category}
+                  maxCount = {room.maxCount}
+                  nowCount ={room.nowCount}
+                  id = {room.roomId}
+                  roomName={room.roomName}
+                  key={room.roomId} /> )})}
+               </ActiveContentBox>
             :<ContentBox  > 4 <ChatListCard /></ContentBox>}
           </div>
         </div>

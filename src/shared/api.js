@@ -1,14 +1,15 @@
+
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "",
-  // baseURL: "http://3.36.70.96:8080",
+  baseURL: "http://13.124.16.22:8080/",
 });
 
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token"); // 토큰 헤더에 보내야대면 주석풀어주세용
   // const refreshToken = localStorage.getItem("refresh-token");
-  config.headers.Authorization = token;
+// config.headers.Authorization = token; //토큰 헤더에 보내야대면 주석풀어주세용
   // config.headers.refreshToken = refreshToken;
   return config;
 });
+
