@@ -15,10 +15,10 @@ const Loading = () => {
 
 
 
-  // useEffect(() => {
-  //   //주소창에서 뗀 code를 토큰가져오는 함수에 보내줌
-  //   dispatch(getKakao(code));
-  // }, []);
+  useEffect(() => {
+    //주소창에서 뗀 code를 토큰가져오는 함수에 보내줌
+    dispatch(getKakao(code));
+  }, []);
 
 
   

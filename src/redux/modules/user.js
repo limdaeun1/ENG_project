@@ -26,7 +26,7 @@ export const getKakao = createAsyncThunk(
       const ACCESS_TOKEN = data.headers.authorization;//토큰위치 확인 후 ACCESS_TOKEN에 저장
       localStorage.setItem("token", ACCESS_TOKEN); //로컬스토리지에 토큰저장
       window.location.assign("/"); //토큰 저장하면 자동으로 메인화면으로 이동
-      window.alert("환영합니다!");
+      window.alert("WELCOME😁");
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
