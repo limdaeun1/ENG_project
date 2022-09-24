@@ -4,16 +4,17 @@ import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
 import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
-
+import { useParams } from "react-router-dom";
 
 
 
 const SCLayout = () => {
   const [toggleState, setToggleState] = useState(1);
+  const {id} = useParams();
   const toggleTab = (index) => {
       setToggleState(index);
     };
-
+    console.log(id)
     return (
       <>
       <Container>
@@ -32,7 +33,7 @@ const SCLayout = () => {
 
         <Box>
 
-          <SCCamSet/>
+          <SCCamSet id={id}/>  
 
           <ScriptChatBox>
 
