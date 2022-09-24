@@ -19,19 +19,22 @@ const Footers = () => {
 export default Footers
 
 const Footertxt = styled.div`
+border: none;
+font-size: 15px;
   background-color: #ecebebe3;
-  height: 200px;
-  margin-top: 10px;
+  height: 100%;
+  margin-top:10%;
   width: 100%;
   ul {
     display: flex;
-    padding: 50px;
+    padding: 3%;
     justify-content: center;
     li {
       list-style: none;
-      padding: 20px;
+      padding: 3%;
       color: gray;
-      min-width: 70px;
+      min-width: 3%;
+      font-size: 1rem;
     }
   }
 `;

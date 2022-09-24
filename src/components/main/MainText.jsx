@@ -35,17 +35,28 @@ const MainText = () => {
 export default MainText
 
 const Container = styled.div`
+border: none;
   height: auto;
-  margin: 80px 170px 10px 170px;
-  min-width: 980px; 
+  width: 90%;
+  margin-top: 10%;
+  margin-bottom:15% ;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 40px;
 `
 
 const TextBox = styled.h1`
+border: none;
+width: 100%;
+min-width: 200px;
     text-align: center;
     color: #9c9d9c;
+    font-size: 2.5rem;
+    margin-bottom: 4%;
 `
 
 const Box = styled.article`
+border: none;
    transition: all 0.5s;
    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px;
    &:hover {
@@ -53,14 +64,18 @@ const Box = styled.article`
    }
    border-radius: 5px;
    cursor: pointer;
-   margin: 40px;
+   margin-left: 2rem;
+   margin-right: 2rem;
+   margin-bottom: 2rem;
    border-radius: 15px;
    display: flex;
+   font-size: 1.1rem;
 `;
 
 const Boximg = styled.div`
-    width: 300px;
-    height: 200px;
+border: none;
+    width: 40%;
+    min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2021/05/15/19/40/computer-6256527__480.jpg');
     background-size: cover;
     background-position: center;
@@ -68,8 +83,9 @@ const Boximg = styled.div`
 `
 
 const Boximg2 = styled.div`
-    width: 300px;
-    height: 200px;
+ border: none;
+    width: 40%;
+    min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2022/01/17/14/10/video-conference-6944846__480.jpg');
     background-size: cover;
     background-position: center;
@@ -77,8 +93,9 @@ const Boximg2 = styled.div`
 `
 
 const Boximg3 = styled.div`
-    width: 300px;
-    height: 200px;
+border: none;
+    width: 40%;
+    min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2020/06/28/15/26/video-conference-5349687__480.png');
     background-size: cover;
     background-position: center;
@@ -86,6 +103,10 @@ const Boximg3 = styled.div`
 `
     
 const Boxtext = styled.div`
-    margin-left: 180px;
-    line-height: 40px;
+border: none;
+width: 50%auto;
+min-width: 200px;
+    margin-left: 20%;
+    line-height: 2.5rem;
+    font-size: 1.05rem;
 `

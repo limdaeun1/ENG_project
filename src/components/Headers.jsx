@@ -19,38 +19,47 @@ const Headers = () => {
 export default Headers
 
 const Div = styled.div`
+border: none;
   width: 100%;
-  height: 120px;
-  /* background-color: red; */
+ height: 100%;
+ font-size: 14px;
   text-align: center;
   display: flex;
   justify-content: space-between;
 `
 
 const Logo = styled.img`
-  width: 200px;
-  height: 190px;
-  margin-top: -35px;
-  margin-left: 20px;
+border: none;
+  width: 10%;
+  min-width: 100px;
+  height: 10%;
+  margin-left: 1%;
 `
 
 const Btn = styled.button`
-  width: 80px;
-  height: 36px;
-  font-size: 14px;
-  font-weight: 540;
+  width: 50%;
+  min-width: 60px;
+  height: 45%;
+  min-height: 45%;
+  font-size: 1rem;
+  /* 14px; */
   background-color: #39964c;
   border: none;
   border-radius: 7px;
   color: white;
   cursor: pointer;
   transition: all 0.5s;
+  margin-right: 10%;
+  margin-top: 10%;
   &:hover {
     background-color: #89f6ab;
   }
-  margin-right: 20px;
 `;
 
 const Btnbox = styled.div`
-  margin-top: 60px;
-`
+display: flex;
+width: 20%;
+min-width:190px;
+border: none;
+margin-top: 5%;
+`;

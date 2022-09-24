@@ -19,9 +19,10 @@ const MainPhoto = () => {
 export default MainPhoto
 
 const Container = styled.div`
-  width: 100%;
+border: none;
+  width: 80%;
   height: 600px;
-  min-width: 1040px; 
+  min-width: 80%; 
   background-image: url('https://ifh.cc/g/Zdgxh0.jpg');
   background-size: cover;
   background-position: center;
@@ -29,9 +30,13 @@ const Container = styled.div`
   box-shadow: 2px 2px 10px gray;
   align-items: center;
   text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 2%;
 `
 
 const Title = styled.div`
+border: none;
   height: 130px;
   width: 400px;
   h2{
