@@ -16,7 +16,7 @@ class SCCamSet extends Component {
 
     this.state = {
         mySessionId: `Session${this.props.id}`,
-        myUserName: 'Participant' + Math.floor(Math.random() * 100),
+        myUserName: '다은test' + Math.floor(Math.random() * 100),
         session: undefined,
         mainStreamManager: undefined,
         publisher: undefined,
