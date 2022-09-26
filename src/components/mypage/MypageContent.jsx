@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from 'styled-components'
-import MyfeedBack from "./MyfeedBack";
+import MyfeedBack from "./MyMemo";
 import StudyTime from "./StudyTime";
 
 
@@ -20,8 +20,8 @@ const MypageContent = () => {
             :<TabBox onClick={() => toggleTab(1)} >내 공부 시간</TabBox>}
 
             {toggleState === 2 
-            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 피드백</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(2)} >내 피드백</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 메모</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} >내 메모</TabBox>}
     </BlocTabsContiner>
 
            <div style={{flexGrow : "1"}}>
@@ -41,26 +41,25 @@ const MypageContent = () => {
 export default MypageContent
 
 const Container = styled.div`
-    width: 100%;
-    width: 800px;
-    margin: 30px auto;
+border: none;
+    width: 50%;
+    min-width: 490px;
     height: auto;
-    margin-bottom: 100px;
-`
-
-const BlocTabsContiner = styled.div`
-  display: flex;
-  border-bottom: 1px solid #dee2e6;
-  max-width: 1000px;
-  min-width: 705px;
+    align-items: center;
+    justify-content: center;
+    place-content:center ;
+    margin:5% auto 30% auto;
 `;
 
-const BannerBox = styled.img`
-  height: 400px;
-  width: 150px;
-  background-color: #b2f2bb;
-  margin-left: 20px;
-`
+const BlocTabsContiner = styled.div`
+border: none;
+min-width: 485px;
+align-items: center;
+  display: flex;
+  border-bottom: 1px solid #dee2e6;
+  width:100%;
+`;
+
 
 
 const TabBox = styled.div`
@@ -94,14 +93,23 @@ const AciveTabBox = styled.div`
 `;
 
 const ContentBox = styled.div`
+border: none;
   background: white;
-  padding: 20px;
-  max-width: 1000px;
+  padding: 10%;
+  /* max-width: 1000px;
   min-width: 705px;
-  min-height: 500px;
+  min-height: 500px; */
   display: none;
+  /* align-items: center;
+  justify-content: center; */
 `;
 
 const ActiveContentBox = styled.div`
-  display: block;
+width: 100%;
+min-width: 485px;
+border: none;
+  /* display: block; */
+  align-items: center;
+  justify-content: center;
+  display: inline-block;
 `;
