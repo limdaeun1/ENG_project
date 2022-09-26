@@ -7,6 +7,7 @@ import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
 const CSChat= () => {
+  
 const navigate = useNavigate()
 // const client = useRef()
 const roomId = useParams();
@@ -45,19 +46,25 @@ if (typeof WebSocket !== 'function') {
   };
 }
 
-client.onConnect = function (frame) {
-  client.subscribe(`/room/enter/${roomId.id}`,function (message) {
+client.onConnect = () => {
+//구독(특정 방 입장, 수신)
+  client.subscribe(`sub/chat/room/${roomId.id}`,function (message) {
     // called when the client receives a STOMP message from the server
-    if (message.body) {
-      alert('got message with body ' + message.body);
-    } else {
-      alert('got empty message');
-    }
-  })
+
+    console.log(message)
+    // if (message.body) {
+    //   alert('got message with body ' + message.body);
+    // } else {
+    //   alert('got empty message');
+    // }
+  }
+  )
   // console.log(roomId)
   // Do something, all subscribes must be done is this callback
   // This is needed because this will be executed after a (re)connect
 };
+
+
 
 client.onStompError = function (frame) {
   // Will be invoked in case of error encountered at Broker
@@ -77,7 +84,9 @@ const disconnect = () => {
 }
 
 const submit = () => {
-  client.publish({ destination: '/chat/message', body: message,
+  //메시지 송신
+  client.publish({ 
+    destination: `/pub/chat/message`, body: message,
   // headers: { priority: '9' },
 });
 }
@@ -85,7 +94,9 @@ const submit = () => {
 
     return (
       <>
-      <button onClick={()=>{disconnect()}}>중단하기</button>
+      <button 
+      onClick={()=>{disconnect()}}
+      >중단하기</button>
       <ChatBox>
                 <Chat>
                     <Who>이름</Who>
@@ -95,8 +106,12 @@ const submit = () => {
                          
             </ChatBox>
             <SendBox>
-                <InputBox onChange={(e)=>setMessage(e.target.value)}></InputBox>
-                <SendBut onClick={() => submit()}>전송</SendBut>
+                <InputBox 
+                onChange={(e)=>setMessage(e.target.value)}
+                ></InputBox>
+                <SendBut 
+                onClick={() => submit()}
+                >전송</SendBut>
             </SendBox>
       </>
        );

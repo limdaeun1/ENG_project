@@ -16,7 +16,7 @@ class SCCamSet extends Component {
 
     this.state = {
         mySessionId: `Session${this.props.id}`,
-        myUserName: 'Participant' + Math.floor(Math.random() * 100),
+        myUserName: '닉네임들어갈곳' + Math.floor(Math.random() * 100),
         session: undefined,
         mainStreamManager: undefined,
         publisher: undefined,
@@ -74,6 +74,7 @@ deleteSubscriber(streamManager) {
         });
     }
 }
+
 
 joinSession() {
 
@@ -210,9 +211,10 @@ render() {
       <>
           <CamBox>
           {this.state.publisher !== undefined ? (
-            <CamBig streamManager={this.state.publisher}/>
+            <>
+            <CamBig streamManager={this.state.publisher} />
+            </>
           ) : null}
-
             <CamSmallBox>
           {this.state.subscribers.map((sub, i) => (
             <div key={i} onClick={() => this.handleMainVideoStream(sub)}>
@@ -269,6 +271,7 @@ createSession(sessionId) {
           });
   });
 }
+
 
 createToken(sessionId) {
   return new Promise((resolve, reject) => {
