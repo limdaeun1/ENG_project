@@ -1,21 +1,177 @@
 import styled from "styled-components";
 
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
+
+import * as StompJs from "@stomp/stompjs";
+import * as SockJS from "sockjs-client";
+
 const SCChat= () => {
+
+  const Authorization = localStorage.getItem("token");
+  const name = localStorage.getItem("name")
+  console.log(name)
+  const roomId = useParams();
+  const client = useRef({});
+  const [messages, setMessages] = useState([{ chatMessage: "", 
+  user: "",
+  type:"",
+image:"" }]);
+  const inputRef = useRef("");
+  const navigate = useNavigate();
+
+  // const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    connect();
+
+    return () => disconnect();
+  }, []);
+
+  const connect = () => {
+    client.current = new StompJs.Client({
+      //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
+      // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
+      brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+      connectHeaders: {
+        Authorization: Authorization,
+      },
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onConnect: () => {
+        subscribe();
+        client.current.publish({
+          destination: "/pub/chat/message",
+          headers: { Authorization: Authorization },
+          //전송할 데이터를 입력
+          body: JSON.stringify({
+            type: 0,
+            // message: "OOO님이 입장하셨습니다",
+            roomId: roomId.id,
+          }),
+        });
+      },
+    });
+    client.current.activate();
+  };
+
+  // const client = new StompJs.Client({
+  //   //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
+  //   // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
+  //   brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+  //   connectHeaders: {
+  //     Authorization: authorization
+  //   },
+  //   debug: function (str) {
+  //     console.log(str);
+  //   },
+  //   reconnectDelay: 5000,
+  //   heartbeatIncoming: 4000,
+  //   heartbeatOutgoing: 4000,
+
+  // });
+
+  client.webSocketFactory = () => {
+    // return new SockJS("http://54.180.142.30/ws-stomp");
+    return new SockJS("http://35.174.109.220:8080/ws-stomp");
+  };
+
+  const subscribe = () => {
+    //이곳에서 모든 구독(subScribe)가 되어야 합니다.
+    client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
+      var content = JSON.parse(chat.body);
+      console.log(content);
+      setMessages((_messages) => [
+        ..._messages,
+        { chatMessage: content.msg, user: content.sender, type: content.type, image:content.image },
+      ]);
+    });
+  };
+
+  const submit = () => {
+    client.current.publish({
+      destination: "/pub/chat/message",
+      headers: { Authorization: Authorization },
+      //전송할 데이터를 입력
+      body: JSON.stringify({
+        type: 2,
+        message: inputRef.current.value,
+        roomId: roomId.id,
+      }),
+    });
+  };
+
+  client.current.onStompError = function (frame) {
+    // Will be invoked in case of error encountered at Broker
+    // Bad login/passcode typically will cause an error
+    // Complaint brokers will set `message` header with a brief message. Body may contain details.
+    // Compliant brokers will terminate the connection after any error
+    console.log("Broker reported error: " + frame.headers["message"]);
+    console.log("Additional details: " + frame.body);
+  };
+
+  const disconnect = () => {
+    client.current.publish({
+      destination: "/pub/chat/message",
+      headers: { Authorization: Authorization },
+      //전송할 데이터를 입력
+      body: JSON.stringify({
+        type: 1,
+        message: "",
+        roomId: roomId.id,
+      }),
+    });
+    client.current.unsubscribe();
+    client.current.deactivate();
+
+    navigate("/list");
+  };
+
+
+
+
+
+
 
     return (
     <>
     <CamChatBox>
-            <ChatBox>
-                <Chat>
-                    <Who>이름</Who>
-                    <What>내 용</What>
-                         </Chat>
-            </ChatBox>
-            <SendBox>
-                  <InputBox></InputBox>
-                <SendBut>전송</SendBut>
-            </SendBox>
-            </CamChatBox>
+    <ChatBox>
+        { messages.map((c, i) => {
+          return (
+            c.type === 2 ?
+            (c.user == name ?
+            <Chat2 key={i}>
+              {/* <Who>{c.user}</Who> */}
+              <What>{c.chatMessage}</What>
+            </Chat2>:
+            <Chat key={i}>
+              <img width={30} src={c.image}/>
+              <Who>{c.user}</Who>
+              <What>{c.chatMessage}</What>
+            </Chat>)
+            :
+            <Chat key={i}>
+            <p>{c.chatMessage}</p>
+          </Chat>
+          );
+        })}
+      </ChatBox>
+      <SendBox>
+        <InputBox
+          ref={inputRef}
+        ></InputBox>
+        <SendBut
+          onClick={() => {submit()}}>
+          전송
+        </SendBut>
+      </SendBox>
+      </CamChatBox>
 
     </>
     ); 
@@ -57,6 +213,16 @@ margin-left: 10px;
 margin-top: 10px;
 `;
 
+const Chat2=styled.div`
+display: flex;
+float: right;
+clear: both;
+border: none;
+height: 30px;
+margin-left: 10px;
+margin-top: 10px;
+`;
+
 const Who=styled.div`
 border: none;
 width: 50px;
@@ -72,7 +238,7 @@ background: #8ce99a;
 
 const What=styled.div`
 border: solid 1px gray;
-width: 300px;
+width: fit-content;
 margin-left: 5px;
 line-height: 25px;
 border-radius: 20px;

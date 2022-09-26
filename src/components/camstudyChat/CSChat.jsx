@@ -15,7 +15,8 @@ const CSChat = () => {
   const client = useRef({});
   const [messages, setMessages] = useState([{ chatMessage: "", 
   user: "",
-  type:"" }]);
+  type:"",
+  image:""  }]);
   const inputRef = useRef("");
   const navigate = useNavigate();
 
@@ -86,7 +87,7 @@ const CSChat = () => {
       console.log(content);
       setMessages((_messages) => [
         ..._messages,
-        { chatMessage: content.msg, user: content.sender, type: content.type },
+        { chatMessage: content.msg, user: content.sender, type: content.type,image:content.image },
       ]);
     });
   };
@@ -142,6 +143,7 @@ const CSChat = () => {
               <What>{c.chatMessage}</What>
             </Chat2>:
             <Chat key={i}>
+              <img width={50} src={c.image}/>
               <Who>{c.user}</Who>
               <What>{c.chatMessage}</What>
             </Chat>)
