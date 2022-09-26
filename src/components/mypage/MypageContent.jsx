@@ -41,26 +41,23 @@ const MypageContent = () => {
 export default MypageContent
 
 const Container = styled.div`
+border: solid red;
     width: 100%;
-    width: 800px;
-    margin: 30px auto;
+    margin-top: 7%;
+    margin-bottom:25%;
     height: auto;
-    margin-bottom: 100px;
+    align-items: center;
+  justify-content: center;
 `
 
 const BlocTabsContiner = styled.div`
+border: solid orange;
+align-items: center;
   display: flex;
   border-bottom: 1px solid #dee2e6;
-  max-width: 1000px;
-  min-width: 705px;
+  width:50%;
 `;
 
-const BannerBox = styled.img`
-  height: 400px;
-  width: 150px;
-  background-color: #b2f2bb;
-  margin-left: 20px;
-`
 
 
 const TabBox = styled.div`
@@ -94,14 +91,20 @@ const AciveTabBox = styled.div`
 `;
 
 const ContentBox = styled.div`
+border: none;
   background: white;
-  padding: 20px;
-  max-width: 1000px;
+  padding: 10%;
+  /* max-width: 1000px;
   min-width: 705px;
-  min-height: 500px;
+  min-height: 500px; */
   display: none;
 `;
 
 const ActiveContentBox = styled.div`
+width: 50%;
+min-width: 485px;
+border: solid purple;
   display: block;
+  align-items: center;
+  justify-content: center;
 `;
