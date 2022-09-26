@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from 'styled-components'
-import MyfeedBack from "./MyfeedBack";
+import MyfeedBack from "./MyMemo";
 import StudyTime from "./StudyTime";
 
 
@@ -20,8 +20,8 @@ const MypageContent = () => {
             :<TabBox onClick={() => toggleTab(1)} >내 공부 시간</TabBox>}
 
             {toggleState === 2 
-            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 피드백</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(2)} >내 피드백</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 메모</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} >내 메모</TabBox>}
     </BlocTabsContiner>
 
            <div style={{flexGrow : "1"}}>
@@ -41,21 +41,23 @@ const MypageContent = () => {
 export default MypageContent
 
 const Container = styled.div`
-border: solid red;
-    width: 100%;
-    margin-top: 7%;
-    margin-bottom:25%;
+border: none;
+    width: 50%;
+    min-width: 490px;
     height: auto;
     align-items: center;
-  justify-content: center;
-`
+    justify-content: center;
+    place-content:center ;
+    margin:5% auto 30% auto;
+`;
 
 const BlocTabsContiner = styled.div`
-border: solid orange;
+border: none;
+min-width: 485px;
 align-items: center;
   display: flex;
   border-bottom: 1px solid #dee2e6;
-  width:50%;
+  width:100%;
 `;
 
 
@@ -98,13 +100,16 @@ border: none;
   min-width: 705px;
   min-height: 500px; */
   display: none;
+  /* align-items: center;
+  justify-content: center; */
 `;
 
 const ActiveContentBox = styled.div`
-width: 50%;
+width: 100%;
 min-width: 485px;
-border: solid purple;
-  display: block;
+border: none;
+  /* display: block; */
   align-items: center;
   justify-content: center;
+  display: inline-block;
 `;

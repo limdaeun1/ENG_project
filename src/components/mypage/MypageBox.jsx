@@ -14,7 +14,7 @@ const MypageBox = () => {
                 src="https://innertrip.co.kr/wp-content/uploads/2022/02/Try-gather-for-free-avatar.png"
                 alt="profile"
               />
-              <h2>00님</h2>
+              <h2>다은님</h2>
             </Name>
             {/* <Hr /> */}
           </Profil>

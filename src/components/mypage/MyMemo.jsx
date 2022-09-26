@@ -4,7 +4,9 @@ import styled from 'styled-components'
 const MyfeedBack = () => {
   return (
     <Box>
-    <h3>소희</h3><p>참여를 열심히 하시는것 같아 보기 좋습니다</p>
+    <h3>방 제목</h3>
+    {/* (넓이 고정해서 왼쪽 배치, 고정 너비 넘어가면 가로 길어지게 말고 세로로 길어지게) */}
+    <p>여기 메모 들어갈 부분 나중에 고치기(스크롤 고민 중)</p>
     </Box>  
   )
 }
