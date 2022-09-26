@@ -12,6 +12,7 @@ export default class OpenViduVideoComponent extends Component {
         if (props && !!this.videoRef) {
             this.props.streamManager.addVideoElement(this.videoRef.current);
         }
+        console.log(props)
     }
 
     componentDidMount() {
@@ -21,7 +22,7 @@ export default class OpenViduVideoComponent extends Component {
     }
 
     render() {
-        return <StVideo autoPlay={true} ref={this.videoRef} />;
+        return <StVideo autoPlay={true} ref={this.videoRef}/>;
     }
 
 }
