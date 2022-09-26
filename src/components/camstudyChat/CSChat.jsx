@@ -1,206 +1,264 @@
 import styled from "styled-components";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
 
 import * as StompJs from "@stomp/stompjs";
 import * as SockJS from "sockjs-client";
 
-const CSChat= () => {
-  
-const navigate = useNavigate()
-// const client = useRef()
-const roomId = useParams();
+const CSChat = () => {
+  const Authorization = localStorage.getItem("token");
+  const name = localStorage.getItem("name")
+  console.log(name)
+  const roomId = useParams();
+  const client = useRef({});
+  const [messages, setMessages] = useState([{ chatMessage: "", 
+  user: "",
+  type:"" }]);
+  const inputRef = useRef("");
+  const navigate = useNavigate();
 
-const [message, setMessage] = useState("")
-const [chatMessages, setChatMessages] = useState([]);
+  // const [message, setMessage] = useState("")
 
-  // useEffect(() => {
-  //   connect();
+  useEffect(() => {
+    connect();
 
-  //   return () => disconnect();
-  // }, []);
+    return () => disconnect();
+  }, []);
 
-
-const client = new StompJs.Client({
-  brokerURL: 'ws://54.180.142.30/ws-stomp/websocket',
-  connectHeaders: {
-    login: 'user',
-    passcode: 'password',
-  },
-  debug: function (str) {
-    console.log(str);
-  },
-  reconnectDelay: 5000,
-  heartbeatIncoming: 4000,
-  heartbeatOutgoing: 4000,
-});
-
-// Fallback code
-if (typeof WebSocket !== 'function') {
-  // For SockJS you need to set a factory that creates a new SockJS instance
-  // to be used for each (re)connect
-  client.webSocketFactory = function () {
-    // Note that the URL is different from the WebSocket URL
-    return new SockJS('http://54.180.142.30/ws-stomp');
+  const connect = () => {
+    client.current = new StompJs.Client({
+      //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
+      // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
+      brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+      connectHeaders: {
+        Authorization: Authorization,
+      },
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onConnect: () => {
+        subscribe();
+        client.current.publish({
+          destination: "/pub/chat/message",
+          headers: { Authorization: Authorization },
+          //전송할 데이터를 입력
+          body: JSON.stringify({
+            type: 0,
+            // message: "OOO님이 입장하셨습니다",
+            roomId: roomId.id,
+          }),
+        });
+      },
+    });
+    client.current.activate();
   };
-}
 
-client.onConnect = () => {
-//구독(특정 방 입장, 수신)
-  client.subscribe(`sub/chat/room/${roomId.id}`,function (message) {
-    // called when the client receives a STOMP message from the server
+  // const client = new StompJs.Client({
+  //   //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
+  //   // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
+  //   brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+  //   connectHeaders: {
+  //     Authorization: authorization
+  //   },
+  //   debug: function (str) {
+  //     console.log(str);
+  //   },
+  //   reconnectDelay: 5000,
+  //   heartbeatIncoming: 4000,
+  //   heartbeatOutgoing: 4000,
 
-    console.log(message)
-    // if (message.body) {
-    //   alert('got message with body ' + message.body);
-    // } else {
-    //   alert('got empty message');
-    // }
-  }
-  )
-  // console.log(roomId)
-  // Do something, all subscribes must be done is this callback
-  // This is needed because this will be executed after a (re)connect
-};
+  // });
 
+  client.webSocketFactory = () => {
+    // return new SockJS("http://54.180.142.30/ws-stomp");
+    return new SockJS("http://35.174.109.220:8080/ws-stomp");
+  };
 
+  const subscribe = () => {
+    //이곳에서 모든 구독(subScribe)가 되어야 합니다.
+    client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
+      var content = JSON.parse(chat.body);
+      console.log(content);
+      setMessages((_messages) => [
+        ..._messages,
+        { chatMessage: content.msg, user: content.sender, type: content.type },
+      ]);
+    });
+  };
 
-client.onStompError = function (frame) {
-  // Will be invoked in case of error encountered at Broker
-  // Bad login/passcode typically will cause an error
-  // Complaint brokers will set `message` header with a brief message. Body may contain details.
-  // Compliant brokers will terminate the connection after any error
-  console.log('Broker reported error: ' + frame.headers['message']);
-  console.log('Additional details: ' + frame.body);
-};
+  const submit = () => {
+    client.current.publish({
+      destination: "/pub/chat/message",
+      headers: { Authorization: Authorization },
+      //전송할 데이터를 입력
+      body: JSON.stringify({
+        type: 2,
+        message: inputRef.current.value,
+        roomId: roomId.id,
+      }),
+    });
+  };
 
-client.activate();
+  client.current.onStompError = function (frame) {
+    // Will be invoked in case of error encountered at Broker
+    // Bad login/passcode typically will cause an error
+    // Complaint brokers will set `message` header with a brief message. Body may contain details.
+    // Compliant brokers will terminate the connection after any error
+    console.log("Broker reported error: " + frame.headers["message"]);
+    console.log("Additional details: " + frame.body);
+  };
 
-const disconnect = () => {
-  client.unsubscribe();
-  client.deactivate();
-  navigate("/list")
-}
+  const disconnect = () => {
+    client.current.publish({
+      destination: "/pub/chat/message",
+      headers: { Authorization: Authorization },
+      //전송할 데이터를 입력
+      body: JSON.stringify({
+        type: 1,
+        message: "",
+        roomId: roomId.id,
+      }),
+    });
+    client.current.unsubscribe();
+    client.current.deactivate();
 
-const submit = () => {
-  //메시지 송신
-  client.publish({ 
-    destination: `/pub/chat/message`, body: message,
-  // headers: { priority: '9' },
-});
-}
+    navigate("/list");
+  };
 
-
-    return (
-      <>
-      <button 
-      onClick={()=>{disconnect()}}
-      >중단하기</button>
+  return (
+    <>
       <ChatBox>
-                <Chat>
-                    <Who>이름</Who>
-                    <What>내용</What>
-                         </Chat>
+        { messages.map((c, i) => {
+          return (
+            c.type === 2 ?
+            (c.user == name ?
+            <Chat2 key={i}>
+              {/* <Who>{c.user}</Who> */}
+              <What>{c.chatMessage}</What>
+            </Chat2>:
+            <Chat key={i}>
+              <Who>{c.user}</Who>
+              <What>{c.chatMessage}</What>
+            </Chat>)
+            :
+            <Chat key={i}>
+            <p>{c.chatMessage}</p>
+          </Chat>
+          );
+        })}
+      </ChatBox>
+      <SendBox>
+        <InputBox
+          ref={inputRef}
+        ></InputBox>
+        <SendBut
+          onClick={() => {submit()}}>
+          전송
+        </SendBut>
+      </SendBox>
+    </>
+  );
+};
 
-                         
-            </ChatBox>
-            <SendBox>
-                <InputBox 
-                onChange={(e)=>setMessage(e.target.value)}
-                ></InputBox>
-                <SendBut 
-                onClick={() => submit()}
-                >전송</SendBut>
-            </SendBox>
-      </>
-       );
-    };
-    
-    export default CSChat;
+export default CSChat;
 
-const ChatBox=styled.div`
-border: solid 1px green;
-height: 240px;
-width: 1250px;
-display: block;
-overflow: scroll;
-overflow-x: hidden;
-display: block;
-border-radius: 20px;
-margin-top: 10px;
-margin-left: 25px;
-background: #ebfbee;
+const ChatBox = styled.div`
+  border: solid 1px green;
+  height: 240px;
+  width: 1250px;
+  display: block;
+  overflow: scroll;
+  overflow-x: hidden;
+  display: block;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-left: 25px;
+  background: #ebfbee;
 `;
 
-const Chat=styled.div`
-display: flex;
-border: none;
-height: 40px;
-width: 1200px;
-margin-left: 50px;
-margin-top: 10px;
+const Chat = styled.div`
+  display: flex;
+  border: none;
+  height: 40px;
+  width: 1200px;
+  margin-left: 50px;
+  margin-top: 10px;
 `;
 
-const Who=styled.div`
-border: none;
-width: 100px;
-text-align : center;
-font-weight: bold;
-font-size: small;
-align-items: center;
-justify-content: center;
-line-height: 35px;
-border-radius: 20px;
-background: #8ce99a;
+const Chat2 = styled.div`
+  display: flex;
+  float: right;
+  border: none;
+  height: 40px;
+  margin-left: 50px;
+  margin-top: 10px;
+  clear: both;
 `;
 
-const What=styled.div`
-border: solid 1px gray;
-width: 1100px;
-margin-left: 20px;
-line-height: 35px;
-border-radius: 20px;
-/* //내부 스크롤 */
-/* overflow: scroll;
+const Who = styled.div`
+  border: none;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-size: small;
+  align-items: center;
+  justify-content: center;
+  line-height: 35px;
+  border-radius: 20px;
+  background: #8ce99a;
+`;
+
+const What = styled.div`
+  border: solid 1px gray;
+  width: fit-content;
+  margin-left: 20px;
+  padding:0px 10px 0px 10px;
+  line-height: 35px;
+  border-radius: 20px;
+  /* //내부 스크롤 */
+  /* overflow: scroll;
 overflow-x: hidden; */
-background: white;
-font-size: small;
+  background: white;
+  font-size: small;
 `;
 
-
-const SendBox=styled.div`
-border: none;
-margin-top: 20px;
-height: 30px;
-width: 1200px;
-display: flex;
-border-radius: 20px;
-align-items: center;
- justify-content: center;
- margin-left: 50px;
+const SendBox = styled.div`
+  border: none;
+  margin-top: 20px;
+  height: 30px;
+  width: 1200px;
+  display: flex;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50px;
 `;
 
-const InputBox=styled.input`
-border: solid 1px green ;
-width: 1200px;
-height: 40px;
-border-radius: 20px;
+const InputBox = styled.input`
+  border: solid 1px green;
+  width: fit-content;
+  height: 40px;
+  border-radius: 20px;
 `;
 
-const SendBut=styled.div`
-width: 150px;
-border: none;
-background : #69DB7C;
-height: 40px;
-border-radius: 20px;
-margin-left: 50px;
-text-align : center;
-line-height: 30px;
-font-weight: bold;
-font-size: middle;
-line-height: 40px;
-&:hover {
+const SendBut = styled.div`
+  width: 150px;
+  border: none;
+  background: #69db7c;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 50px;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  font-size: middle;
+  line-height: 40px;
+  &:hover {
     background-color: #89f6ab;
   }
 `;
