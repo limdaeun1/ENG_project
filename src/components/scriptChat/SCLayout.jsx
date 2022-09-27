@@ -5,10 +5,14 @@ import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
 import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
 import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Timer from "../camstudyChat/Timer";
+
 
 
 
 const SCLayout = () => {
+  const {state} = useLocation();
   const [toggleState, setToggleState] = useState(1);
   const {id} = useParams();
   const toggleTab = (index) => {
@@ -22,11 +26,8 @@ const SCLayout = () => {
       <TopBar>
         <ButOut>나가기</ButOut>
           <InfoBar>
-            <Room>[방 제목이 들어갈 곳 입니다]  </Room>
-            <RoomStudyTime>우리 방 전체 공부 시간: 00:00:00</RoomStudyTime>
-            <MyStudyTime>나의 공부 시간: 00:00:00</MyStudyTime>
-            <Play>▶</Play>
-            <Stop>⏸</Stop>
+            <Room>{state.roomName}</Room>
+            <Timer id={state.id}/>
             </InfoBar>
         </TopBar>
 
@@ -126,14 +127,6 @@ const InfoBar=styled.div`
 `;
 
 const Room=styled.div`
-width: 400px;
-`;
-
-const RoomStudyTime=styled.div`
-width: 400px;
-`;
-
-const MyStudyTime=styled.div`
 width: 400px;
 `;
 

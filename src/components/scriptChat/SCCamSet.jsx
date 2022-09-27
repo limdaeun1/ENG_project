@@ -7,6 +7,7 @@ import { OpenVidu } from 'openvidu-browser';
 
 const OPENVIDU_SERVER_URL = 'https://ddaeum.shop:4443';
 const OPENVIDU_SERVER_SECRET = 'eng';
+const name = localStorage.getItem("name")
 
     
 class SCCamSet extends Component {
@@ -16,7 +17,7 @@ class SCCamSet extends Component {
 
     this.state = {
         mySessionId: `Session${this.props.id}`,
-        myUserName: '닉네임들어갈곳' + Math.floor(Math.random() * 100),
+        myUserName: name,
         session: undefined,
         mainStreamManager: undefined,
         publisher: undefined,
