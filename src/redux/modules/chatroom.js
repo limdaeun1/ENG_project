@@ -31,6 +31,18 @@ async (payload, thunkApI) => {
 }
 );
 
+//타이머 공부시간기록 저장하기
+export const postTimer = createAsyncThunk(
+  "chatroom/timer",
+  async (payload, thunkApI) => {
+      try {
+      const data = await instance.post("/auth/timer" , payload);
+      return data
+      } catch (error) {
+      return thunkApI.rejectWithValue(error);
+      }
+  }
+  );
 
 const initialState = {
   roomlist:[],

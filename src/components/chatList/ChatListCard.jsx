@@ -20,8 +20,7 @@ const ChatListCard = (room) => {
 
         <PeopleParticipationBox>
           <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
-          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => {navigate("/camchat/" + id) }}/> : <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/>}
-          {/* <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id) }}/> */}
+          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => {navigate("/camchat/" + id , {state:room}) }}/> : <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id , {state:room}) }}/>}
         </PeopleParticipationBox>
 
       </Container>

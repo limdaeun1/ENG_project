@@ -1,38 +1,33 @@
 import styled from "styled-components";
 import CSChat from "../camstudyChat/CSChat";
 import CSCamSet from "../camstudyChat/CSCamSet";
+import Timer from "./Timer";
+import { useLocation } from "react-router-dom";
 
 
 const CSLayout = () => {
+  const { state } = useLocation();
+
+
 
     return (
       <>
-
       <TopBar>
         <ButOut>나가기</ButOut>
           <InfoBar>
-            <Room>[방 제목이 들어갈 곳 입니다]  </Room>
-            <RoomStudyTime>우리 방 전체 공부 시간: 00:00:00</RoomStudyTime>
-            <MyStudyTime>나의 공부 시간: 00:00:00</MyStudyTime>
-            <Play>▶</Play>
-            <Stop>⏸</Stop>
-            </InfoBar>
-        </TopBar>
-
-
+            <Room>{state.roomName}</Room>
+            <Timer id={state.id}/>
+          </InfoBar>
+      </TopBar>
 
         <Box>
-
           <CamBox>
             <CSCamSet/>
           </CamBox>
-
           <ScriptChatBox>
             <CSChat/>
           </ScriptChatBox>
-        
-        </Box>
-          
+        </Box>    
       </>
     );
   };
@@ -54,7 +49,7 @@ const CSLayout = () => {
   font-weight: bold;
   font-size: middle;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
   display: inline-block;
   line-height: 45px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
@@ -67,7 +62,7 @@ const CSLayout = () => {
 const InfoBar=styled.div`
   background: #D3F9D8;
   border-radius: 20px;
-  width: 1259px;
+  width: 1150px;
   height: 45px;
   margin-left: 45px;
   margin-top: 30px;
@@ -83,24 +78,9 @@ const InfoBar=styled.div`
 `;
 
 const Room=styled.div`
-width: 400px;
+width: 800px;
 `;
 
-const RoomStudyTime=styled.div`
-width: 400px;
-`;
-
-const MyStudyTime=styled.div`
-width: 400px;
-`;
-
-const Play=styled.div`
-width: 100px;
-`;
-
-const Stop=styled.div`
-width: 100px;
-`;
 
 const Box=styled.div`
 display:block;
