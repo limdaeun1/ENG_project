@@ -1,16 +1,39 @@
 import styled from 'styled-components'
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Headers = () => {
   const navigate = useNavigate();
+  // let dispatch = useDispatch();
+  const userlogin = useSelector((state) => state.user);
+  const logoutHandler = () => {
+    window.alert("로그아웃 하시겠습니까?");
+    localStorage.removeItem("token"); //로그아웃 버튼 누르면 로컬스토리지의 토큰을 지운다.
+    navigate("/");
+    window.location.reload(); //자동 새로고침을 위해 버튼을 누를때마다 리로드 해주도록 한다.
+  };
+
   
   return (
     <Div>
       <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")}></Logo>
       <Btnbox>
+              {userlogin.is_Login !== true ? ( //uselogin.is_Login 이 true가 아니면 로그인 페이지로 이동 + 로그인 버튼이 보이게 하고 true면 로그아웃 버튼이 보인다.  
         <Btn onClick={() => navigate("/login")}>Login</Btn>
-        <Btn onClick={() => navigate("/mypage")}>Mypage</Btn>
+              ) : (
+                <Btn onClick={logoutHandler}> Log-out</Btn>
+              )}
+              {userlogin.is_Login ? (
+                  <Btn onClick={() => navigate("/mypage")}>My page</Btn>
+            ) : (
+              <Btn
+                onClick={() => {
+                  alert("로그인이 필요한 서비스입니다.");
+                  navigate("/login");
+                }}
+                > My page</Btn>
+            )}
       </Btnbox>
     </Div>
   )

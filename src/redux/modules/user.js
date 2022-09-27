@@ -14,6 +14,7 @@ export const user = createSlice({
           //로그인상태확인 리듀서
            loginCheck: (state) => { 
             //app.js에서 뭔가 실행 될 때마다 항상 로컬스토리지에 토큰이 있나 없나 보고 state의 isLogin상태 바꿔줌
+            state.is_Login = true;
            },
            },
            });
@@ -34,7 +35,7 @@ export const getKakao = createAsyncThunk(
       const user = data.data.data
       localStorage.setItem("name", user )
       window.location.assign("/"); //토큰 저장하면 자동으로 메인화면으로 이동
-      window.alert("WELCOME😁");
+      window.alert (`Welcome, ${user} !`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -43,3 +44,4 @@ export const getKakao = createAsyncThunk(
 );
 
 export default user.reducer;
+export const { loginCheck } = user.actions;
