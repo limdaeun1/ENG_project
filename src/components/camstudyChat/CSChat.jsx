@@ -10,23 +10,40 @@ import * as SockJS from "sockjs-client";
 const CSChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name")
-  console.log(name)
+  // console.log(name)
   const roomId = useParams();
   const client = useRef({});
-  const [messages, setMessages] = useState([{ chatMessage: "", 
+  const [messages, setMessages] = useState([{ 
+  chatMessage: "", 
   user: "",
-  type:"",
-  image:""  }]);
+  type:"",                                                      //백과 협의한 메세지 type(0:입장, 1:퇴장, 2:채팅)
+  image:"" }]);
   const inputRef = useRef("");
   const navigate = useNavigate();
 
-  // const [message, setMessage] = useState("")
-
+  
+  
+  
+  
   useEffect(() => {
     connect();
-
-    return () => disconnect();
+    
+    return () => 
+         disconnect();
   }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", (event) => {
+  //     event.preventDefault();
+  //     event.returnValue = "";
+  //   });
+    
+  //   return () => 
+  //  disconnect();
+  // }, []);
+
+
+
 
   const connect = () => {
     client.current = new StompJs.Client({
@@ -43,14 +60,15 @@ const CSChat = () => {
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
+        //구독요청
         subscribe();
+        //입장 메시징(type0)
         client.current.publish({
           destination: "/pub/chat/message",
           headers: { Authorization: Authorization },
           //전송할 데이터를 입력
           body: JSON.stringify({
             type: 0,
-            // message: "OOO님이 입장하셨습니다",
             roomId: roomId.id,
           }),
         });
@@ -59,32 +77,17 @@ const CSChat = () => {
     client.current.activate();
   };
 
-  // const client = new StompJs.Client({
-  //   //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
-  //   // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-  //   brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
-  //   connectHeaders: {
-  //     Authorization: authorization
-  //   },
-  //   debug: function (str) {
-  //     console.log(str);
-  //   },
-  //   reconnectDelay: 5000,
-  //   heartbeatIncoming: 4000,
-  //   heartbeatOutgoing: 4000,
-
-  // });
-
+  //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
     return new SockJS("http://35.174.109.220:8080/ws-stomp");
   };
 
+//구독
   const subscribe = () => {
-    //이곳에서 모든 구독(subScribe)가 되어야 합니다.
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       var content = JSON.parse(chat.body);
-      console.log(content);
+      // console.log(content);
       setMessages((_messages) => [
         ..._messages,
         { chatMessage: content.msg, user: content.sender, type: content.type,image:content.image },
@@ -92,6 +95,8 @@ const CSChat = () => {
     });
   };
 
+
+  //채팅(type2)
   const submit = () => {
     client.current.publish({
       destination: "/pub/chat/message",
@@ -114,25 +119,39 @@ const CSChat = () => {
     console.log("Additional details: " + frame.body);
   };
 
+  //연결 중단
   const disconnect = () => {
-    client.current.publish({
-      destination: "/pub/chat/message",
-      headers: { Authorization: Authorization },
-      //전송할 데이터를 입력
-      body: JSON.stringify({
-        type: 1,
-        message: "",
-        roomId: roomId.id,
-      }),
-    });
-    client.current.unsubscribe();
-    client.current.deactivate();
 
-    navigate("/list");
+//퇴장메시징(type1)
+client.current.publish({
+  destination: "/pub/chat/message",
+  headers: { Authorization: Authorization },
+  //전송할 데이터를 입력
+  body: JSON.stringify({
+    type: 1,
+    message: "",
+    roomId: roomId.id,
+  }),
+});
+//구독해제
+client.current.unsubscribe();
+//웹소켓 비활성화
+client.current.deactivate();
+
+navigate("/list");
+
   };
+
+  const handleKeyPress = e => {
+    if(e.key === 'Enter') {
+      submit();
+    }
+  }
 
   return (
     <>
+    <button onClick={()=>{navigate("/")}}>홈으로</button>
+  
       <ChatBox>
         { messages.map((c, i) => {
           return (
@@ -157,6 +176,7 @@ const CSChat = () => {
       <SendBox>
         <InputBox
           ref={inputRef}
+          onKeyPress={handleKeyPress}
         ></InputBox>
         <SendBut
           onClick={() => {submit()}}>
@@ -174,7 +194,7 @@ const ChatBox = styled.div`
   height: 240px;
   width: 1250px;
   display: block;
-  overflow: scroll;
+  /* overflow: scroll; */
   overflow-x: hidden;
   display: block;
   border-radius: 20px;
