@@ -20,14 +20,17 @@ const SCChat= () => {
 image:"" }]);
   const inputRef = useRef("");
   const navigate = useNavigate();
-
-  // const [message, setMessage] = useState("")
+  
 
   useEffect(() => {
     connect();
 
-    return () => disconnect();
+    return () => 
+    
+    disconnect();
   }, []);
+
+
 
   const connect = () => {
     client.current = new StompJs.Client({
@@ -60,21 +63,6 @@ image:"" }]);
     client.current.activate();
   };
 
-  // const client = new StompJs.Client({
-  //   //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
-  //   // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-  //   brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
-  //   connectHeaders: {
-  //     Authorization: authorization
-  //   },
-  //   debug: function (str) {
-  //     console.log(str);
-  //   },
-  //   reconnectDelay: 5000,
-  //   heartbeatIncoming: 4000,
-  //   heartbeatOutgoing: 4000,
-
-  // });
 
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
@@ -132,11 +120,11 @@ image:"" }]);
     navigate("/list");
   };
 
-
-
-
-
-
+  const handleKeyPress = e => {
+    if(e.key === 'Enter') {
+      submit();
+    }
+  }
 
     return (
     <>
@@ -165,6 +153,7 @@ image:"" }]);
       <SendBox>
         <InputBox
           ref={inputRef}
+          onKeyPress={handleKeyPress}
         ></InputBox>
         <SendBut
           onClick={() => {submit()}}>
