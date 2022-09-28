@@ -14,6 +14,7 @@ const SCChat= () => {
   console.log(name)
   const roomId = useParams();
   const client = useRef({});
+  const [chat, setChat] = useState({content:""})
   const [messages, setMessages] = useState([{ chatMessage: "", 
   user: "",
   type:"",
@@ -21,6 +22,9 @@ image:"" }]);
   const inputRef = useRef("");
   const navigate = useNavigate();
   
+  const chattingRef = useRef(null);
+  const scrollToElement = () => chattingRef.current.scrollIntoView({behavior:"smooth"});
+
 
   useEffect(() => {
     connect();
@@ -78,10 +82,14 @@ image:"" }]);
         ..._messages,
         { chatMessage: content.msg, user: content.sender, type: content.type, image:content.image },
       ]);
+      setTimeout(()=>scrollToElement(),50);
     });
   };
 
   const submit = () => {
+    if (inputRef.current.value == ""){
+      alert("메세지를 입력하세요")
+  } else {
     client.current.publish({
       destination: "/pub/chat/message",
       headers: { Authorization: Authorization },
@@ -92,6 +100,8 @@ image:"" }]);
         roomId: roomId.id,
       }),
     });
+    setChat({content:""})
+  }
   };
 
   client.current.onStompError = function (frame) {
@@ -126,34 +136,46 @@ image:"" }]);
     }
   }
 
+  const changeHandler = (event) => {
+    event.preventDefault();
+    const{name , value} = event.target
+    setChat({[name]:value})
+    ;
+  }
+
     return (
     <>
-    <CamChatBox>
+    <CamChatBox id="chatBox">
     <ChatBox>
         { messages.map((c, i) => {
           return (
             c.type === 2 ?
             (c.user == name ?
             <Chat2 key={i}>
-              {/* <Who>{c.user}</Who> */}
               <What>{c.chatMessage}</What>
+              <div ref={chattingRef}/>
             </Chat2>:
             <Chat key={i}>
               <img width={30} src={c.image}/>
               <Who>{c.user}</Who>
               <What>{c.chatMessage}</What>
+              <div ref={chattingRef}/>
             </Chat>)
             :
             <Chat key={i}>
             <p>{c.chatMessage}</p>
+            <div ref={chattingRef}/>
           </Chat>
           );
         })}
       </ChatBox>
       <SendBox>
         <InputBox
+         name="content"
+         value={chat.content}
           ref={inputRef}
           onKeyPress={handleKeyPress}
+          onChange = {changeHandler}
         ></InputBox>
         <SendBut
           onClick={() => {submit()}}>
