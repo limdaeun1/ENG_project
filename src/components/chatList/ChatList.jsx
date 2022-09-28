@@ -53,7 +53,7 @@ const ChatList = () => {
   return (
     <div>
       <Container>
-        <div>
+        <BigBox>
           <BlocTabsContiner>
             {toggleState === 1 
             ? <AciveTabBox onClick={() => toggleTab(1)}>생활영어</AciveTabBox> 
@@ -131,7 +131,7 @@ const ChatList = () => {
                </ActiveContentBox>
             :<ContentBox  > 4 <ChatListCard /></ContentBox>}
           </div>
-        </div>
+        </BigBox>
         <BannerBox />
       </Container>
       
@@ -142,33 +142,33 @@ const ChatList = () => {
 export default ChatList;
 
 const Container = styled.div`
-  /* width: 100%;F
-  width: 1040px; */
+border: none;
   display: flex;
-  margin: auto;
-  margin-top: 30px;
   align-items: center;
   justify-content: center;
-  max-width: 1000px;
-  min-width: 705px;
-  /* background-color: green; */
+  width: 90%;
+  margin:1% auto 10% auto;
+  font-size: 14px;
 `;
 
 const BlocTabsContiner = styled.div`
+border: none;
   display: flex;
   border-bottom: 1px solid #dee2e6;
-  max-width: 1000px;
-  min-width: 705px;
+  width:100%;
 `;
 
 const AddRoomBtn= styled.div`
-  padding: 8px;
+border: none;
+padding: 1.2% 3% 1.2% 3%;
   text-align: center;
-  font-size: 13px;
-  width: 80px;
+  font-size: 0.9em;
+  width: 10%;
+  min-width:55px;
   background: #fcc419;
   /* position: relative; */
   outline: none;
+  margin-top: 0.3%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-left: auto;
@@ -177,17 +177,25 @@ const AddRoomBtn= styled.div`
 `;
 
 const BannerBox = styled.img`
-  height: 400px;
-  width: 150px;
+border: none;
+  height: 50%;
+  min-height:500px ;
+  width: 20%;
   background-color: #b2f2bb;
-  margin-left: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 9%;
+  margin-bottom: 10%;
 `
 
 
 const TabBox = styled.div`
-  padding: 8px;
+  padding: 1.2% 3% 1.2% 3%;
   text-align: center;
-  width: 100px;
+  /* min-width: 70px; */
+  width: 10%;
+  min-width:55px;
+  /* height: %; */
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -195,13 +203,17 @@ const TabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
-  font-size: 14px;
+  margin-right: 0.3%;
+  margin-top: 0.3%;
+  font-size: 0.9em;
 `;
 const AciveTabBox = styled.div`
-  padding: 8px;
+padding: 1.2% 3% 1.2% 3%;
   text-align: center;
-  width: 100px;
+  /* min-width: 70px; */
+  width: 10%;
+  min-width:55px;
+  /* height: %; */
   background: #51cf66;
   cursor: pointer;
   box-sizing: content-box;
@@ -209,11 +221,13 @@ const AciveTabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
-  border:none;
-  font-size: 14px;
+  margin-right: 0.3%;
+  margin-top: 0.3%;
+  font-size: 0.9em;
 `;
+
 const ContentBox = styled.div`
+border: none;
   background: white;
   padding: 20px;
   max-width: 1000px;
@@ -222,5 +236,14 @@ const ContentBox = styled.div`
   display: none;
 `;
 const ActiveContentBox = styled.div`
+border: none;
   display: block;
+`;
+
+const BigBox = styled.div`
+border: none;
+  display: block;
+  min-height:500px ;
+  margin-left: 20%;
+  width:90%;
 `;
