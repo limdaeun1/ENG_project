@@ -44,6 +44,20 @@ export const postTimer = createAsyncThunk(
   }
   );
 
+ //메모장 저장하기
+ export const postMemo = createAsyncThunk(
+  "chatroom/memo",
+  async (payload, thunkApI) => {
+      try {
+      const data = await instance.post("/memo" , payload);
+      return data
+      } catch (error) {
+      return thunkApI.rejectWithValue(error);
+      }
+  }
+  );
+
+
 const initialState = {
   roomlist:[],
   };

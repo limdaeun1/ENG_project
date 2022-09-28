@@ -45,8 +45,8 @@ const SCLayout = () => {
             :<TabBox onClick={() => toggleTab(1)} >Script</TabBox>}
 
             {toggleState === 2
-            ? <ActiveTabBox onClick={() => toggleTab(2)}>White Board</ActiveTabBox>
-            :<TabBox onClick={() => toggleTab(2)} >White Board</TabBox>}          
+            ? <ActiveTabBox onClick={() => toggleTab(2)}>Memo</ActiveTabBox>
+            :<TabBox onClick={() => toggleTab(2)} >Memo</TabBox>}          
             </TabContainer>
 
             <div style={{flexGrow : "1"}}>
@@ -56,8 +56,8 @@ const SCLayout = () => {
             :<ContentBox  > <SCScript/></ContentBox>}
             
             {toggleState === 2 
-            ? <ActiveContentBox > <SCWhiteBoard/></ActiveContentBox>
-            :<ContentBox  ><SCWhiteBoard/></ContentBox>}
+            ? <ActiveContentBox > <SCWhiteBoard id={state.id}/></ActiveContentBox>
+            :<ContentBox  ><SCWhiteBoard id={state.id}/></ContentBox>}
           </div>
 
             </ScriptContainer>
