@@ -13,6 +13,8 @@ const CSChat = () => {
   // console.log(name)
   const roomId = useParams();
   const client = useRef({});
+  const [chat, setChat] = useState({content:""})
+
   const [messages, setMessages] = useState([{ 
   chatMessage: "", 
   user: "",
@@ -21,8 +23,9 @@ const CSChat = () => {
   const inputRef = useRef("");
   const navigate = useNavigate();
 
-  
-  
+  const chattingRef = useRef(null);
+  const scrollToElement = () => chattingRef.current.scrollIntoView({behavior:"smooth"});
+
   
   
   useEffect(() => {
@@ -92,13 +95,18 @@ const CSChat = () => {
         ..._messages,
         { chatMessage: content.msg, user: content.sender, type: content.type,image:content.image },
       ]);
+      setTimeout(()=>scrollToElement(),50);
     });
   };
 
 
+
   //채팅(type2)
   const submit = () => {
-    client.current.publish({
+    if (inputRef.current.value == ""){
+        alert("메세지를 입력하세요")
+    } else {
+      client.current.publish({
       destination: "/pub/chat/message",
       headers: { Authorization: Authorization },
       //전송할 데이터를 입력
@@ -107,7 +115,13 @@ const CSChat = () => {
         message: inputRef.current.value,
         roomId: roomId.id,
       }),
-    });
+    }); 
+    setChat({content:""});
+    // setTimeout(()=>scrollToElement(),200);
+   
+    };
+    
+    
   };
 
   client.current.onStompError = function (frame) {
@@ -148,35 +162,56 @@ navigate("/list");
     }
   }
 
+
+
+  const changeHandler = (event) => {
+    event.preventDefault();
+    const{name , value} = event.target
+    setChat({[name]:value})
+    ;
+  }
+  // console.log(chat) 
+
   return (
     <>
     <button onClick={()=>{navigate("/")}}>홈으로</button>
-  
-      <ChatBox>
-        { messages.map((c, i) => {
+  <div>
+          <ChatBox id="chatBox">
+           { messages.map((c, i) => {
           return (
-            c.type === 2 ?
+             c.type === 2 ?
             (c.user == name ?
-            <Chat2 key={i}>
-              {/* <Who>{c.user}</Who> */}
+            <Chat2 key={i}> 
               <What>{c.chatMessage}</What>
+             <div ref={chattingRef}/>
             </Chat2>:
             <Chat key={i}>
               <img width={50} src={c.image}/>
               <Who>{c.user}</Who>
               <What>{c.chatMessage}</What>
+              <div ref={chattingRef}/>
             </Chat>)
             :
             <Chat key={i}>
             <p>{c.chatMessage}</p>
+            <div ref={chattingRef}/>
           </Chat>
           );
         })}
+        
       </ChatBox>
+      
+  </div>
+
+      
+
       <SendBox>
         <InputBox
-          ref={inputRef}
-          onKeyPress={handleKeyPress}
+        name="content"
+        value={chat.content}
+        ref={inputRef}
+        onKeyPress={handleKeyPress}
+        onChange = {changeHandler}
         ></InputBox>
         <SendBut
           onClick={() => {submit()}}>
@@ -190,18 +225,25 @@ navigate("/list");
 export default CSChat;
 
 const ChatBox = styled.div`
-  border: solid 1px green;
+  /* border: solid 1px green;
   height: 240px;
   width: 1250px;
   display: block;
-  /* overflow: scroll; */
   overflow-x: hidden;
   display: block;
   border-radius: 20px;
   margin-top: 10px;
   margin-left: 25px;
-  background: #ebfbee;
+  background: #ebfbee; */
+  overflow-x: hidden;
+  height: 240px;
+  width: 1250px;
+  border:1px solid black;
+  display: block;
 `;
+
+
+
 
 const Chat = styled.div`
   display: flex;
@@ -212,6 +254,8 @@ const Chat = styled.div`
   margin-top: 10px;
 `;
 
+
+
 const Chat2 = styled.div`
   display: flex;
   float: right;
@@ -221,6 +265,7 @@ const Chat2 = styled.div`
   margin-top: 10px;
   clear: both;
 `;
+
 
 const Who = styled.div`
   border: none;
