@@ -237,7 +237,7 @@ const ChatBox = styled.div`
   background: #ebfbee; */
   overflow-x: hidden;
   height: 240px;
-  width: 1250px;
+  width: 100%;
   border:1px solid black;
   display: block;
 `;

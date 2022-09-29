@@ -67,42 +67,54 @@ return (
 
 
 const TimeWrap = styled.div`
+border: none;
+font-size: 20px;
+height:3em;
+width: 65%;
   display: flex;
   justify-content: space-between;
-  width: 550px;
 `;
 
 const Time = styled.div`
-  width : 100%;
+border: none;
+width: 70%;
   display : flex;
   color :#454545;
   align-items: center;
+  float: right;
   p{
-    font-weight: 850;
-    margin-right: 15px;
-    margin-top: 20px;
+    border: none;
+    font-size: 0.8em;
+    margin-right: 5%;
+    margin-left: 15%;
+    min-width: 20px;
+    height: 100%;
+    line-height: 60px;
+    float: right;
   }
 `;
 
 const Span = styled.div`
-  font-size : 3vh;
-  margin-top :0.5vh;
+border: none;
+  min-width:30px;
+  float: right;
 `;
 
 const TimeBTN = styled.div`
-  width : 100%;
+border: none;
+  width :30%;
+  min-width: 30px;
   display : flex;
   align-items : center;
-  margin-top: 3px;
-  margin-left: 10px;
 `;
 
 
 const Start = styled.div`
-  font-size : 2.6vh;
+border: none;
+  font-size : 1.2rem;
   font-family: "PretendardBold";
   color :#454545;
-  margin-right : 23px;
+  margin-right :8%;
   cursor: pointer;
   &:hover{
     color : #333;
@@ -110,24 +122,28 @@ const Start = styled.div`
 `;
 
 const Stop = styled.div`
-  font-size : 2.2vh;
+border: none;
+  font-size : 1.2rem;
   font-family: "PretendardBold";
   color :#454545;
   cursor: pointer;
+  margin-right :8%;
   &:hover{
     color : #333;
   }
 `;
 
 const Save = styled.button`
-  margin-left:17px;
+border: none;
+width: 40%;
+min-width:40px;
+min-height: 30px;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 0.8rem;
   transition: all 0.5s;
   color: #fff;
-  border: 0;
-  font-size: 11px;
   padding: 6px;
   background-color: #000000;
   &:hover {
