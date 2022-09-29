@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from 'styled-components'
-import MyfeedBack from "./MyMemo";
+import MyMemo from "./MyMemo";
 import StudyTime from "./StudyTime";
 
 
@@ -30,8 +30,8 @@ const MypageContent = () => {
             :<ContentBox  > <StudyTime/></ContentBox>}
             
             {toggleState === 2 
-            ? <ActiveContentBox > <MyfeedBack/></ActiveContentBox>
-            :<ContentBox  ><MyfeedBack/></ContentBox>}
+            ? <ActiveContentBox > <MyMemo/></ActiveContentBox>
+            :<ContentBox  ><MyMemo/></ContentBox>}
           </div>
     </Container>
     </>
@@ -49,6 +49,7 @@ border: none;
     justify-content: center;
     place-content:center ;
     margin:5% auto 30% auto;
+    
 `;
 
 const BlocTabsContiner = styled.div`

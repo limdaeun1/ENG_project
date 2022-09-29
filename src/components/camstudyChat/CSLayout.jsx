@@ -2,12 +2,13 @@ import styled from "styled-components";
 import CSChat from "../camstudyChat/CSChat";
 import CSCamSet from "../camstudyChat/CSCamSet";
 import Timer from "./Timer";
-import { useLocation } from "react-router-dom";
+import { useParams , useLocation } from "react-router-dom";
 
 
 const CSLayout = () => {
-  const { state } = useLocation();
-
+  const {id} = useParams();
+  const {state} = useLocation();
+  console.log(id)
 
 
     return (
@@ -22,7 +23,7 @@ const CSLayout = () => {
 
         <Box>
           <CamBox>
-            <CSCamSet/>
+            <CSCamSet id={id}/>
           </CamBox>
           <ScriptChatBox>
             <CSChat/>
