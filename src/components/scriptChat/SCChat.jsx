@@ -19,11 +19,13 @@ const SCChat= () => {
   user: "",
   type:"",
 image:"" }]);
+ const [notice, setNoitce] = useState(false)
   const inputRef = useRef("");
+  const noticeRef = useRef("");
   const navigate = useNavigate();
   
   const chattingRef = useRef(null);
-  const scrollToElement = () => chattingRef.current.scrollIntoView({behavior:"smooth"});
+  const scrollToElement = () => chattingRef.current?.scrollIntoView({behavior:"smooth"});
 
 
   useEffect(() => {
@@ -78,6 +80,7 @@ image:"" }]);
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       var content = JSON.parse(chat.body);
       console.log(content);
+
       setMessages((_messages) => [
         ..._messages,
         { chatMessage: content.msg, user: content.sender, type: content.type, image:content.image },
@@ -105,14 +108,25 @@ image:"" }]);
   };
 
   client.current.onStompError = function (frame) {
-    // Will be invoked in case of error encountered at Broker
-    // Bad login/passcode typically will cause an error
-    // Complaint brokers will set `message` header with a brief message. Body may contain details.
-    // Compliant brokers will terminate the connection after any error
+   
     console.log("Broker reported error: " + frame.headers["message"]);
     console.log("Additional details: " + frame.body);
   };
 
+  //공지 등록
+  const onSubmitNotice = () =>{
+    client.current.publish({
+      destination: "/pub/chat/message",
+      headers: { Authorization: Authorization },
+      //전송할 데이터를 입력
+      body: JSON.stringify({
+        type: 2,
+        message: "!공지등록 "+noticeRef.current.value,
+        roomId: roomId.id,
+      }),
+    })
+  } 
+  //연결끊기(소켓종료, 구독종료)
   const disconnect = () => {
     client.current.publish({
       destination: "/pub/chat/message",
@@ -130,12 +144,18 @@ image:"" }]);
     navigate("/list");
   };
 
+
+  //엔터키 제어
   const handleKeyPress = e => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter' && e.shiftKey) { // [shift] + [Enter] 치면 리턴
+      return;}
+   else if(e.key === 'Enter') {             //[Enter]치면 전송
       submit();
     }
   }
 
+
+  //채팅창 전송 후 초기화
   const changeHandler = (event) => {
     event.preventDefault();
     const{name , value} = event.target
@@ -143,6 +163,14 @@ image:"" }]);
     ;
   }
 
+//공지등록상태 열고닫기
+  const changeNotice = () => {
+    setNoitce(!notice);
+    setChat({content:""})
+  }
+
+
+  // console.log(inputRef.current.value)
     return (
     <>
     <CamChatBox id="chatBox">
@@ -151,37 +179,64 @@ image:"" }]);
           return (
             c.type === 2 ?
             (c.user == name ?
-            <Chat2 key={i}>
+
+            <MyChat key={i}>
+              <MyName>{c.user}</MyName>
               <What>{c.chatMessage}</What>
               <div ref={chattingRef}/>
-            </Chat2>:
-            <Chat key={i}>
-              <img width={30} src={c.image}/>
-              <Who>{c.user}</Who>
+            </MyChat>:
+
+            <OtherChat key={i}>
+              <ImgBox src={c.image}/>
+              <div style={{alignItems:"center"}}>
+              <OtherName>{c.user}</OtherName>
               <What>{c.chatMessage}</What>
+              </div>
               <div ref={chattingRef}/>
-            </Chat>)
-            :
-            <Chat key={i}>
-            <p>{c.chatMessage}</p>
-            <div ref={chattingRef}/>
-          </Chat>
+            </OtherChat>)
+            :(c.type === 3? 
+              <OtherChat key={i}>
+                <div>
+                   <p>{c.chatMessage}</p>
+              <div ref={chattingRef}/>
+                </div>
+             
+            </OtherChat>:
+            <OtherChat key={i}>
+              <p>{c.chatMessage}</p>
+              <div ref={chattingRef}/>
+            </OtherChat>)
+
+
           );
         })}
       </ChatBox>
-      <SendBox>
-        <InputBox
-         name="content"
-         value={chat.content}
-          ref={inputRef}
-          onKeyPress={handleKeyPress}
-          onChange = {changeHandler}
-        ></InputBox>
-        <SendBut
-          onClick={() => {submit()}}>
-          전송
-        </SendBut>
-      </SendBox>
+
+      {/* 채팅 입력 */}
+      {
+        notice === false ?
+
+        <SendBox>
+        <InputBox 
+        name="content" 
+        value={chat.content} 
+        ref={inputRef} 
+        onKeyUp={handleKeyPress}             //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
+        onChange = {changeHandler}/>
+        <SendBut onClick={() => {submit()}}>전송</SendBut>
+          <SendBut onClick={()=>{changeNotice()}}>공지</SendBut> 
+        </SendBox>
+
+        :
+
+          <SendBox>
+            <InputBox ref={noticeRef} onKeyUp={handleKeyPress} />
+            <SendBut onClick={()=>{onSubmitNotice();changeNotice()}}>등록</SendBut>
+            <SendBut onClick={()=>{changeNotice()}}>취소</SendBut>
+          </SendBox>
+        
+      }
+       
       </CamChatBox>
 
     </>
@@ -208,6 +263,7 @@ width: 370px;
 display: block;
 overflow: scroll;
 overflow-x: hidden;
+/* overflow-y: hidden; */
 display: block;
 border-radius: 20px;
 margin-top: 10px;
@@ -215,49 +271,69 @@ margin-left: 25px;
 background: #ebfbee;
 `;
 
-const Chat=styled.div`
+const OtherChat=styled.div`
 display: flex;
 border: none;
-height: 30px;
 width: 370px;
 margin-left: 10px;
 margin-top: 10px;
 `;
 
-const Chat2=styled.div`
-display: flex;
+const MyChat=styled.div`
 float: right;
 clear: both;
 border: none;
-height: 30px;
+height: auto;
 margin-left: 10px;
 margin-top: 10px;
 `;
-
-const Who=styled.div`
+const ImgBox =  styled.img`
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+`
+const MyName=styled.div`
+margin-left:auto;
 border: none;
 width: 50px;
 text-align : center;
 font-weight: bold;
-font-size: small;
+font-size: 13px;
 align-items: center;
 justify-content: center;
 line-height: 30px;
-border-radius: 20px;
-background: #8ce99a;
+/* border-radius: 20px;
+background: #8ce99a; */
+`;
+
+const OtherName=styled.div`
+border: none;
+width: 50px;
+text-align : center;
+font-weight: bold;
+font-size: 13px;
+align-items: center;
+justify-content: center;
+line-height: 30px;
+/* border-radius: 20px;
+background: #8ce99a; */
 `;
 
 const What=styled.div`
 border: solid 1px gray;
-width: fit-content;
+max-width: 200px;
+word-break: keep-all;
 margin-left: 5px;
 line-height: 25px;
-border-radius: 20px;
 /* 내부 스크롤 */
 /* overflow: scroll;
 overflow-x: hidden; */
 background: white;
 font-size: small;
+white-space: pre-wrap;
+border-radius: 5px;
+padding: 0px 10px 0px 10px;
 `;
 
 
@@ -273,19 +349,22 @@ align-items: center;
  margin-left: 25px;
 `;
 
-const InputBox=styled.input`
+const InputBox=styled.textarea`
 border: solid 1px green ;
-width: 290px;
+width: 100%;
 height: 30px;
-border-radius: 20px;
+border: 1px solid #51cf66;
+border-radius: 5px;
 `;
 
 const SendBut=styled.div`
-width: 50px;
+width: fit-content;
+min-width:30px;
+padding: 0px 5px 0px 5px;
 border: none;
 background : #69DB7C;
 height: 30px;
-border-radius: 20px;
+border-radius: 5px;
 margin-left: 15px;
 font-size: small;
 align-items: center;
