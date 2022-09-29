@@ -42,7 +42,7 @@ background: #D9D9D9;
 border-radius: 20px;
 width: 299px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
-margin: 7px;
+margin: 7px auto 7px auto;
 `;
 
 const Nick = styled.div`
