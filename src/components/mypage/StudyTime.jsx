@@ -1,11 +1,27 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const StudyTime = () => {
+  const { isLoading, error, mypagelist } = useSelector((state) => state.mypage);
+
+
+  if (isLoading) {
+    return <div>로딩 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
-    <Box>
-        <h3>토익 공부 하실분~</h3><p>내 참여 시간 00:00:00</p>
-    </Box>
+    <>
+    {mypagelist?.timeDtoList.map((time,i) => (
+      <Box key={i}> 
+      <p>{time.category}</p><h3>{time.roomName}</h3><p>{time.time.replace(/(.{2})/g,"$1:").slice(0, -1)}</p>
+      </Box>
+    ))}
+    </>
   )
 }
 
@@ -26,6 +42,9 @@ border: none;
     justify-content: space-between;
     padding: 0 3% 0 3%;
     h3{
-        line-height: 8px;
+        white-space : nowrap;
+        overflow : hidden;
+        text-overflow : ellipsis;
+        max-width: 500px;
     }
 `

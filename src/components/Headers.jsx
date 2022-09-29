@@ -10,6 +10,7 @@ const Headers = () => {
   const logoutHandler = () => {
     window.alert("로그아웃 하시겠습니까?");
     localStorage.removeItem("token"); //로그아웃 버튼 누르면 로컬스토리지의 토큰을 지운다.
+    localStorage.removeItem("name");
     navigate("/");
     window.location.reload(); //자동 새로고침을 위해 버튼을 누를때마다 리로드 해주도록 한다.
   };

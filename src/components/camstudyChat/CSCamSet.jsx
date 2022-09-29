@@ -212,15 +212,15 @@ return (
         {this.state.subscribers[0] ? (      
               <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
         {this.state.subscribers[1] ? (           
-              <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
+              <CSCam streamManager={this.state.subscribers[1]}/> ) : null}
         </CamSmallBox1>
         <CamSmallBox2>
         {this.state.subscribers[2] ? (  
-            <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
+            <CSCam streamManager={this.state.subscribers[2]}/> ) : null}
         {this.state.subscribers[3] ? (            
-            <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
+            <CSCam streamManager={this.state.subscribers[3]}/> ) : null}
         {this.state.subscribers[4] ? (     
-            <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
+            <CSCam streamManager={this.state.subscribers[4]}/> ) : null}
         </CamSmallBox2>
   </>
     );

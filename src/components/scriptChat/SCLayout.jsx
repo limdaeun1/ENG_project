@@ -18,7 +18,7 @@ const SCLayout = () => {
   const toggleTab = (index) => {
       setToggleState(index);
     };
-    console.log(id)
+  
     return (
       <>
       <Container>

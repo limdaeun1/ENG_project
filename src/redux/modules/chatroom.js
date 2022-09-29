@@ -49,7 +49,7 @@ export const postTimer = createAsyncThunk(
   "chatroom/memo",
   async (payload, thunkApI) => {
       try {
-      const data = await instance.post("/memo" , payload);
+      const data = await instance.post("/auth/memo" , payload);
       return data
       } catch (error) {
       return thunkApI.rejectWithValue(error);
