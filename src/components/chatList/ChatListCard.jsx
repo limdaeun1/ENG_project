@@ -3,52 +3,24 @@ import styled from "styled-components";
 import unlock from "../../img/unlock.png";
 import lock from "../../img/lock.png";
 import next from "../../img/next.png";
+import { useNavigate } from "react-router-dom";
 
-const ChatListCard = () => {
+const ChatListCard = (room) => {
+  const id = room.id
+  const category = room.category
+  const navigate = useNavigate();
+
+
   return (
     <>
       <Container>
         <Round />
-        <TitleBox>10월 토익 준비반 </TitleBox>
+        <TitleBox>{room.roomName} </TitleBox>
         <LockStatusBox src={unlock} />
 
         <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>11월 토익 준비반 </TitleBox>
-        <LockStatusBox src={lock} />
-
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>토스 같이 공부하실 분 ㅠ</TitleBox>
-        <LockStatusBox src={lock} />
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
-        </PeopleParticipationBox>
-      </Container>
-
-      <Container>
-      <Round />
-        <TitleBox>12월 토익 준비반 </TitleBox>
-        <LockStatusBox src={unlock} />
-
-        <PeopleParticipationBox>
-          <NumPeopleBox>1/4</NumPeopleBox>
-          <ParticipationBtn src={next} />
+          <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
+          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => {navigate("/camchat/" + id , {state:room}) }}/> : <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id , {state:room}) }}/>}
         </PeopleParticipationBox>
 
       </Container>
@@ -60,18 +32,16 @@ export default ChatListCard;
 
 const Container = styled.div`
   display: flex;
-  max-width: 1000px;
-  min-width: 705px;
   background-color: #dee2e6;
   border-radius: 10px;
   padding: 30px;
-  margin: 10px;
+  margin: 3%;
   align-items: center;
 `;
 
 const Round = styled.div`
-  width: 10px;
-  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
   border-radius: 100%;
   background-color: #2f9e44;
 `

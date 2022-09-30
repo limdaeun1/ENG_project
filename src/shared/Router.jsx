@@ -8,6 +8,8 @@ import CamStudyChatPage from '../pages/CamStudyChatPage';
 import ScriptChatPage from '../pages/ScriptChatPage';
 import FeedBackPage from '../pages/FeedBackPage';
 import CreateRoomPage from '../pages/CreateRoomPage';
+import Loading from '../pages/Loading';
+
 
 const Router = () => {
   return (
@@ -18,11 +20,12 @@ const Router = () => {
           <Route path="/login" element={<LoginPage />} exact />
           <Route path="/mypage" element={<Mypage />} exact />
           <Route path="/list" element={<ListPage />} exact />
-          <Route path="/camchat" element={<CamStudyChatPage />} exact />
-          <Route path="/scriptchat" element={<ScriptChatPage />} exact />
+          <Route path="/camchat/:id" element={<CamStudyChatPage />} exact />
+          <Route path="/scriptchat/:id" element={<ScriptChatPage />} exact />
           <Route path="/feedback" element={<FeedBackPage />} exact />
           <Route path="/createroom" element={<CreateRoomPage />} exact />
           <Route path="*" element={<div>없는 페이지입니다.</div>}  />
+          <Route path="/login/kakao" element={<Loading />} exact />
         </Routes>
       </BrowserRouter>
     </div>

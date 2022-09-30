@@ -4,16 +4,21 @@ import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
 import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Timer from "../camstudyChat/Timer";
 
 
 
 
 const SCLayout = () => {
+  const {state} = useLocation();
   const [toggleState, setToggleState] = useState(1);
+  const {id} = useParams();
   const toggleTab = (index) => {
       setToggleState(index);
     };
-
+  
     return (
       <>
       <Container>
@@ -21,18 +26,15 @@ const SCLayout = () => {
       <TopBar>
         <ButOut>나가기</ButOut>
           <InfoBar>
-            <Room>[방 제목이 들어갈 곳 입니다]  </Room>
-            <RoomStudyTime>우리 방 전체 공부 시간: 00:00:00</RoomStudyTime>
-            <MyStudyTime>나의 공부 시간: 00:00:00</MyStudyTime>
-            <Play>▶</Play>
-            <Stop>⏸</Stop>
+            <Room>{state.roomName}</Room>
+            <Timer id={state.id}/>
             </InfoBar>
         </TopBar>
 
 
         <Box>
 
-          <SCCamSet/>
+          <SCCamSet id={id}/>  
 
           <ScriptChatBox>
 
@@ -43,8 +45,8 @@ const SCLayout = () => {
             :<TabBox onClick={() => toggleTab(1)} >Script</TabBox>}
 
             {toggleState === 2
-            ? <ActiveTabBox onClick={() => toggleTab(2)}>White Board</ActiveTabBox>
-            :<TabBox onClick={() => toggleTab(2)} >White Board</TabBox>}          
+            ? <ActiveTabBox onClick={() => toggleTab(2)}>Memo</ActiveTabBox>
+            :<TabBox onClick={() => toggleTab(2)} >Memo</TabBox>}          
             </TabContainer>
 
             <div style={{flexGrow : "1"}}>
@@ -54,8 +56,8 @@ const SCLayout = () => {
             :<ContentBox  > <SCScript/></ContentBox>}
             
             {toggleState === 2 
-            ? <ActiveContentBox > <SCWhiteBoard/></ActiveContentBox>
-            :<ContentBox  ><SCWhiteBoard/></ContentBox>}
+            ? <ActiveContentBox > <SCWhiteBoard id={state.id}/></ActiveContentBox>
+            :<ContentBox  ><SCWhiteBoard id={state.id}/></ContentBox>}
           </div>
 
             </ScriptContainer>
@@ -125,14 +127,6 @@ const InfoBar=styled.div`
 `;
 
 const Room=styled.div`
-width: 400px;
-`;
-
-const RoomStudyTime=styled.div`
-width: 400px;
-`;
-
-const MyStudyTime=styled.div`
 width: 400px;
 `;
 

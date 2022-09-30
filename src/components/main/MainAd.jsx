@@ -17,25 +17,32 @@ const MainAd = () => {
 export default MainAd
 
 const Container = styled.div`
-    margin: 100px 180px 70px 180px;
+border:none;
+margin-top: 10%;
     display: flex;
     justify-content:center;
+    width: 90%;
     height: 250px;
+    margin-left: 5%;
+    margin-right: 5%;
 `
 
 const Ad1 = styled.div`
-    margin: 20px;
     img{
-        height: 250px;
+        width: 100%;
+        min-width: 170px; 
+        height: 100%;
         border-radius: 20px;
     }
 
 `
 
 const Ad2 = styled.div`
-    margin: 20px;
+    margin-left: 5%;
     img{
-        height: 250px;
+        width: 100%;
+        height: 100%;
+        min-width: 250px; 
         border-radius: 20px;
     }
 `

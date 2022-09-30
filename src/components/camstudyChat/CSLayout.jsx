@@ -1,38 +1,34 @@
 import styled from "styled-components";
 import CSChat from "../camstudyChat/CSChat";
 import CSCamSet from "../camstudyChat/CSCamSet";
+import Timer from "./Timer";
+import { useParams , useLocation } from "react-router-dom";
 
 
 const CSLayout = () => {
+  const {id} = useParams();
+  const {state} = useLocation();
+  console.log(id)
+
 
     return (
       <>
-
       <TopBar>
         <ButOut>나가기</ButOut>
           <InfoBar>
-            <Room>[방 제목이 들어갈 곳 입니다]  </Room>
-            <RoomStudyTime>우리 방 전체 공부 시간: 00:00:00</RoomStudyTime>
-            <MyStudyTime>나의 공부 시간: 00:00:00</MyStudyTime>
-            <Play>▶</Play>
-            <Stop>⏸</Stop>
-            </InfoBar>
-        </TopBar>
-
-
+            <Room>{state.roomName}</Room>
+            <Timer id={state.id}/>
+          </InfoBar>
+      </TopBar>
 
         <Box>
-
           <CamBox>
-            <CSCamSet/>
+            <CSCamSet id={id}/>
           </CamBox>
-
           <ScriptChatBox>
             <CSChat/>
           </ScriptChatBox>
-        
-        </Box>
-          
+        </Box>    
       </>
     );
   };
@@ -40,22 +36,30 @@ const CSLayout = () => {
   export default CSLayout;
 
   const TopBar=styled.div`
+  border: none;
+  width: 100%;
+  min-width: 800px;
   display:flex;
+  font-size: 10px;
 `;
 
   const ButOut=styled.div`
+  border: none;
   background: #40c057;
   border-radius: 20px;
-  width: 134px;
-  height: 45px;
-  margin-left: 60px;
-  margin-top: 30px;
+  width: 9%;
+  min-width: 80px;
+  max-width: 150px;
+  height: 3.1em;
+  margin-left: 6%;
+  margin-top: 2%;
   text-align : center;
   font-weight: bold;
   font-size: middle;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
   display: inline-block;
+  font-size: 1.5em;
   line-height: 45px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
@@ -65,12 +69,15 @@ const CSLayout = () => {
 `;
 
 const InfoBar=styled.div`
+border: none;
   background: #D3F9D8;
   border-radius: 20px;
-  width: 1259px;
-  height: 45px;
-  margin-left: 45px;
-  margin-top: 30px;
+width: 75%;
+height: 2.9rem;
+min-width: 500px;
+max-width: 1500px;
+  margin-left: 6%;
+  margin-top: 2%;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
   font-weight: bold;
@@ -78,50 +85,42 @@ const InfoBar=styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  font-size: 10px;
   line-height: 45px;
   font-family: "IBM Plex Sans KR", sans-serif;
 `;
 
 const Room=styled.div`
-width: 400px;
+border:none;
+width: 35%;
+min-width:200px;
+height:3em;
+font-size:1.5em;
 `;
 
-const RoomStudyTime=styled.div`
-width: 400px;
-`;
-
-const MyStudyTime=styled.div`
-width: 400px;
-`;
-
-const Play=styled.div`
-width: 100px;
-`;
-
-const Stop=styled.div`
-width: 100px;
-`;
 
 const Box=styled.div`
-display:block;
 border: none;
-height: 950px;
+display:block;
+width: 100%;
+min-width: 800px;
 `;
 
 const CamBox=styled.div`
-border: none;
-margin-left: 235px;
-height: 500px;
-width: 1080px;
-margin-top: 30px;
+border: solid 1px;
+height: 70%;
+width: 75%;
+margin: 5% auto 5% auto;
+min-width: 750px;
 `;
 
 const ScriptChatBox=styled.div`
 border: solid 1px green;
-margin-left: 100px;
-height: 320px;
-width: 1300px;
-margin-top: 50px;
+margin: 5% auto 5% auto;
+min-height: 320px;
+height: 100%;
+min-width: 750px;
+width: 75%;
 display: block;
 align-items: center;
 justify-content: center;
