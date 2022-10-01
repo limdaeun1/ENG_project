@@ -33,11 +33,13 @@ const SCWhiteBoard= (id) => {
    export default SCWhiteBoard;
 
    const Div = styled.div`
-    width: 400px;
-    height: 400px;
-    margin-left: 16px;
+height: 380px;
+min-width: 360px;
+width: 100%;
     overflow: scroll;
     overflow-x: hidden;
+    border: none;
+    border-radius: 20px;
    `
 
    const Textbox = styled.textarea`
@@ -48,7 +50,7 @@ const SCWhiteBoard= (id) => {
       outline: none;
     }
     background-color: #e2f4e6;
-    border-radius: 10px;
+    border-radius: 20px;
    `
 
    const Btn = styled.button`
@@ -57,13 +59,15 @@ const SCWhiteBoard= (id) => {
       cursor: pointer;
       transition: all 0.5s;
       color: #fff;
-      border: 0;
+      border: none;
       font-size: 11px;
       padding: 6px;
       background-color: #000000;
       &:hover {
         background-color: #666666;
       }
-      margin-left: 190px;
+      float: right;
+      margin-top:10px;
+      margin-right:2%;
       width: 60px;
    `

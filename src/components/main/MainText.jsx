@@ -75,6 +75,7 @@ border: none;
 const Boximg = styled.div`
 border: none;
     width: 40%;
+    min-width:150px;
     min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2021/05/15/19/40/computer-6256527__480.jpg');
     background-size: cover;
@@ -85,6 +86,7 @@ border: none;
 const Boximg2 = styled.div`
  border: none;
     width: 40%;
+    min-width:150px;
     min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2022/01/17/14/10/video-conference-6944846__480.jpg');
     background-size: cover;
@@ -95,6 +97,7 @@ const Boximg2 = styled.div`
 const Boximg3 = styled.div`
 border: none;
     width: 40%;
+    min-width:150px;
     min-height: 200px;
     background-image: url('https://cdn.pixabay.com/photo/2020/06/28/15/26/video-conference-5349687__480.png');
     background-size: cover;
@@ -104,9 +107,9 @@ border: none;
     
 const Boxtext = styled.div`
 border: none;
-width: 50%auto;
-min-width: 200px;
-    margin-left: 20%;
+width: 50%;
+min-width: 100px;
+    margin-left: 10%;
     line-height: 2.5rem;
     font-size: 1.05rem;
 `

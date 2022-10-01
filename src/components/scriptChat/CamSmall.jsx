@@ -33,7 +33,7 @@ width: 300px;
 height: 227px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 margin: 5px;
-
+/* 여기 카메라 부분 나중에 4명 들어오면 수정하기 */
 `;
 
 const Nick = styled.div`
