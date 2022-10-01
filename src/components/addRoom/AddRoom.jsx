@@ -114,17 +114,19 @@ const AddRoom = () => {
 export default AddRoom;
 
 const Container = styled.div`
+border: none;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   height: 500px;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  width:100%;
   max-width: 1000px;
-  min-width: 705px;
   background-color: #e9ecef;
   align-items: center;
-  margin-bottom: 100px;
+
 `;
 const Inputcontainer = styled.div`
   display: flex;

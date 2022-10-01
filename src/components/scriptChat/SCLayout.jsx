@@ -21,7 +21,7 @@ const SCLayout = () => {
   
     return (
       <>
-      <Container>
+      {/* <Container> */}
 
       <TopBar>
         <ButOut>나가기</ButOut>
@@ -67,38 +67,46 @@ const SCLayout = () => {
           </ScriptChatBox>
 
         </Box>
-        </Container>
+        {/* </Container> */}
       </>
     );
   };
   
   export default SCLayout;
 
-  const Container=styled.div`
-  width: 100%;
-  width: 1850px;
-  height: 950px;
-  margin: 20px auto;
-  border: solid;
-`;
+//   const Container=styled.div`
+//   width: 100%;
+//   width: 1850px;
+//   height: 950px;
+//   margin: 20px auto;
+//   border: solid;
+// `;
 
   const TopBar=styled.div`
+  border: solid;
+  width: 100%;
+  min-width: 800px;
   display:flex;
+  font-size: 10px;
 `;
 
   const ButOut=styled.div`
-  background: #37B24D;
+border: none;
+  background: #40c057;
   border-radius: 20px;
-  width: 134px;
-  height: 45px;
-  margin-left: 60px;
-  margin-top: 30px;
+  width: 9%;
+  min-width: 80px;
+  max-width: 150px;
+  height: 3.1em;
+  margin-left: 6%;
+  margin-top: 2%;
   text-align : center;
   font-weight: bold;
   font-size: middle;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
   display: inline-block;
+  font-size: 1.5em;
   line-height: 45px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
@@ -108,12 +116,15 @@ const SCLayout = () => {
 `;
 
 const InfoBar=styled.div`
+border: none;
   background: #D3F9D8;
   border-radius: 20px;
-  width: 1259px;
-  height: 45px;
-  margin-left: 45px;
-  margin-top: 30px;
+width: 75%;
+height: 2.9rem;
+min-width: 500px;
+max-width: 1500px;
+  margin-left: 6%;
+  margin-top: 2%;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
   font-weight: bold;
@@ -121,32 +132,29 @@ const InfoBar=styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  font-size: 10px;
   line-height: 45px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
 `;
 
 const Room=styled.div`
-width: 400px;
-`;
-
-const Play=styled.div`
-width: 100px;
-`;
-
-const Stop=styled.div`
-width: 100px;
+border:none;
+width: 35%;
+min-width:200px;
+height:3em;
+font-size:1.5em;
 `;
 
 const Box=styled.div`
 display:flex;
-border: none;
-height: 700px;
+border: solid red;
+width: 100%;
+min-width: 800px;
 `;
 
 
 const ScriptChatBox=styled.div`
-border: none;
+border: solid orange;
 margin-left: 60px;
 height: 830px;
 width: 420px;
@@ -154,7 +162,7 @@ margin-top: 30px;
 `;
 
 const ScriptContainer=styled.div`
-border: none;
+border: solid yellow;
 height: 450px;
 width: 420px;
 margin-top: 30px;
@@ -166,6 +174,7 @@ const TabContainer = styled.div`
   height: 30px;
 margin-top: 10px;
 margin-left: 25px;
+border: solid green;
 `;
 
 const ActiveTabBox = styled.div`
@@ -181,6 +190,7 @@ const ActiveTabBox = styled.div`
   border-top-right-radius: 10px;
   margin-right: 2px;
   font-size: small;
+  border: solid yellow;
 `;
 
 const TabBox = styled.div`
@@ -196,6 +206,7 @@ const TabBox = styled.div`
   border-top-right-radius: 10px;
   margin-right: 2px;
   font-size: small;
+  border: solid orange;
 `;
 
 const ActiveContentBox = styled.div`
@@ -209,6 +220,7 @@ const ActiveContentBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  border: solid blue;
 `;
 
 const ContentBox = styled.div`
@@ -218,4 +230,5 @@ const ContentBox = styled.div`
   min-width: 705px;
   min-height: 500px;
   display: none;
+  border: solid purple;
 `;
