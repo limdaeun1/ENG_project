@@ -296,16 +296,16 @@ createToken(sessionId) {
 export default SCCamSet;
 
 const CamBox=styled.div`
-border: none;
-margin-left: 60px;
-height: 670px;
-width: 950px;
-margin-top: 100px;
+border: solid blue;
+margin-left: 5%;
+height: 100%;
+width: 80%;
+margin-top: 7%;
 `;
 
 const CamSmallBox=styled.div`
 display:flex;
-border: solid none;
+border: solid;
 border-radius: 20px;
 height: 270px;
 margin-top: 40px;

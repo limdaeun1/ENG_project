@@ -107,8 +107,10 @@ min-width: 800px;
 `;
 
 const CamBox=styled.div`
-border: solid 1px;
-height: 70%;
+border: none;
+background: #ebfbee;
+border-radius: 20px;
+height: 535px;
 width: 75%;
 margin: 5% auto 5% auto;
 min-width: 750px;

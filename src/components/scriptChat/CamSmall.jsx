@@ -33,6 +33,7 @@ width: 300px;
 height: 227px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 margin: 5px;
+
 `;
 
 const Nick = styled.div`
