@@ -40,7 +40,7 @@ const Cam=styled.div`
 border: solid 1px green;
 background: #D9D9D9;
 border-radius: 20px;
-margin-left: 215px;
+margin:0 auto 0 auto;
 width: 430px;
 height: 322px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);

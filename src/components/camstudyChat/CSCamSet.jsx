@@ -298,6 +298,7 @@ display:flex;
 border: none;
 border-radius: 20px;
 height: 240px;
+border: none;
 `;
 
 const CamSmallBox2=styled.div`
@@ -306,4 +307,5 @@ border: none;
 border-radius: 20px;
 height: 240px;
 margin-top: 20px;
+border:none;
 `;

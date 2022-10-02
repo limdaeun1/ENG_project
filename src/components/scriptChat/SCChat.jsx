@@ -248,8 +248,9 @@ image:"" }]);
   const CamChatBox=styled.div`
   border: solid 1px green;
   height: 300px;
-  width: 420px;
-  margin-top: 30px;
+  min-width: 360px;
+  width: 89%;
+  margin: 20px auto 15px auto;
   display: block;
   align-items: center;
   justify-content: center;
@@ -258,16 +259,16 @@ image:"" }]);
 
 const ChatBox=styled.div`
 border: solid 1px green;
-height: 220px;
-width: 370px;
+min-height: 190px;
+/* min-width: 100px; */
+width: 94%;
 display: block;
 overflow: scroll;
 overflow-x: hidden;
 /* overflow-y: hidden; */
 display: block;
 border-radius: 20px;
-margin-top: 10px;
-margin-left: 25px;
+margin: 10px auto 0 auto;
 background: #ebfbee;
 `;
 
@@ -341,12 +342,13 @@ const SendBox=styled.div`
 border: none;
 margin-top: 20px;
 height: 30px;
-width: 370px;
+width: 85%;
+min-width: 250px;
 display: flex;
 border-radius: 20px;
 align-items: center;
  justify-content: center;
- margin-left: 25px;
+ margin-left: 10%;
 `;
 
 const InputBox=styled.textarea`
