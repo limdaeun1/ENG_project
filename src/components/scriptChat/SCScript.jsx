@@ -5,6 +5,7 @@ const SCScript= () => {
     return (
       <>
       <ScriptBox>
+
       </ScriptBox>
       </>
       );
@@ -15,9 +16,8 @@ const SCScript= () => {
    const ScriptBox=styled.div`
 border: none;
 height: 380px;
-width: 410px;
-align-items: center;
-justify-content: center;
+min-width: 360px;
+width: 100%;
 overflow: scroll;
 overflow-x: hidden;
 border-radius: 20px;

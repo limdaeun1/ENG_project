@@ -3,7 +3,7 @@ import { useState } from "react";
 import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
-import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
+import SCWhiteBoard from "./SCMemo";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Timer from "../camstudyChat/Timer";
@@ -83,9 +83,9 @@ const SCLayout = () => {
 // `;
 
   const TopBar=styled.div`
-  border: solid;
+  border: none;
   width: 100%;
-  min-width: 800px;
+  min-width: 1200px;
   display:flex;
   font-size: 10px;
 `;
@@ -147,40 +147,40 @@ font-size:1.5em;
 
 const Box=styled.div`
 display:flex;
-border: solid red;
+border: none;
 width: 100%;
-min-width: 800px;
+min-width: 1200px;
 `;
 
 
 const ScriptChatBox=styled.div`
-border: solid orange;
-margin-left: 60px;
-height: 830px;
-width: 420px;
-margin-top: 30px;
+border: none;
+height: 100%;
+width: 30%;
+min-width: 395px;
 `;
 
 const ScriptContainer=styled.div`
-border: solid yellow;
-height: 450px;
-width: 420px;
+border: none;
+height: 480px;
+width: 100%;
 margin-top: 30px;
 `;
 
 const TabContainer = styled.div`
   display: flex;
-  width: 380px;
+  width: 84%;
   height: 30px;
-margin-top: 10px;
-margin-left: 25px;
-border: solid green;
+margin-top: 8px;
+margin-left: 8%;
+border:none;
 `;
 
 const ActiveTabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  width: 23%;
+  min-width: 55px;
   background: #51cf66;
   cursor: pointer;
   box-sizing: content-box;
@@ -188,15 +188,16 @@ const ActiveTabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
-  border: solid yellow;
+  border: none;
 `;
 
 const TabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  width: 23%;
+  min-width: 55px;
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -204,31 +205,35 @@ const TabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
-  border: solid orange;
+  border: none;
 `;
 
 const ActiveContentBox = styled.div`
-  padding: 8px;
+  padding: 4%;
   text-align: center;
-  width: 100px;
+  width: 89%;
   cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
-  border: solid blue;
+  margin-right: 1%;
+  border: none;
 `;
 
 const ContentBox = styled.div`
   background: white;
-  padding: 20px;
-  max-width: 1000px;
-  min-width: 705px;
-  min-height: 500px;
+  padding: 4%;
+  text-align: center;
+  width: 89%;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  margin-right: 1%;
   display: none;
-  border: solid purple;
+  /* border: solid 1px purple; */
 `;
