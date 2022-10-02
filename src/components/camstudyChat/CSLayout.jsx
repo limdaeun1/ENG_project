@@ -23,7 +23,7 @@ const CSLayout = () => {
 
         <Box>
           <CamBox>
-            <CSCamSet id={id}/>
+            {/* <CSCamSet id={id}/> */}
           </CamBox>
           <ScriptChatBox>
             <CSChat/>
@@ -117,9 +117,9 @@ min-width: 750px;
 `;
 
 const ScriptChatBox=styled.div`
-border: solid 1px green;
+/* border: solid 1px green; */
 margin: 5% auto 5% auto;
-min-height: 320px;
+min-height: 400px;
 height: 100%;
 min-width: 750px;
 width: 75%;
@@ -127,5 +127,5 @@ display: block;
 align-items: center;
 justify-content: center;
 border-radius: 20px;
-box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+/* box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%); */
 `;
