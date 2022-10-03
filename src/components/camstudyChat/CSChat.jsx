@@ -418,7 +418,7 @@ const MyMsg = styled.div`
   line-height: 30px;
   background: white;
   font-size: small;
-  white-space: pre-wrap;
+  word-break: break-all;
   border-radius: 10px 10px 0px 10px;
   color: white;
   background: linear-gradient(to right, #69db7c, #38d9a9);
@@ -432,7 +432,7 @@ const OtherMsg = styled.div`
   line-height: 35px;
   background: white;
   font-size: small;
-  white-space: pre-wrap;
+  word-break: break-all;
   border-radius: 10px 10px 10px 0px;
   padding: 0px 10px 0px 10px;
   color: black;

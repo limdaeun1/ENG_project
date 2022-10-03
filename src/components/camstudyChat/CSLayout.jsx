@@ -23,7 +23,7 @@ const CSLayout = () => {
 
         <Box>
           <CamBox>
-            {/* <CSCamSet id={id}/> */}
+            <CSCamSet id={id}/>
           </CamBox>
           <ScriptChatBox>
             <CSChat/>
