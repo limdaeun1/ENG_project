@@ -14,48 +14,34 @@ const ChatListCard = (room) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modalVisibleId, setModalVisibleId] = useState("")
+  const payload = { id:id , password:"",}
 
   const onModalHandler = id => {
     setModalVisibleId(id)
   }
 
-  const enter = (id) => {
+  //비번방이면 비번입력 모달창을 띄우고 , 아니면 방으로 입장
+  const enterhandler = (id) => { 
     if(room.lock===true) {
       onModalHandler(id)
     }
     else {
-      EnterCam(id)
+      EnterCam()
     }
   }
-
-  const payload = {
-    id:id,
-    password:"",
-  }
-
-  //캠스터디 방으로 입장
-  const EnterCam = async (id) => {
+ 
+  //방으로 입장
+  const EnterCam = async () => {
     try {
       const response = await dispatch(enterRoomCam(payload)).unwrap();
       console.log(response);
       if(response.data.success === true) {
-        navigate("/camchat/"+id ,{state:room})
-      }
-      else {
-        window.alert (`${response.data.error.message}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //스크립트 방으로 입장
-  const EnterScript = async (id) => {
-    try {
-      const response = await dispatch(enterRoomCam(id)).unwrap();
-      console.log(response);
-      if(response.data.success === true) {
-        navigate("/scriptchat/"+id ,{state:room})
+        if(room.category === "캠스터디" ) {
+         navigate("/camchat/"+id ,{state:room})
+        }
+        else {
+         navigate("/scriptchat/"+id ,{state:room})
+        }
       }
       else {
         window.alert (`${response.data.error.message}`);
@@ -71,11 +57,10 @@ const ChatListCard = (room) => {
         <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
         <Round />
         <TitleBox>{room.roomName} </TitleBox>
-        <LockStatusBox src={unlock} />
-
+        {room.lock===true ? <LockStatusBox src={lock}/> :<LockStatusBox src={unlock}/> }
         <PeopleParticipationBox>
           <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
-          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => enter(id)}/> : <ParticipationBtn src={next} onClick={() => EnterScript(id) }/>}
+          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => enterhandler(id)}/> : <ParticipationBtn src={next} onClick={() => enterhandler(id) }/>}
         </PeopleParticipationBox>
 
       </Container>

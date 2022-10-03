@@ -21,7 +21,7 @@ export const enterRoomCam = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.post(`auth/chat/enter/${payload.id}`,{password:payload.password});
-      console.log("방들어가기 성공")
+      console.log("방 입장 검증 중")
       return data
     } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -35,7 +35,7 @@ export const exitRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await instance.get(`auth/chat/quit/${payload}`);
-      console.log("방나가기 api 전달완료")
+      console.log("방 퇴장 검증 중")
       return data
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -50,7 +50,6 @@ async (payload, thunkApI) => {
     try {
     const data = await instance.post("/auth/chat/room" , payload);
     window.alert("방을 생성하였습니다");
-    window.location.assign("/list"); 
     return data
     } catch (error) {
     return thunkApI.rejectWithValue(error);

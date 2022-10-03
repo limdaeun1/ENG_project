@@ -23,11 +23,6 @@ const AddRoom = () => {
       roomPw :password ,
   }
 
-  console.log(roomData)
-  const createRommhandle = () => {
-    dispatch(createRoom(roomData));
-  }
-
   const onChangeFalse = () => {
     setType(false)
   }
@@ -37,17 +32,20 @@ const AddRoom = () => {
   }
 
   //방 만든 후 생성한 방으로 바로 입장
-  // const createRommhandle = async () => {
-  //   try {
-  //     const response = await dispatch(createRoom(roomData)).unwrap();
-  //     console.log(response);
-  //     if(response roomid 정보가 있으면 !== null) {
-  //       navigate("/camchat/" + id)
-  //     }
-  //   } catch (error) {
-  //     window.alert("방 만들기에 실패하였습니다!");
-  //   }
-  // };
+  const createRommhandle = async () => {
+    try {
+      const response = await dispatch(createRoom(roomData)).unwrap();
+      if(response.data.data.roomId !== null) {
+        if(response.data.data.category === "캠스터디") {
+        navigate("/camchat/" + response.data.data.roomId ,{state:response.data.data})}
+        else {
+        navigate("/scriptchat/" + response.data.data.roomId ,{state:response.data.data})
+        }
+      }
+    } catch (error) {
+      window.alert("방 만들기에 실패하였습니다!");
+    }
+  };
 
   return (
     <>
