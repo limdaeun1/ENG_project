@@ -85,7 +85,8 @@ const ChatList = () => {
                   nowCount ={room.nowCount}
                   id = {room.roomId}
                   roomName={room.roomName}
-                  key={room.roomId} /> )})}
+                  key={room.roomId}
+                  lock={room.lock} /> )})}
                </ActiveContentBox>
             :<ContentBox  > 1 <ChatListCard /></ContentBox>}
             
@@ -99,7 +100,8 @@ const ChatList = () => {
                   nowCount ={room.nowCount}
                   id = {room.roomId}
                   roomName={room.roomName}
-                  key={room.roomId} /> )})}
+                  key={room.roomId}
+                  lock={room.lock} /> )})}
               </ActiveContentBox>
             :<ContentBox  > 2 <ChatListCard /></ContentBox>}
 
@@ -113,7 +115,8 @@ const ChatList = () => {
                   nowCount ={room.nowCount}
                   id = {room.roomId}
                   roomName={room.roomName}
-                  key={room.roomId} /> )})}
+                  key={room.roomId}
+                  lock={room.lock} /> )})}
             </ActiveContentBox>
             :<ContentBox  > 3 <ChatListCard /></ContentBox>}
 
@@ -127,7 +130,8 @@ const ChatList = () => {
                   nowCount ={room.nowCount}
                   id = {room.roomId}
                   roomName={room.roomName}
-                  key={room.roomId} /> )})}
+                  key={room.roomId}
+                  lock={room.lock} /> )})}
                </ActiveContentBox>
             :<ContentBox  > 4 <ChatListCard /></ContentBox>}
           </div>

@@ -15,6 +15,33 @@ export const getChatrooms = createAsyncThunk(
     }
   );
 
+//방 입장하기 (인원수+1)
+export const enterRoomCam = createAsyncThunk(
+  "chatroom/enterRoomCam",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.post(`auth/chat/enter/${payload.id}`,{password:payload.password});
+      console.log("방 입장 검증 중")
+      return data
+    } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+    }
+  }
+);  
+
+//방 나가기 (인원수-1)
+export const exitRoom = createAsyncThunk(
+  "chatroom/exitRoom",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.get(`auth/chat/quit/${payload}`);
+      console.log("방 퇴장 검증 중")
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);  
 
 //방 생성하기  
 export const createRoom = createAsyncThunk(
@@ -23,7 +50,6 @@ async (payload, thunkApI) => {
     try {
     const data = await instance.post("/auth/chat/room" , payload);
     window.alert("방을 생성하였습니다");
-    window.location.assign("/list"); 
     return data
     } catch (error) {
     return thunkApI.rejectWithValue(error);

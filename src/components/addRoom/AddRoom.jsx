@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 
 const AddRoom = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [studyName, setStudyName] = useState("")
   const [category, setCategory] = useState("");
   const [memberCount, setMemberCount] = useState("");
@@ -16,14 +18,9 @@ const AddRoom = () => {
   const roomData = {
       roomName : studyName,  
       category : category ,
-      memberCount : memberCount,
+      maxEnterMember : memberCount,
       lock : type,
       roomPw :password ,
-  }
-
-  console.log(roomData)
-  const createRommhandle = () => {
-    dispatch(createRoom(roomData));
   }
 
   const onChangeFalse = () => {
@@ -33,6 +30,22 @@ const AddRoom = () => {
   const onChangeTrue = () => {
     setType(true)
   }
+
+  //방 만든 후 생성한 방으로 바로 입장
+  const createRommhandle = async () => {
+    try {
+      const response = await dispatch(createRoom(roomData)).unwrap();
+      if(response.data.data.roomId !== null) {
+        if(response.data.data.category === "캠스터디") {
+        navigate("/camchat/" + response.data.data.roomId ,{state:response.data.data})}
+        else {
+        navigate("/scriptchat/" + response.data.data.roomId ,{state:response.data.data})
+        }
+      }
+    } catch (error) {
+      window.alert("방 만들기에 실패하였습니다!");
+    }
+  };
 
   return (
     <>
