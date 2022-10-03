@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
@@ -7,27 +7,45 @@ import SCWhiteBoard from "./SCMemo";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Timer from "../camstudyChat/Timer";
-
-
+import { useDispatch } from "react-redux";
+import { exitRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 
 const SCLayout = () => {
-  const {state} = useLocation();
   const [toggleState, setToggleState] = useState(1);
+  const {state} = useLocation();
   const {id} = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toggleTab = (index) => {
       setToggleState(index);
     };
   
+  useEffect(() => {    
+    return () => {
+      onbeforeunload();
+    };
+    }, []);
+  
+    const onbeforeunload = () => {
+      try {
+        dispatch(exitRoom(id))
+      } catch (e) {
+        console.log("연결 구독 해체 에러", e);
+      }
+    }
+
+
     return (
       <>
       {/* <Container> */}
 
       <TopBar>
-        <ButOut>나가기</ButOut>
+        <ButOut onClick={()=>navigate("/list")}>나가기</ButOut>
           <InfoBar>
             <Room>{state.roomName}</Room>
-            <Timer id={state.id}/>
+            <Timer id={id}/>
             </InfoBar>
         </TopBar>
 
@@ -56,8 +74,8 @@ const SCLayout = () => {
             :<ContentBox  > <SCScript/></ContentBox>}
             
             {toggleState === 2 
-            ? <ActiveContentBox > <SCWhiteBoard id={state.id}/></ActiveContentBox>
-            :<ContentBox  ><SCWhiteBoard id={state.id}/></ContentBox>}
+            ? <ActiveContentBox > <SCWhiteBoard id={id}/></ActiveContentBox>
+            :<ContentBox  ><SCWhiteBoard id={id}/></ContentBox>}
           </div>
 
             </ScriptContainer>

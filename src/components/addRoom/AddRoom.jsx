@@ -16,7 +16,7 @@ const AddRoom = () => {
   const roomData = {
       roomName : studyName,  
       category : category ,
-      memberCount : memberCount,
+      maxEnterMember : memberCount,
       lock : type,
       roomPw :password ,
   }
@@ -33,6 +33,22 @@ const AddRoom = () => {
   const onChangeTrue = () => {
     setType(true)
   }
+
+    //생성한 방으로 바로 입장
+    // const EnterCreatroom = async (id) => {
+    //   try {
+    //     const response = await dispatch(enterRoomCam(id)).unwrap();
+    //     console.log(response);
+    //     if(response.data.success === true) {
+    //       navigate("/camchat/"+id ,{state:room})
+    //     }
+    //     else {
+    //       window.alert (`${response.data.error.message}`);
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
   return (
     <>

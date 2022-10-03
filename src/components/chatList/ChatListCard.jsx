@@ -1,26 +1,75 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import unlock from "../../img/unlock.png";
 import lock from "../../img/lock.png";
 import next from "../../img/next.png";
 import { useNavigate } from "react-router-dom";
+import { enterRoomCam } from "../../redux/modules/chatroom";
+import { useDispatch } from "react-redux";
+import EnterModal from "./EnterModal";
 
 const ChatListCard = (room) => {
   const id = room.id
   const category = room.category
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [modalVisibleId, setModalVisibleId] = useState("")
 
+  const onModalHandler = id => {
+    setModalVisibleId(id)
+  }
+
+  const enter = (id) => {
+    if(room.lock===true) {
+      onModalHandler(id)
+    }
+    else {
+      EnterCam(id)
+    }
+  }
+  //캠스터디 방으로 입장
+  const EnterCam = async (id) => {
+    try {
+      const response = await dispatch(enterRoomCam(id)).unwrap();
+      console.log(response);
+      if(response.data.success === true) {
+        navigate("/camchat/"+id ,{state:room})
+      }
+      else {
+        window.alert (`${response.data.error.message}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //스크립트 방으로 입장
+  const EnterScript = async (id) => {
+    try {
+      const response = await dispatch(enterRoomCam(id)).unwrap();
+      console.log(response);
+      if(response.data.success === true) {
+        navigate("/scriptchat/"+id ,{state:room})
+      }
+      else {
+        window.alert (`${response.data.error.message}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <Container>
+        <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
         <Round />
         <TitleBox>{room.roomName} </TitleBox>
         <LockStatusBox src={unlock} />
 
         <PeopleParticipationBox>
           <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
-          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => {navigate("/camchat/" + id , {state:room}) }}/> : <ParticipationBtn src={next} onClick={() => {navigate("/scriptchat/" + id , {state:room}) }}/>}
+          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => enter(id)}/> : <ParticipationBtn src={next} onClick={() => EnterScript(id) }/>}
         </PeopleParticipationBox>
 
       </Container>
