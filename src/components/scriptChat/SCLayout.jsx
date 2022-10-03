@@ -173,9 +173,10 @@ min-width: 1200px;
 
 const ScriptChatBox=styled.div`
 border: none;
-height: 100%;
+height: 90%;
 width: 30%;
 min-width: 395px;
+margin: 30px;
 `;
 
 const ScriptContainer=styled.div`
