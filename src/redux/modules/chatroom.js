@@ -18,13 +18,13 @@ export const getChatrooms = createAsyncThunk(
 //방 입장하기 (인원수+1)
 export const enterRoomCam = createAsyncThunk(
   "chatroom/enterRoomCam",
-  async (id,password, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const data = await instance.get(`auth/chat/enter/${id}`,password);
+      const data = await instance.post(`auth/chat/enter/${payload.id}`,{password:payload.password});
       console.log("방들어가기 성공")
       return data
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error);
     }
   }
 );  

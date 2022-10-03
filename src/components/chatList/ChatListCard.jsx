@@ -27,10 +27,16 @@ const ChatListCard = (room) => {
       EnterCam(id)
     }
   }
+
+  const payload = {
+    id:id,
+    password:"",
+  }
+
   //캠스터디 방으로 입장
   const EnterCam = async (id) => {
     try {
-      const response = await dispatch(enterRoomCam(id)).unwrap();
+      const response = await dispatch(enterRoomCam(payload)).unwrap();
       console.log(response);
       if(response.data.success === true) {
         navigate("/camchat/"+id ,{state:room})

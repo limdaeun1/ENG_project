@@ -13,22 +13,23 @@ function EnterModal({ room , modalVisibleId, setModalVisibleId ,id}) {
     const onCloseHandler = () => {  //modalVisibleId이 빈값이 되면 모달이 안보임
         setModalVisibleId("")
     }
+ 
+    const payload = {
+        id:id,
+        password:password,
+    }
 
-    const EnterCam = async (id,password) => {
+    const EnterCam = async () => {
         try {
-          const response = await dispatch(enterRoomCam(id,password)).unwrap();
+          const response = await dispatch(enterRoomCam(payload)).unwrap();
           console.log(response);
-          if(response.data.success === true) {
-            navigate("/camchat/"+id ,{state:room})
-          }
-          else {
-            window.alert (`${response.data.error.message}`);
-          }
+          navigate("/camchat/"+id ,{state:room})
+        
         } catch (error) {
-          console.log(error);
+          console.log("여기가 실패");
         }
       };
-    console.log(password)
+
 
   return (
     <>
@@ -36,7 +37,7 @@ function EnterModal({ room , modalVisibleId, setModalVisibleId ,id}) {
     <Container>
        <input  onChange={(e) => setPassWord(e.target.value)}/>
        <button onClick={onCloseHandler}>닫기</button>
-       <button onClick={()=>EnterCam(id,password)}>입력</button>
+       <button onClick={()=>EnterCam()}>입력</button>
     </Container>
     ) : null }
     </>

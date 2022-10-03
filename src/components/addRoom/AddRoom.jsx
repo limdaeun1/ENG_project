@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 
 const AddRoom = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [studyName, setStudyName] = useState("")
   const [category, setCategory] = useState("");
   const [memberCount, setMemberCount] = useState("");
@@ -34,21 +36,18 @@ const AddRoom = () => {
     setType(true)
   }
 
-    //생성한 방으로 바로 입장
-    // const EnterCreatroom = async (id) => {
-    //   try {
-    //     const response = await dispatch(enterRoomCam(id)).unwrap();
-    //     console.log(response);
-    //     if(response.data.success === true) {
-    //       navigate("/camchat/"+id ,{state:room})
-    //     }
-    //     else {
-    //       window.alert (`${response.data.error.message}`);
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+  //방 만든 후 생성한 방으로 바로 입장
+  // const createRommhandle = async () => {
+  //   try {
+  //     const response = await dispatch(createRoom(roomData)).unwrap();
+  //     console.log(response);
+  //     if(response roomid 정보가 있으면 !== null) {
+  //       navigate("/camchat/" + id)
+  //     }
+  //   } catch (error) {
+  //     window.alert("방 만들기에 실패하였습니다!");
+  //   }
+  // };
 
   return (
     <>
