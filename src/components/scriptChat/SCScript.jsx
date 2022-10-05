@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 const SCScript= () => {
 
-   const random = "#" + Math.round(Math.random()* 0xffffff).toString(16);
-   const aa = ["일상","놀러가기","연애","맛집","미드","가족","연설","짝사랑","영화","맛집탐방","기념일","회사생활"] 
+   const aa = ["일상","놀러가기","연애","맛집","미드","가족","연설","짝사랑","영화","맛집탐방","기념일","회사생활"]   
 
        return (
       <>
@@ -17,7 +16,7 @@ const SCScript= () => {
       <Box2>
       <p>✔️ 태그별로 선택</p>
       {aa.map((time,i) => (
-         <Tag >#{time}</Tag>
+         <Tag key={i}>#{time}</Tag>
          ))}
       </Box2>
       </ScriptBox>
@@ -79,7 +78,6 @@ const SCScript= () => {
       float:left;
       padding:0 5px 0 5px;
       font-size: 12px;
-      background-color: #5daf76;
       transition: all 0.5s;
       cursor: pointer;
       &:hover {
@@ -87,6 +85,8 @@ const SCScript= () => {
       }
       font-weight: 500;
       box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
+
+     
    `
 
    const P =styled.div`
