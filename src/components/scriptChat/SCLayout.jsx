@@ -1,33 +1,51 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import SCCamSet from "../scriptChat/SCCamSet";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
-import SCWhiteBoard from "../scriptChat/SCWhiteBoard";
+import SCWhiteBoard from "./SCMemo";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Timer from "../camstudyChat/Timer";
-
-
+import { useDispatch } from "react-redux";
+import { exitRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 
 const SCLayout = () => {
-  const {state} = useLocation();
   const [toggleState, setToggleState] = useState(1);
+  const {state} = useLocation();
   const {id} = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toggleTab = (index) => {
       setToggleState(index);
     };
   
+  useEffect(() => {    
+    return () => {
+      onbeforeunload();
+    };
+    }, []);
+  
+    const onbeforeunload = () => {
+      try {
+        dispatch(exitRoom(id))
+      } catch (e) {
+        console.log("연결 구독 해체 에러", e);
+      }
+    }
+
+
     return (
       <>
-      <Container>
+      {/* <Container> */}
 
       <TopBar>
-        <ButOut>나가기</ButOut>
+        <ButOut onClick={()=>navigate("/list")}>나가기</ButOut>
           <InfoBar>
             <Room>{state.roomName}</Room>
-            <Timer id={state.id}/>
+            <Timer id={id}/>
             </InfoBar>
         </TopBar>
 
@@ -56,8 +74,8 @@ const SCLayout = () => {
             :<ContentBox  > <SCScript/></ContentBox>}
             
             {toggleState === 2 
-            ? <ActiveContentBox > <SCWhiteBoard id={state.id}/></ActiveContentBox>
-            :<ContentBox  ><SCWhiteBoard id={state.id}/></ContentBox>}
+            ? <ActiveContentBox > <SCWhiteBoard id={id}/></ActiveContentBox>
+            :<ContentBox  ><SCWhiteBoard id={id}/></ContentBox>}
           </div>
 
             </ScriptContainer>
@@ -67,38 +85,46 @@ const SCLayout = () => {
           </ScriptChatBox>
 
         </Box>
-        </Container>
+        {/* </Container> */}
       </>
     );
   };
   
   export default SCLayout;
 
-  const Container=styled.div`
-  width: 100%;
-  width: 1850px;
-  height: 950px;
-  margin: 20px auto;
-  border: solid;
-`;
+//   const Container=styled.div`
+//   width: 100%;
+//   width: 1850px;
+//   height: 950px;
+//   margin: 20px auto;
+//   border: solid;
+// `;
 
   const TopBar=styled.div`
+  border: none;
+  width: 100%;
+  min-width: 1200px;
   display:flex;
+  font-size: 10px;
 `;
 
   const ButOut=styled.div`
-  background: #37B24D;
+border: none;
+  background: #40c057;
   border-radius: 20px;
-  width: 134px;
-  height: 45px;
-  margin-left: 60px;
-  margin-top: 30px;
+  width: 9%;
+  min-width: 80px;
+  max-width: 150px;
+  height: 3.1em;
+  margin-left: 6%;
+  margin-top: 2%;
   text-align : center;
   font-weight: bold;
   font-size: middle;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
   display: inline-block;
+  font-size: 1.5em;
   line-height: 45px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
@@ -108,12 +134,15 @@ const SCLayout = () => {
 `;
 
 const InfoBar=styled.div`
+border: none;
   background: #D3F9D8;
   border-radius: 20px;
-  width: 1259px;
-  height: 45px;
-  margin-left: 45px;
-  margin-top: 30px;
+width: 75%;
+height: 2.9rem;
+min-width: 500px;
+max-width: 1500px;
+  margin-left: 6%;
+  margin-top: 2%;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
   font-weight: bold;
@@ -121,72 +150,73 @@ const InfoBar=styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  font-size: 10px;
   line-height: 45px;
-  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
 `;
 
 const Room=styled.div`
-width: 400px;
-`;
-
-const Play=styled.div`
-width: 100px;
-`;
-
-const Stop=styled.div`
-width: 100px;
+border:none;
+width: 35%;
+min-width:200px;
+height:3em;
+font-size:1.5em;
 `;
 
 const Box=styled.div`
 display:flex;
 border: none;
-height: 700px;
+width: 100%;
+min-width: 1200px;
 `;
 
 
 const ScriptChatBox=styled.div`
 border: none;
-margin-left: 60px;
-height: 830px;
-width: 420px;
-margin-top: 30px;
+height: 90%;
+width: 30%;
+min-width: 395px;
+margin: 30px;
 `;
 
 const ScriptContainer=styled.div`
 border: none;
-height: 450px;
-width: 420px;
+height: 480px;
+width: 100%;
 margin-top: 30px;
+margin-left: -16px;
 `;
 
 const TabContainer = styled.div`
   display: flex;
-  width: 380px;
+  width: 84%;
   height: 30px;
-margin-top: 10px;
-margin-left: 25px;
+margin-top: 8px;
+margin-left: 8%;
+border:none;
 `;
 
 const ActiveTabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  width: 23%;
+  min-width: 55px;
   background: #51cf66;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
+  border: none;
 `;
 
 const TabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  width: 23%;
+  min-width: 55px;
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -194,28 +224,33 @@ const TabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
+  border: none;
 `;
 
 const ActiveContentBox = styled.div`
-  padding: 8px;
+  padding: 4%;
   text-align: center;
-  width: 100px;
-  cursor: pointer;
+  width: 89%;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 1%;
+  border: none;
 `;
 
 const ContentBox = styled.div`
   background: white;
-  padding: 20px;
-  max-width: 1000px;
-  min-width: 705px;
-  min-height: 500px;
+  padding: 4%;
+  text-align: center;
+  width: 89%;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  margin-right: 1%;
   display: none;
+  /* border: solid 1px purple; */
 `;

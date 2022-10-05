@@ -20,12 +20,12 @@ render() {
           <>
           <Cam>
             <OpenViduVideoComponent streamManager={this.props.streamManager}/>
-            <Iconbox>
-              <Mute src={mute}></Mute>
-              <Videooff  src={videooff}></Videooff>
-            </Iconbox>
             <Nick>
               <p>{this.getNicknameTag()}</p>
+              <Iconbox>
+                <Mute src={mute} onClick={()=>console.log("클릭")}></Mute>
+                <Videooff  src={videooff}></Videooff>
+              </Iconbox>
             </Nick>
           </Cam>
           
@@ -48,6 +48,7 @@ margin: 7px auto 7px auto;
 const Nick = styled.div`
 background-color: #dcf2d2;
 border-radius: 20px;
+justify-content: ce;
 p{
   text-align: center;
   font-size: 14px;
@@ -56,16 +57,18 @@ p{
 `
 
 const Mute = styled.img`
-width: 30px;
-height: 20px;
-margin-right: 10px;
+width: 25px;
+height: 15px;
+margin-right: 7px;
+cursor:pointer;
 `
 
 const Videooff = styled.img`
-width: 20px;
-height: 20px;
+width: 15px;
+height: 15px;
+cursor:pointer;
 `
 const Iconbox = styled.div`
   margin-top: -30px;
-  margin-left: 122px;
+  margin-left: 10px;
 `

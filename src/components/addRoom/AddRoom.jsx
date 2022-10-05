@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 
 const AddRoom = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [studyName, setStudyName] = useState("")
   const [category, setCategory] = useState("");
   const [memberCount, setMemberCount] = useState("");
@@ -16,14 +18,9 @@ const AddRoom = () => {
   const roomData = {
       roomName : studyName,  
       category : category ,
-      memberCount : memberCount,
+      maxEnterMember : memberCount,
       lock : type,
       roomPw :password ,
-  }
-
-  console.log(roomData)
-  const createRommhandle = () => {
-    dispatch(createRoom(roomData));
   }
 
   const onChangeFalse = () => {
@@ -33,6 +30,22 @@ const AddRoom = () => {
   const onChangeTrue = () => {
     setType(true)
   }
+
+  //방 만든 후 생성한 방으로 바로 입장
+  const createRommhandle = async () => {
+    try {
+      const response = await dispatch(createRoom(roomData)).unwrap();
+      if(response.data.data.roomId !== null) {
+        if(response.data.data.category === "캠스터디") {
+        navigate("/camchat/" + response.data.data.roomId ,{state:response.data.data})}
+        else {
+        navigate("/scriptchat/" + response.data.data.roomId ,{state:response.data.data})
+        }
+      }
+    } catch (error) {
+      window.alert("방 만들기에 실패하였습니다!");
+    }
+  };
 
   return (
     <>
@@ -114,24 +127,26 @@ const AddRoom = () => {
 export default AddRoom;
 
 const Container = styled.div`
+border: none;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   height: 500px;
-  margin: auto;
-  margin-top: 30px;
+  margin: 50px auto 100px auto;
+  width:90%;
+  min-width: 100px;
   max-width: 1000px;
-  min-width: 705px;
   background-color: #e9ecef;
   align-items: center;
-  margin-bottom: 100px;
 `;
+
 const Inputcontainer = styled.div`
   display: flex;
   width: 400px;
   height: 40px;
-  margin: 30px;
+  margin: 30px auto 30px auto;
   align-items:center;
+  border: none;
 `;
 
 const NameBox = styled.div`
@@ -150,7 +165,7 @@ const InputBox = styled.input`
   height: 25px;
   border-radius: 5px;
   text-align: center;
-  margin-left: 20px;
+  margin: 0 auto 0 20px;
   border:none;
   outline:none;
   @media screen and (max-width: 700px) {
@@ -166,7 +181,7 @@ const PasswordBox = styled.input`
   height: 25px;
   border-radius: 5px;
   text-align: center;
-  margin-left: 20px;
+  margin: 0 auto 0 20px;
   border:none;
   outline:none;
   transition: border-color 300ms ease-in-out;
@@ -179,16 +194,15 @@ const PasswordBox = styled.input`
   }
 `;
 
-
 const BtnContainer = styled.div`
   margin-top: auto;
-  max-width: 1000px;
-  min-width: 705px;
+  width: 30%;
   text-align: center;
+  border: none;
 `;
 
 const AddRoomBtn = styled.button`
-  margin-bottom: 10px;
+  margin: 0 auto 10px auto;
   padding: 10px;
   text-align: center;
   font-size: 15px;
@@ -200,11 +214,12 @@ const AddRoomBtn = styled.button`
   border-radius: 10px;
   border:none;
 `;
+
 const SelectBox = styled.select`
   width: 300px;
   height: 30px;
   border-radius: 5px;
-  margin-left: 20px;
+  margin: 0 auto 0 20px;
   outline: none;
   border:none;
   @media screen and (max-width: 700px) {

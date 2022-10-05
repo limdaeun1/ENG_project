@@ -48,10 +48,10 @@ border: none;
 
 const Img = styled.div`
 border: none;
-margin-left: 30%;
+margin: auto;
     width: 40%;
     height: 5.5em;
-    min-width: 100px;
+    min-width: 450px;
     min-height: 500px;
     background-image: url('https://img.freepik.com/premium-vector/people-in-video-conference-characters_24877-71478.jpg');
     background-size: cover;

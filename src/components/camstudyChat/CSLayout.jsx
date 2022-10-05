@@ -3,21 +3,38 @@ import CSChat from "../camstudyChat/CSChat";
 import CSCamSet from "../camstudyChat/CSCamSet";
 import Timer from "./Timer";
 import { useParams , useLocation } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { exitRoom } from "../../redux/modules/chatroom";
+import { useNavigate } from "react-router-dom";
 
 const CSLayout = () => {
   const {id} = useParams();
   const {state} = useLocation();
-  console.log(id)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  useEffect(() => {    
+  return () => {
+    onbeforeunload();
+  };
+  }, []);
 
+  const onbeforeunload = () => {
+    try {
+      dispatch(exitRoom(id))
+    } catch (e) {
+      console.log("연결 구독 해체 에러", e);
+    }
+  }
 
     return (
       <>
       <TopBar>
-        <ButOut>나가기</ButOut>
+        <ButOut onClick={()=>navigate("/list")}>나가기</ButOut>
           <InfoBar>
             <Room>{state.roomName}</Room>
-            <Timer id={state.id}/>
+            <Timer id={id}/>
           </InfoBar>
       </TopBar>
 
@@ -107,17 +124,19 @@ min-width: 800px;
 `;
 
 const CamBox=styled.div`
-border: solid 1px;
-height: 70%;
+border: none;
+background: #ebfbee;
+border-radius: 20px;
+height: 535px;
 width: 75%;
 margin: 5% auto 5% auto;
 min-width: 750px;
 `;
 
 const ScriptChatBox=styled.div`
-border: solid 1px green;
+/* border: solid 1px green; */
 margin: 5% auto 5% auto;
-min-height: 320px;
+min-height: 400px;
 height: 100%;
 min-width: 750px;
 width: 75%;
@@ -125,5 +144,5 @@ display: block;
 align-items: center;
 justify-content: center;
 border-radius: 20px;
-box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+/* box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%); */
 `;

@@ -4,7 +4,8 @@ import LoginImg from '../components/login/LoginImg'
 const LoginPage = () => {
   return (
     <>
-    <LoginImg></LoginImg>
+    <LoginImg>
+    </LoginImg>
     </>
   )
 }
