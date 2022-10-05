@@ -22,7 +22,6 @@ const SCWhiteBoard= (id) => {
         placeholder="여기에 입력하세요"
         value={memo}
         onChange={(e)=>setMemo(e.target.value)}>
-          dd
         </Textbox>
       </Div>
       <Btn onClick={SaveMemo}>저장하기</Btn>
@@ -33,13 +32,14 @@ const SCWhiteBoard= (id) => {
    export default SCWhiteBoard;
 
    const Div = styled.div`
-height: 380px;
-min-width: 360px;
-width: 100%;
+    height: 380px;
+    min-width: 360px;
+    width: 100%;
     overflow: scroll;
     overflow-x: hidden;
     border: none;
-    border-radius: 20px;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px #e9ecef;
    `
 
    const Textbox = styled.textarea`
@@ -50,7 +50,7 @@ width: 100%;
       outline: none;
     }
     background-color: #e2f4e6;
-    border-radius: 20px;
+    border-radius: 10px;
    `
 
    const Btn = styled.button`

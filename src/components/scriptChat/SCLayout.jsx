@@ -184,6 +184,7 @@ border: none;
 height: 480px;
 width: 100%;
 margin-top: 30px;
+margin-left: -16px;
 `;
 
 const TabContainer = styled.div`
@@ -201,7 +202,6 @@ const ActiveTabBox = styled.div`
   width: 23%;
   min-width: 55px;
   background: #51cf66;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -233,7 +233,6 @@ const ActiveContentBox = styled.div`
   padding: 4%;
   text-align: center;
   width: 89%;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -248,7 +247,6 @@ const ContentBox = styled.div`
   padding: 4%;
   text-align: center;
   width: 89%;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
