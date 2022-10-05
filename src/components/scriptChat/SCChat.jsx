@@ -9,22 +9,26 @@ import * as SockJS from "sockjs-client";
 import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
+import UserCard from "./UserCard";
 
 const SCChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name");
-  console.log(name);
+  const userId = localStorage.getItem("userId")
+  // console.log(name);
   const roomId = useParams();
   const client = useRef({});
   const [chat, setChat] = useState({ content: "" });
   const [messages, setMessages] = useState([
     { chatMessage: "", user: "", type: "", image: "" },
   ]);
+
+  const [participant, setParticipant] = useState();
+
   const [notice, setNoitce] = useState(false);
   const inputRef = useRef("");
   const noticeRef = useRef("");
   const navigate = useNavigate();
-
   const chattingRef = useRef(null);
   const scrollToElement = () =>
     chattingRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,11 +60,12 @@ const SCChat = () => {
           headers: { Authorization: Authorization },
           //전송할 데이터를 입력
           body: JSON.stringify({
-            type: 0,
-            // message: "OOO님이 입장하셨습니다",
+            type: 0,                         //입장 메세징
+            message: "1",
             roomId: roomId.id,
           }),
         });
+
       },
     });
     client.current.activate();
@@ -75,8 +80,23 @@ const SCChat = () => {
     //이곳에서 모든 구독(subScribe)가 되어야 합니다.
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       const content = JSON.parse(chat.body);
-       console.log(chat)
-      if (content.type !== 4) {
+      //유저목록
+      if (content.type === 9) {
+        console.log(content)
+        const a = content.enterMembers
+        setParticipant(a)
+      } 
+      else if(content.type === 4){
+        console.log(content.vanId)
+        if(content.vanId == userId) {
+          navigate("/")
+        }
+        else {
+          return null
+        }
+        
+      }
+      else {
         setMessages((_messages) => [
           ..._messages,
           {
@@ -87,8 +107,6 @@ const SCChat = () => {
           },
         ]);
         setTimeout(() => scrollToElement(), 50);
-      } else {
-        return alert("type4 "); //type이 4==ban인 유저의 강퇴 처리 진행
       }
     });
   };
@@ -130,17 +148,6 @@ const SCChat = () => {
     });
   };
 
-  const onSubmitBan= () => {
-    client.current.publish({
-      destination: "/pub/chat/message",
-      headers: { Authorization: Authorization },
-      body: JSON.stringify({
-        type: 4,
-        message: "어쩌구",
-        roomId: roomId.id,
-      }),
-    });
-  };
 
   //연결끊기(소켓종료, 구독종료)
   const disconnect = () => {
@@ -150,7 +157,7 @@ const SCChat = () => {
       //전송할 데이터를 입력
       body: JSON.stringify({
         type: 1,
-        message: "",
+        message: "1",
         roomId: roomId.id,
       }),
     });
@@ -183,9 +190,14 @@ const SCChat = () => {
     setNoitce(!notice);
     setChat({ content: "" });
   };
+
+  console.log(participant)
   // console.log(inputRef.current.value)
   return (
     <>
+    <div style={{width:"90%",minHeight:"300px", height:"content-fit", border:"1px solid black"}}>
+      {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client}/>})}
+    </div>
       <CamChatBox id="chatBox">
         <div>
           <ChatBox>
@@ -226,7 +238,13 @@ const SCChat = () => {
 
         {notice === false ? (
           <SendBox>
-            <button onClick={()=>{onSubmitBan()}}>밴요청</button>
+            {/* <button
+              onClick={() => {
+                onSubmitBan();
+              }}
+            >
+              밴요청
+            </button> */}
             {/* <p>채팅모드</p> */}
             <img
               src={promotion}
@@ -287,7 +305,6 @@ const SCChat = () => {
             />
           </SendBox>
         )}
-
       </CamChatBox>
     </>
   );
