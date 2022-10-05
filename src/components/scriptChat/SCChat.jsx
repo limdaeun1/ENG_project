@@ -24,6 +24,7 @@ const SCChat = () => {
   ]);
 
   const [participant, setParticipant] = useState();
+  const [roomManager, setRoomManager] = useState();
 
   const [notice, setNoitce] = useState(false);
   const inputRef = useRef("");
@@ -79,6 +80,7 @@ const SCChat = () => {
   const subscribe = () => {
     //이곳에서 모든 구독(subScribe)가 되어야 합니다.
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
+      console.log(chat)
       const content = JSON.parse(chat.body);
       //유저목록
       if (content.type === 9) {
@@ -95,6 +97,9 @@ const SCChat = () => {
           return null
         }
         
+      }
+      else if (content.type === 5){
+        setRoomManager(content?.managerId)
       }
       else {
         setMessages((_messages) => [
@@ -192,11 +197,12 @@ const SCChat = () => {
   };
 
   console.log(participant)
+  console.log(roomManager)
   // console.log(inputRef.current.value)
   return (
     <>
     <div style={{width:"90%",minHeight:"300px", height:"content-fit", border:"1px solid black"}}>
-      {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client}/>})}
+      {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
     </div>
       <CamChatBox id="chatBox">
         <div>

@@ -1,7 +1,9 @@
 import React from "react";
 
-const UserCard = ({ user, Authorization, roomId, client, userId }) => {
-
+const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
+console.log(roomManager)
+console.log(userId)
+console.log(user.memberId)
 
   const onSubmitBan = () => {
     client.current.publish({
@@ -21,33 +23,26 @@ const UserCard = ({ user, Authorization, roomId, client, userId }) => {
 
   return (
     <>
-{ user?.memberId === userId
+{ 
+roomManager == userId 
+ ? (
+  user?.memberId == userId
 ?    
 <div style={{height:"content-fit",width:"90%",display:"flex", alignItems:"center", padding:"10px"}}>
       <img
       style={{objectFit:"cover", width:"50px", height:"50px"}}
         src={user?.memberImg}
       />
-      {user?.memberName}
-
-      {/* <button style={{marginLeft:"auto"}}
-        onClick={() => {
-          if (window.confirm("강퇴 오키?") === true) {
-            return onSubmitBan()
-          } else {
-            return alert("강퇴 취소")
-          }
-        }}
-      >강퇴
-      </button> */}
-    </div> :    <div style={{height:"content-fit",width:"90%",display:"flex", alignItems:"center", padding:"10px"}}>
+      👑{user?.memberName}
+    </div> 
+    :
+    <div style={{height:"content-fit",width:"90%",display:"flex", alignItems:"center", padding:"10px"}}>
       <img
       style={{objectFit:"cover", width:"50px", height:"50px"}}
         src={user?.memberImg}
       />
       {user?.memberName}
-
-      <button style={{marginLeft:"auto"}}
+       <button style={{marginLeft:"auto"}}
         onClick={() => {
           if (window.confirm("강퇴 오키?") === true) {
             return onSubmitBan()
@@ -57,7 +52,28 @@ const UserCard = ({ user, Authorization, roomId, client, userId }) => {
         }}
       >강퇴
       </button>
-    </div>}
+    </div>
+ )
+ : 
+ (roomManager == user?.memberId ? 
+  <div style={{height:"content-fit",width:"90%",display:"flex", alignItems:"center", padding:"10px"}}>
+  <img
+  style={{objectFit:"cover", width:"50px", height:"50px"}}
+    src={user?.memberImg}
+  />
+  👑{user?.memberName}
+ </div>
+ :
+ <div style={{height:"content-fit",width:"90%",display:"flex", alignItems:"center", padding:"10px"}}>
+ <img
+ style={{objectFit:"cover", width:"50px", height:"50px"}}
+   src={user?.memberImg}
+ />
+ {user?.memberName}
+</div>
+)
+
+    }
     </>
 
   );
