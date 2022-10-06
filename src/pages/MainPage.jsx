@@ -6,6 +6,8 @@ import MainText from '../components/main/MainText'
 import Footers from '../components/Footers'
 
 const MainPage = () => {
+
+  
   return (
     <>
     <Headers/>
@@ -18,3 +20,4 @@ const MainPage = () => {
 }
 
 export default MainPage
+
