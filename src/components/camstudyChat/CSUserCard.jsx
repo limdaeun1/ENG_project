@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
-console.log(roomManager)
-console.log(userId)
+const CSUserCard = ({user, Authorization,roomId,client,userId,roomManager,}) => {
+  console.log(roomManager);
+  console.log(userId);
+  console.log(user.memberId);
 
   const onSubmitBan = () => {
     client.current.publish({
@@ -18,12 +19,9 @@ console.log(userId)
     });
   };
 
-
-  
-
   return (
     <>
-     {roomManager == userId ? (
+      {roomManager == userId ? (
         user?.memberId == userId ? (
           <UserBox>
             <UserImgBox
@@ -38,7 +36,7 @@ console.log(userId)
             />
             <UserNameBox>{user?.memberName}</UserNameBox>
             <BtnBox>
-            <ManagerBtn>방장</ManagerBtn>
+              <ManagerBtn>방장</ManagerBtn>
               <ExitBtn
               onClick={() => {
                 if (window.confirm("강퇴 오키?") === true) {
@@ -51,7 +49,7 @@ console.log(userId)
               OUT
             </ExitBtn>
             </BtnBox>
-
+            
           </UserBox>
         )
       ) : roomManager == user?.memberId ? (
@@ -70,30 +68,29 @@ console.log(userId)
         </UserBox>
       )}
     </>
-
   );
 };
 
-export default UserCard;
-
+export default CSUserCard;
 const UserBox = styled.div`
-  height:content-fit;
-  width:93%;
-  display:flex;
-   align-items:center;
-  margin:0px 15px 0px 10px;
+  /* border: 1px solid black; */
+  height: content-fit;
+  width: 93%;
+  display: flex;
+  align-items: center;
+  margin: 0px 15px 0px 10px;
   padding-top: 5px;
-`
+`;
 const UserImgBox = styled.img`
- border-radius: 10px;
-  object-fit:cover;
+  border-radius: 10px;
+  object-fit: cover;
   width: 50px;
   height: 50px;
   padding: 5px;
-`
+`;
 const UserNameBox = styled.div`
   width: 30%;
-`
+`;
 const BtnBox = styled.div`
   display: flex;
   margin-left:auto;
