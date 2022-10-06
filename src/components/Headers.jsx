@@ -62,15 +62,14 @@ border: none;
 `
 
 const Btn = styled.button`
-  width: 50%;
-  min-width: 60px;
-  height: 45%;
-  min-height: 45%;
-  font-size: 1rem;
+  width: 33%;
+  min-width: 40px;
+  height: 35%;
+  font-size: 0.8rem;
   /* 14px; */
-  background-color: #39964c;
+  background-color: #4fc166;
   border: none;
-  border-radius: 7px;
+  border-radius: 10px;
   color: white;
   cursor: pointer;
   transition: all 0.5s;
@@ -79,6 +78,8 @@ const Btn = styled.button`
   &:hover {
     background-color: #89f6ab;
   }
+  font-weight: 540;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
 `;
 
 const Btnbox = styled.div`
