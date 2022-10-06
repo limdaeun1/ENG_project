@@ -201,9 +201,10 @@ const SCChat = () => {
   // console.log(inputRef.current.value)
   return (
     <>
-    <div style={{width:"90%",minHeight:"300px", height:"content-fit", border:"1px solid black"}}>
+    <UserContainer>
+    {/* <UserCard /> */}
       {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
-    </div>
+    </UserContainer>
       <CamChatBox id="chatBox">
         <div>
           <ChatBox>
@@ -239,19 +240,8 @@ const SCChat = () => {
             })}
           </ChatBox>
         </div>
-
-        {/* 채팅 입력 */}
-
         {notice === false ? (
           <SendBox>
-            {/* <button
-              onClick={() => {
-                onSubmitBan();
-              }}
-            >
-              밴요청
-            </button> */}
-            {/* <p>채팅모드</p> */}
             <img
               src={promotion}
               width={30}
@@ -276,13 +266,6 @@ const SCChat = () => {
               width={30}
               height={30}
             />
-            {/* <SendBut
-              onClick={() => {
-                changeNotice();
-              }}
-            >
-              공지 등록
-            </SendBut> */}
           </SendBox>
         ) : (
           <SendBox>
@@ -327,7 +310,25 @@ const CamChatBox = styled.div`
   box-shadow: 10px 10px 10px #e9ecef;
   padding-bottom: 5px;
 `;
-
+const UserContainer = styled.div`
+width:90%;
+min-height:300px; 
+height:300px;
+  background: linear-gradient(to right,#e7f5ff,#e3fafc );
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #e9ecef;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0ebff;
+    border-radius: 6px;
+  }
+`;
 const ChatBox = styled.div`
   height: 330px;
   /* min-width: 100px; */

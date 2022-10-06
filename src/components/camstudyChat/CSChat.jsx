@@ -9,10 +9,11 @@ import * as SockJS from "sockjs-client";
 import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
+import CSUserCard from "./CSUserCard";
 const CSChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name");
-  // console.log(name)
+  const userId = localStorage.getItem("userId")
   const roomId = useParams();
   const client = useRef({});
   const [chat, setChat] = useState({ content: "" });
@@ -24,6 +25,11 @@ const CSChat = () => {
       image: "",
     },
   ]);
+
+
+  const [participant, setParticipant] = useState();
+  const [roomManager, setRoomManager] = useState();
+
   const [notice, setNoitce] = useState(false);
   const inputRef = useRef("");
   const noticeRef = useRef("");
@@ -31,8 +37,8 @@ const CSChat = () => {
 
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index) => {
-      setToggleState(index);
-    };
+    setToggleState(index);
+  };
 
   const chattingRef = useRef(null);
   const scrollToElement = () =>
@@ -43,16 +49,6 @@ const CSChat = () => {
 
     return () => disconnect();
   }, []);
-
-  // useEffect(() => {
-  //   window.addEventListener("beforeunload", (event) => {
-  //     event.preventDefault();
-  //     event.returnValue = "";
-  //   });
-
-  //   return () =>
-  //  disconnect();
-  // }, []);
 
   const connect = () => {
     client.current = new StompJs.Client({
@@ -98,16 +94,36 @@ const CSChat = () => {
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       var content = JSON.parse(chat.body);
       // console.log(content);
-      setMessages((_messages) => [
-        ..._messages,
-        {
-          chatMessage: content.msg,
-          user: content.sender,
-          type: content.type,
-          image: content.image,
-        },
-      ]);
-      setTimeout(() => scrollToElement(), 30);
+      if (content.type === 9) {
+        console.log(content)
+        const a = content.enterMembers
+        setParticipant(a)
+      } 
+      else if(content.type === 4){
+        console.log(content.vanId)
+        if(content.vanId == userId) {
+          navigate("/")
+        }
+        else {
+          return null
+        }
+        
+      }
+      else if (content.type === 5){
+        setRoomManager(content?.managerId)
+      }
+      else {
+        setMessages((_messages) => [
+          ..._messages,
+          {
+            chatMessage: content.msg,
+            user: content.sender,
+            type: content.type,
+            image: content.image,
+          },
+        ]);
+        setTimeout(() => scrollToElement(), 50);
+      }
     });
   };
   // console.log(inputRef.current.value)
@@ -116,9 +132,6 @@ const CSChat = () => {
     if (inputRef.current.value == "") {
       alert("메세지를 입력하세요");
     }
-    //  else if(inputRef.current.value === "\n"){
-    //   return setChat({ content: "" });
-    // }
     else {
       client.current.publish({
         destination: "/pub/chat/message",
@@ -205,8 +218,10 @@ const CSChat = () => {
     return x.type == 3;
   });
 
-  const newNotice = JSON.stringify(filterdNotice[filterdNotice.length - 1]?.chatMessage)
-  console.log(newNotice)
+  const newNotice = JSON.stringify(
+    filterdNotice[filterdNotice.length - 1]?.chatMessage
+  );
+  // console.log(newNotice);
 
   return (
     <Container>
@@ -276,13 +291,6 @@ const CSChat = () => {
               width={30}
               height={30}
             />
-            {/* <SendBut
-              onClick={() => {
-                changeNotice();
-              }}
-            >
-              공지 등록
-            </SendBut> */}
           </SendBox>
         ) : (
           <SendBox>
@@ -294,7 +302,11 @@ const CSChat = () => {
                 changeNotice();
               }}
             />
-            <NoticeInputBox ref={noticeRef} onKeyUp={handleKeyPress} placeholder="공지사항을 입력하세요"/>
+            <NoticeInputBox
+              ref={noticeRef}
+              onKeyUp={handleKeyPress}
+              placeholder="공지사항을 입력하세요"
+            />
 
             <img
               onClick={() => {
@@ -308,31 +320,34 @@ const CSChat = () => {
           </SendBox>
         )}
       </LeftContainer>
+
+      <UserContainer>
+      {participant?.map((user, i)=>{return <CSUserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
+      </UserContainer>
+
       <ScriptContainer>
-      <TabContainer>
-            {toggleState === 1
-            ? <ActiveTabBox onClick={() => toggleTab(1)}>Memo</ActiveTabBox>
-            :<TabBox onClick={() => toggleTab(1)} >Memo</TabBox>}
+        <TabContainer>
+          {toggleState === 1 ? (
+            <ActiveTabBox onClick={() => toggleTab(1)}>Memo</ActiveTabBox>
+          ) : (
+            <TabBox onClick={() => toggleTab(1)}>Memo</TabBox>
+          )}
 
-            {toggleState === 2
-            ? <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
-            :<TabBox onClick={() => toggleTab(2)} >UserList</TabBox>}          
-            </TabContainer>
+          {toggleState === 2 ? (
+            <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
+          ) : (
+            <TabBox onClick={() => toggleTab(2)}>UserList</TabBox>
+          )}
+        </TabContainer>
 
-            <div style={{flexGrow : "1"}}>
+        <div style={{ flexGrow: "1" }}>
+          {toggleState === 1 ? <UserListBox>메모</UserListBox> : null}
 
-            {toggleState === 1 
-            ? <UserListBox>메모</UserListBox>
-            :null}
-            
-            {toggleState === 2 
-            ?<UserListBox>참가자 목록 관리</UserListBox>
-            :null}
-          </div>
-
+          {toggleState === 2 ? (
+            <UserListBox>참가자 목록 관리</UserListBox>
+          ) : null}
+        </div>
       </ScriptContainer>
-
-      
     </Container>
   );
 };
@@ -346,7 +361,7 @@ const LeftContainer = styled.div`
   background: linear-gradient(to right, #effaf6, #e4fcf4);
   border-radius: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
-  width: 60%;
+  width: 40%;
   margin-top: 30px;
 `;
 const ChatBox = styled.div`
@@ -489,23 +504,37 @@ const UserListBox = styled.div`
   box-shadow: 10px 10px 10px #e9ecef;
 `;
 
-
-
-const ScriptContainer=styled.div`
-/* border: solid yellow; */
-/* height: 450px; */
-width: 40%;
-/* margin-top: 30px; */
+const UserContainer = styled.div`
+  width: 30%;
+  height: 320px;
+  margin: 30px 0px 0px 15px;
+  background: linear-gradient(to right,#e7f5ff,#e3fafc );
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #e9ecef;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0ebff;
+    border-radius: 6px;
+  }
 `;
 
+const ScriptContainer = styled.div`
+  width: 30%;
+`;
 
 const TabContainer = styled.div`
   display: flex;
   width: 380px;
   height: 30px;
-/* margin-top: 10px; */
-margin-left: 25px;
-/* border: solid green; */
+  /* margin-top: 10px; */
+  margin-left: 25px;
+  /* border: solid green; */
 `;
 
 const ActiveTabBox = styled.div`
