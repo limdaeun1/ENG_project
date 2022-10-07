@@ -173,18 +173,17 @@ min-width: 1200px;
 
 const ScriptChatBox=styled.div`
 border: none;
-height: 90%;
+height: 60%;
 width: 30%;
 min-width: 395px;
-margin: 30px;
+margin-left: 30px;
 `;
 
 const ScriptContainer=styled.div`
 border: none;
-height: 480px;
+height: 430px;
 width: 100%;
 margin-top: 30px;
-margin-left: -16px;
 `;
 
 const TabContainer = styled.div`
@@ -192,7 +191,7 @@ const TabContainer = styled.div`
   width: 84%;
   height: 30px;
 margin-top: 8px;
-margin-left: 8%;
+margin-left: 10px;
 border:none;
 `;
 
@@ -230,7 +229,7 @@ const TabBox = styled.div`
 `;
 
 const ActiveContentBox = styled.div`
-  padding: 4%;
+  /* padding: 4%; */
   text-align: center;
   width: 89%;
   box-sizing: content-box;
