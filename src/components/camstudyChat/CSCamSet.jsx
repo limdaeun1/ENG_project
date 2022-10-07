@@ -297,7 +297,7 @@ const CamSmallBox1=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 240px;
+height: 166px;
 border: none;
 `;
 
@@ -305,7 +305,7 @@ const CamSmallBox2=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 240px;
+height: 188px;
 margin-top: 20px;
 border:none;
 `;

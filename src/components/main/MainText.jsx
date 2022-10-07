@@ -119,7 +119,7 @@ const Boximg = styled.div`
     width: 98%;
     min-width:190px;
     min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2021/05/15/19/40/computer-6256527__480.jpg');
+    background-image: url('https://cdn.pixabay.com/photo/2022/01/17/14/10/video-conference-6944846__480.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -130,7 +130,7 @@ const Boximg2 = styled.div`
     width: 100%;
     min-width:200px;
     min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2022/01/17/14/10/video-conference-6944846__480.jpg');
+    background-image: url('https://cdn.pixabay.com/photo/2020/06/28/15/26/video-conference-5349687__480.png');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -141,7 +141,7 @@ const Boximg3 = styled.div`
     width: 100%;
     min-width:200px;
     min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2020/06/28/15/26/video-conference-5349687__480.png');
+    background-image: url('https://cdn.pixabay.com/photo/2021/05/15/19/40/computer-6256527__480.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 15px;

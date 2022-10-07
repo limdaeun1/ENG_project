@@ -40,7 +40,8 @@ const Cam = styled.div`
 border: solid 1px green;
 background: #D9D9D9;
 border-radius: 20px;
-width: 299px;
+width: 200px;
+height: auto;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 margin: 7px auto 7px auto;
 `;
@@ -48,12 +49,13 @@ margin: 7px auto 7px auto;
 const Nick = styled.div`
 background-color: #dcf2d2;
 border-radius: 20px;
-justify-content: ce;
+justify-content: center;
 p{
   text-align: center;
   font-size: 14px;
   font-weight: 600;
 }
+margin-top: -12px;
 `
 
 const Mute = styled.img`
