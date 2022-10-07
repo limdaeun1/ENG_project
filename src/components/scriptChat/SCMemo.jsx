@@ -32,7 +32,7 @@ const SCWhiteBoard= (id) => {
    export default SCWhiteBoard;
 
    const Div = styled.div`
-    height: 380px;
+    height: 370px;
     min-width: 360px;
     width: 100%;
     overflow: scroll;
@@ -45,6 +45,7 @@ const SCWhiteBoard= (id) => {
    const Textbox = styled.textarea`
     width: 100%;
     height: 380px;
+     resize: none;
     border:none;
     :focus {
       outline: none;
@@ -67,7 +68,7 @@ const SCWhiteBoard= (id) => {
         background-color: #666666;
       }
       float: right;
-      margin-top:10px;
-      margin-right:2%;
+      /* margin-top:10px;
+      margin-right:2%; */
       width: 60px;
    `

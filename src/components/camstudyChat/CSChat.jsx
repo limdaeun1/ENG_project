@@ -10,46 +10,57 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import CSUserCard from "./CSUserCard";
+
 const CSChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name");
   const userId = localStorage.getItem("userId")
   const roomId = useParams();
   const client = useRef({});
+
   const [chat, setChat] = useState({ content: "" });
+  //백과 협의한 메세지 type(0:입장, 1:퇴장, 2:채팅)
   const [messages, setMessages] = useState([
-    {
-      chatMessage: "",
-      user: "",
-      type: "", //백과 협의한 메세지 type(0:입장, 1:퇴장, 2:채팅)
-      image: "",
-    },
+    {chatMessage: "",user: "",type: "",  image: "", },
   ]);
-
-
-  const [participant, setParticipant] = useState();
-  const [roomManager, setRoomManager] = useState();
-
-  const [notice, setNoitce] = useState(false);
   const inputRef = useRef("");
-  const noticeRef = useRef("");
-  const navigate = useNavigate();
 
+
+  //공지 관리
+  const [notice, setNoitce] = useState(false);
+  const noticeRef = useRef("");
+
+
+//채팅 & 참가자목록 탭 관리
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
+
+  //참가자 목록 관리 & 룸매니저 관리
+  const [participant, setParticipant] = useState();
+  const [roomManager, setRoomManager] = useState();
+  const [memberCount, setMemberCount] = useState();
+
+
+  const navigate = useNavigate();
   const chattingRef = useRef(null);
-  const scrollToElement = () =>
-    chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+
 
   useEffect(() => {
     connect();
 
     return () => disconnect();
   }, []);
+  
 
+  const scrollToElement = () =>
+    chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+
+
+
+  //웹소캣 연결 & 구독
   const connect = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
@@ -93,12 +104,13 @@ const CSChat = () => {
   const subscribe = () => {
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       var content = JSON.parse(chat.body);
-      // console.log(content);
+         //참가자목록
       if (content.type === 9) {
         console.log(content)
         const a = content.enterMembers
         setParticipant(a)
       } 
+      //van처리
       else if(content.type === 4){
         console.log(content.vanId)
         if(content.vanId == userId) {
@@ -109,9 +121,13 @@ const CSChat = () => {
         }
         
       }
+      //방장 & 참가자 수 관리
       else if (content.type === 5){
+        setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }
+      
+      //채팅저장
       else {
         setMessages((_messages) => [
           ..._messages,
@@ -169,7 +185,8 @@ const CSChat = () => {
       });
     }
   };
-  //연결 중단
+
+  //연결끊기(소켓종료, 구독종료)
   const disconnect = () => {
     //퇴장메시징(type1)
     client.current.publish({
@@ -201,6 +218,7 @@ const CSChat = () => {
     }
   };
 
+   //채팅창 전송 후 초기화
   const changeHandler = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -221,15 +239,37 @@ const CSChat = () => {
   const newNotice = JSON.stringify(
     filterdNotice[filterdNotice.length - 1]?.chatMessage
   );
+
+  // console.log(participant)
+  // console.log(participant?.length)
+  // console.log(roomManager)
   // console.log(newNotice);
 
   return (
     <Container>
       <LeftContainer>
-        {/* <div style={{height:"30px",borderBottom:"1px solid black", marginBottom:"10px", padding:"10px 0px 0px 10px"}}>
-          최신 공지 : 
-        </div> */}
-        <div>
+        {/* 탭바 */}
+
+        <TabContainer>
+          {toggleState === 1 ? (
+            <ActiveTabBox onClick={() => toggleTab(1)}>채팅</ActiveTabBox>
+          ) : (
+            <TabBox onClick={() => toggleTab(1)}>채팅</TabBox>
+          )}
+
+          {toggleState === 2 ? (
+            <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
+          ) : (
+            <TabBox onClick={() => toggleTab(2)}>UserList</TabBox>
+          )}
+        </TabContainer>
+
+       {/* 탭 컨텐츠 내용 (1:채팅, 2:참가자 목록) */}
+        <ContentsContainer>
+          {toggleState === 1 ? 
+          <>
+            <div >
+          {/* 채팅박스 */}
           <ChatBox id="chatBox">
             {messages.map((c, i) => {
               return c.type === 2 ? (
@@ -264,13 +304,11 @@ const CSChat = () => {
           </ChatBox>
         </div>
 
+        {/* 메세지 전송(notice = false: 메세지 전송 모드, notice=true: 공지 전송 모드 ) */}
         {notice === false ? (
           <SendBox>
-            {/* <p>채팅모드</p> */}
-            <img
+            <SendBtnImg
               src={promotion}
-              width={30}
-              height={30}
               onClick={() => {
                 changeNotice();
               }}
@@ -283,21 +321,17 @@ const CSChat = () => {
               onKeyUp={handleKeyPress} //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
               onChange={changeHandler}
             />
-            <img
+            <SendBtnImg
               onClick={() => {
                 submit();
               }}
               src={send}
-              width={30}
-              height={30}
             />
           </SendBox>
         ) : (
           <SendBox>
-            <img
+            <SendBtnImg
               src={conversation}
-              width={30}
-              height={30}
               onClick={() => {
                 changeNotice();
               }}
@@ -307,45 +341,37 @@ const CSChat = () => {
               onKeyUp={handleKeyPress}
               placeholder="공지사항을 입력하세요"
             />
-
-            <img
+            <SendBtnImg
               onClick={() => {
                 onSubmitNotice();
                 changeNotice();
               }}
               src={send}
-              width={30}
-              height={30}
             />
           </SendBox>
         )}
+          </> : null}
+          {toggleState === 2 ? (
+                  <UserContainer>
+                  <div >
+                    {participant?.length}/{memberCount}명
+                  </div>
+                  {participant?.map((user, i)=>{return <CSUserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
+                  </UserContainer>
+          ) : null}
+        </ContentsContainer>
       </LeftContainer>
 
-      <UserContainer>
-      {participant?.map((user, i)=>{return <CSUserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
-      </UserContainer>
-
+      {/* 메모 */}
       <ScriptContainer>
+
+        {/* 메모탭바 */}
         <TabContainer>
-          {toggleState === 1 ? (
-            <ActiveTabBox onClick={() => toggleTab(1)}>Memo</ActiveTabBox>
-          ) : (
-            <TabBox onClick={() => toggleTab(1)}>Memo</TabBox>
-          )}
-
-          {toggleState === 2 ? (
-            <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
-          ) : (
-            <TabBox onClick={() => toggleTab(2)}>UserList</TabBox>
-          )}
+          <ActiveTabBox>Memo</ActiveTabBox>
         </TabContainer>
-
+        {/* 메모장 */}
         <div style={{ flexGrow: "1" }}>
-          {toggleState === 1 ? <UserListBox>메모</UserListBox> : null}
-
-          {toggleState === 2 ? (
-            <UserListBox>참가자 목록 관리</UserListBox>
-          ) : null}
+         <MemoBox>메모</MemoBox>
         </div>
       </ScriptContainer>
     </Container>
@@ -358,15 +384,21 @@ const Container = styled.div`
   display: flex;
 `;
 const LeftContainer = styled.div`
-  background: linear-gradient(to right, #effaf6, #e4fcf4);
-  border-radius: 5px;
-  box-shadow: 10px 10px 10px #e9ecef;
-  width: 40%;
-  margin-top: 30px;
+  width: 60%;
 `;
+
+const ContentsContainer = styled.div`
+  flex-grow: 1; 
+  height : 300px; 
+  border: none;
+    background: linear-gradient(to right, #effaf6, #e4fcf4);
+    box-shadow: 10px 10px 10px #e9ecef;
+  border-radius: 5px;
+`
+
 const ChatBox = styled.div`
   overflow-x: hidden;
-  height: 260px;
+  height: 230px;
   width: 100%;
   display: block;
 
@@ -467,6 +499,12 @@ const SendBox = styled.div`
   align-items: center;
 `;
 
+const SendBtnImg =styled.img`
+  width: 30px;
+  height:30px;
+  cursor: pointer;
+`
+
 const InputBox = styled.textarea`
   border: none;
   outline: none;
@@ -495,19 +533,18 @@ const NoticeInputBox = styled.textarea`
   }
 `;
 
-const UserListBox = styled.div`
-  width: 480;
-  height: 320px;
+const MemoBox = styled.div`
+  width: 100%;
+  height: 300px;
   border-radius: 5px;
   background-color: #f4fce3;
-  margin-left: 20px;
+  margin-left: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
 `;
 
 const UserContainer = styled.div`
-  width: 30%;
-  height: 320px;
-  margin: 30px 0px 0px 15px;
+  width: 100%;
+  height: 300px;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
@@ -525,16 +562,15 @@ const UserContainer = styled.div`
 `;
 
 const ScriptContainer = styled.div`
-  width: 30%;
+  width: 40%;
+  margin: 0px 10px 0px 20px;
 `;
 
 const TabContainer = styled.div`
   display: flex;
   width: 380px;
   height: 30px;
-  /* margin-top: 10px; */
-  margin-left: 25px;
-  /* border: solid green; */
+  margin-left: 10px;
 `;
 
 const ActiveTabBox = styled.div`
@@ -550,7 +586,6 @@ const ActiveTabBox = styled.div`
   border-top-right-radius: 10px;
   margin-right: 2px;
   font-size: small;
-  /* border: solid yellow; */
 `;
 
 const TabBox = styled.div`
@@ -566,5 +601,4 @@ const TabBox = styled.div`
   border-top-right-radius: 10px;
   margin-right: 2px;
   font-size: small;
-  /* border: solid orange; */
 `;
