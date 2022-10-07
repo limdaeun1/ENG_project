@@ -7,7 +7,6 @@ export const getTag = createAsyncThunk(
     async (people, thunkAPI) => {
       try {
         const data = await instance.get(`/chat/script/${people}`);
-        console.log(data)
         return data.data.data
       } catch (error) {
         return thunkAPI.rejectWithValue(error);
@@ -17,12 +16,12 @@ export const getTag = createAsyncThunk(
 
 //선택한 태그의 스크립트리스트 불러오기
 export const getScriptlist = createAsyncThunk(
-    "script/getTag",
+    "script/getScriptlist",
     async (payload, thunkAPI) => {
       try {
         const data = await instance.get(`/chat/script/${payload.people}/${encodeURIComponent(payload.tag)}`);
-        console.log(data)
-        return data
+        console.log(data.data.data)
+        return data.data.data
       } catch (error) {
         return thunkAPI.rejectWithValue(error);
       }
@@ -46,6 +45,17 @@ export const script = createSlice({
               state.scriptlist = action.payload;    
             },
             [getTag.rejected]: (state, action) => {
+              state.isLoading = false; 
+              state.error = action.payload; 
+            },
+            [getScriptlist.pending]: (state) => {
+              state.isLoading = true; 
+            },
+            [getScriptlist.fulfilled]: (state, action) => {
+              state.isLoading = false; 
+              state.scriptlist2 = action.payload;    
+            },
+            [getScriptlist.rejected]: (state, action) => {
               state.isLoading = false; 
               state.error = action.payload; 
             },

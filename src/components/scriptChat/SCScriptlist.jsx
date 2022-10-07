@@ -1,18 +1,42 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import SCScript2list from './SCScript2list';
 
 const SCScriptlist = () => {
+  const {isLoading, scriptlist2} = useSelector((state) => state.script);
+  const [isNow2,setIsNow2] = useState(true);
+  const [story,setStory] = useState("");
+ 
+  const handleNow = ()=>{
+    setIsNow2(true);
+ }
+ 
+ const handleAuc = (i)=>{
+     setIsNow2(false);
+     setStory(scriptlist2.scriptResponseDto[i].story)
+ }
+
+  if (isLoading) {
+    return <>
+     <Box>
+      로딩중 입니다..
+     </Box>
+    </>}
+
+console.log(isNow2)
   return (
     <Box>
-        <Listbox>
-           <p>#연애,#미드,#영화</p>
-        </Listbox>
-        <Listbox>
-        <p>#연애,#미드,#영화</p>
-        </Listbox>
-        <Listbox>
-        <p>#연애,#미드,#영화</p>
-        </Listbox>
+      {isNow2 ? <> 
+       {scriptlist2.scriptResponseDto.map((tag,i) => (
+        <Listbox onClick = {()=>handleAuc(i)} key={i}>
+           <p>{tag.categories}</p>
+        </Listbox> ))} </>  
+        :
+        <>
+        <P>{story}</P>
+     </>}
     </Box>
   )
 }
@@ -39,4 +63,11 @@ const Listbox = styled.div`
     }
     border-radius: 10px;
     margin-top: 10px;
+    p{
+      font-size: 12px;
+      font-weight: 600;
+    }
+`
+const P = styled.p`
+  font-size:5px;
 `

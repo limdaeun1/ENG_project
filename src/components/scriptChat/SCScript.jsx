@@ -8,24 +8,19 @@ import SCScriptlist from "./SCScriptlist";
 const SCScript= () => {
    const dispatch= useDispatch();
    const [tags, setTags] = useState([])
-   const [tagdata, setTagdata] = useState()
-   const [people , setPeople ] = useState("2")
+   const [people , setPeople ] = useState("")
    const [isNow,setIsNow] = useState(true);  //스크립트 컴포넌트 바꿔서 띄워주는 용도
    const {isLoading, error, scriptlist} = useSelector((state) => state.script);
-
    
- 
-   const Twopeople = () => {
-      dispatch(getTag(2))
-      setPeople("2")
-      setTags(scriptlist?.categories)
-   }
-   const Threepeople = () => {
-
-   } 
-   const Fourpeople = () => {
-
-   } 
+   const Tagmap = async (payload) => {
+      try {
+        const response = await dispatch(getTag(payload)).unwrap();
+        setTags(response.categories)
+        setPeople(payload)
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
    const handleNow = ()=>{
       setIsNow(true);
@@ -50,9 +45,9 @@ const SCScript= () => {
       <ScriptBox>
       <P><p>✔️ 인원별로 선택</p></P>
          <Box>
-            <People onClick = {Twopeople}>2인</People>
-            <People>3인</People>
-            <People>4인</People>
+            <People >2인</People>
+            <People >3인</People>
+            <People >4인</People>
          </Box>
          <Box2>
          <p>✔️ 태그별로 선택</p>
@@ -68,9 +63,9 @@ const SCScript= () => {
          {isNow ? <>
          <P><p>✔️ 인원별로 선택</p></P>
          <Box>
-            <People onClick = {Twopeople}>2인</People>
-            <People>3인</People>
-            <People>4인</People>
+            <People onClick = {()=>Tagmap(2)}>2인</People>
+            <People onClick = {()=>Tagmap(3)}>3인</People>
+            <People onClick = {()=>Tagmap(4)}>4인</People>
          </Box>
          <Box2>
          <p>✔️ 태그별로 선택</p>
