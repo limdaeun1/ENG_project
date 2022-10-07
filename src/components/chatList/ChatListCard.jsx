@@ -77,6 +77,7 @@ const Container = styled.div`
   padding: 30px;
   margin: 3%;
   align-items: center;
+  min-width: 220px;
 `;
 
 const Round = styled.div`

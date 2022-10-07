@@ -462,9 +462,10 @@ const MyMsg = styled.div`
 
 const OtherMsg = styled.div`
   border: none;
-  max-width: 80%;
+  /* max-width: 80%; */
   width: fit-content;
   padding: 0px 10px 0px 10px;
+  margin-right: 10px;
   line-height: 35px;
   background: white;
   font-size: small;
