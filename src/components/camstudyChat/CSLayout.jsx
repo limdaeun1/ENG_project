@@ -121,8 +121,9 @@ const Box=styled.div`
 border: none;
 display:block;
 width: 100%;
+height: 100%;
 min-width: 800px;
-margin-top: -40px;
+/* margin-top: -40px; */
 `;
 
 const CamBox=styled.div`
@@ -131,22 +132,23 @@ background: #ebfbee;
 border-radius: 20px;
 height: auto;
 width: 75%;
-margin: 5% auto 5% auto;
+margin: 10px auto 0px auto;
 min-width: 750px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 
 const ScriptChatBox=styled.div`
 /* border: solid 1px green; */
-margin: 5% auto 0 auto;
-min-height: 400px;
-height: 100%;
+margin: 5px auto 5px auto;
+min-height: 40%;
+/* min-height: 400px; */
+/* height: 50%; */
 min-width: 750px;
 width: 75%;
 display: block;
 align-items: center;
 justify-content: center;
 border-radius: 20px;
-margin-top:-67px;
+/* margin-top:-67px; */
 /* box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%); */
 `;

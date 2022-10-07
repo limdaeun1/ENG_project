@@ -382,6 +382,8 @@ export default CSChat;
 
 const Container = styled.div`
   display: flex;
+  height: 40%;
+  /* margin-top: 80px; */
 `;
 const LeftContainer = styled.div`
   width: 60%;
@@ -389,7 +391,7 @@ const LeftContainer = styled.div`
 
 const ContentsContainer = styled.div`
   flex-grow: 1; 
-  height : 300px; 
+  height : 250px; 
   border: none;
     background: linear-gradient(to right, #effaf6, #e4fcf4);
     box-shadow: 10px 10px 10px #e9ecef;
@@ -398,7 +400,7 @@ const ContentsContainer = styled.div`
 
 const ChatBox = styled.div`
   overflow-x: hidden;
-  height: 230px;
+  height: 200px;
   width: 100%;
   display: block;
 
@@ -473,9 +475,10 @@ const MyMsg = styled.div`
 
 const OtherMsg = styled.div`
   border: none;
-  max-width: 80%;
-  width: fit-content;
+  /* max-width: 40%; */
+  min-width: fit-content;
   padding: 0px 10px 0px 10px;
+  margin-right: 10px;
   line-height: 35px;
   background: white;
   font-size: small;
@@ -492,7 +495,7 @@ const SendBox = styled.div`
   box-shadow: 4px 4px 4px #e9ecef;
   border-radius: 20px;
   padding: 5px 10px 5px 10px;
-  margin: 10px 10px 10px 10px;
+  margin: 5px 10px 0px 10px;
   height: 30px;
   width: 600x;
   display: flex;
@@ -535,7 +538,7 @@ const NoticeInputBox = styled.textarea`
 
 const MemoBox = styled.div`
   width: 100%;
-  height: 300px;
+  height: 250px;
   border-radius: 5px;
   background-color: #f4fce3;
   margin-left: 5px;
@@ -544,7 +547,7 @@ const MemoBox = styled.div`
 
 const UserContainer = styled.div`
   width: 100%;
-  height: 300px;
+  height: 250px;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
