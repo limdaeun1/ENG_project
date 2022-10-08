@@ -200,7 +200,7 @@ const Container = styled.div`
   /* align-items: center; */
   /* justify-content: center; */
   width: 90%;
-  margin: 20px auto 20px auto;
+  margin: 100px auto 20px auto;
   font-size: 14px;
 `;
 
@@ -213,12 +213,17 @@ const BlocTabsContiner = styled.div`
 
 const AddRoomBtn = styled.div`
   border: none;
-  padding: 1.2% 3% 1.2% 3%;
+  padding: 1.2% 2% 1.2% 2%;
   text-align: center;
   font-size: 0.9em;
   width: 10%;
   min-width: 55px;
-  background: #fcc419;
+  color: white;
+  font-weight: 600;
+  letter-spacing:0.8px;
+  background: linear-gradient(to right, #91a7ff, #748ffc);
+  /* background: linear-gradient(to right,  #91a7ff, #748ffc); */
+  box-shadow: 3px 0px 3px #d5d6d6;
   /* position: relative; */
   outline: none;
   margin-top: 0.3%;
@@ -227,6 +232,7 @@ const AddRoomBtn = styled.div`
   margin-left: auto;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const BannerBox = styled.img`
@@ -248,7 +254,9 @@ const TabBox = styled.div`
   width: 10%;
   min-width: 55px;
   /* height: %; */
-  background: #b2f2bb;
+  color:#495057;
+  background: linear-gradient(to right,#d3f9d8,#b2f2bb);
+  letter-spacing:0.8px;
   cursor: pointer;
   box-sizing: content-box;
   position: relative;
@@ -268,8 +276,9 @@ const AciveTabBox = styled.div`
   /* height: %; */
   color: white;
   font-weight: 600;
+  letter-spacing:0.5px;
   background: linear-gradient(to right, #69db7c, #38d9a9);
-  box-shadow: 1px 1px 1px #e9ecef;
+  box-shadow: 3px 0px 3px #d5d6d6;
   cursor: pointer;
   box-sizing: content-box;
   position: relative;

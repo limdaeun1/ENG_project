@@ -72,12 +72,17 @@ export default ChatListCard;
 
 const Container = styled.div`
   display: flex;
-  background-color: #dee2e6;
+  background-color: #d3f9d8;
+  /* background: linear-gradient(to right, #c3fae8,#b2f2bb,#96f2d7); */
+  /* background: linear-gradient(to right, #96f2d7,#b2f2bb,#96f2d7); */
+  /* background: linear-gradient(to right, #b2f2bb,#96f2d7,#b2f2bb); */
+  box-shadow: 3px 0px 3px #d5d6d6;
   border-radius: 10px;
   padding: 30px;
   margin: 3%;
   align-items: center;
   min-width: 220px;
+  cursor: pointer;
 `;
 
 const Round = styled.div`
@@ -108,7 +113,7 @@ const PeopleParticipationBox = styled.div`
 
 const NumPeopleBox = styled.div`
   width: 40px;
-  background-color: #ffd43b;
+ background: linear-gradient(to right, #ffd43b,#fcc419);
   padding: 5px;
   border-radius: 10px;
   text-align: center;
