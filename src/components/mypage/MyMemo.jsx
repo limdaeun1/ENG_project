@@ -49,12 +49,13 @@ const Box = styled.div`
     height: 200px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
     border-radius: 10px;
-    border-bottom: solid 0.5px #8c8787;
+    border-bottom: solid 0.5px #dae6cf;
     padding: 0 3% 0 3%;
     transition: all 0.5s;
     &:hover {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px, rgb(51, 51, 51) 0px 0px 0px 1.7px;
     }
+    background-color: #f2f9ed;
 `
 
 const Div = styled.div`

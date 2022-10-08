@@ -143,7 +143,7 @@ const Box = styled.div`
       }
       font-weight: 500;
       box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
-
+      background-color: white;
      
    `
 

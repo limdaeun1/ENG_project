@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import SCScript2list from './SCScript2list';
+
 
 const SCScriptlist = () => {
   const {isLoading, scriptlist2} = useSelector((state) => state.script);
@@ -18,6 +18,7 @@ const SCScriptlist = () => {
      setStory(scriptlist2.scriptResponseDto[i].story)
  }
 
+ console.log(story)
   if (isLoading) {
     return <>
      <Box>
@@ -35,7 +36,9 @@ console.log(isNow2)
         </Listbox> ))} </>  
         :
         <>
+        <Box2>
         <P>{story}</P>
+        </Box2>
      </>}
     </Box>
   )
@@ -48,14 +51,14 @@ width: 100%;
 min-width: 360px;
 height: 65px;
 padding-left:10px;
-padding-top: 30px;
+padding-top:30px;
 `
 
 const Listbox = styled.div`
     background-color: white;
     width: 80%;
     min-width: 260px;
-    margin-left: 20px;
+    margin-left: 30px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
     transition: all 0.5s;
     &:hover {
@@ -69,5 +72,17 @@ const Listbox = styled.div`
     }
 `
 const P = styled.p`
-  font-size:5px;
+  font-size:14px;
+  white-space:pre-wrap;
+  padding-right: 10px;
+  text-align: left;
+  /* background-color: white; */
+  border-radius: 10px;
+  margin-top: -10px;
+  margin-right: 23px;
+  font-weight: 600;
+`
+
+const Box2 = styled.div`
+  padding-left: 5px;
 `
