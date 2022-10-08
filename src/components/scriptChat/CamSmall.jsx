@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import OpenViduVideoComponent2 from './OvVideo2';
+import mute from "../../img/mute.png";
+import videooff from "../../img/videooff.png";
 
 
 export default class CamBig extends Component {
@@ -16,6 +18,10 @@ render() {
         {this.props.streamManager !== undefined ? (
           <Camsmall>
             <OpenViduVideoComponent2 streamManager={this.props.streamManager}/>
+            <Iconbox>
+              <Mute src={mute}></Mute>
+              <Videooff  src={videooff}></Videooff>
+            </Iconbox>
             <Nick><p>{this.getNicknameTag()}</p></Nick>
           </Camsmall>
         ) : null}
@@ -60,3 +66,4 @@ const Iconbox = styled.div`
   margin-top: -30px;
   margin-left: 120px;
 `
+

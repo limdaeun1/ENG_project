@@ -75,9 +75,9 @@ border: none;
 `
 
 const Btn = styled.button`
-  width: 40%;
+  width: 30%;
   min-width: 70px;
-  height: 40px;
+  height: 27px;
   font-size: 0.8rem;
   /* 14px; */
   background-color: #4fc166;
@@ -96,9 +96,9 @@ const Btn = styled.button`
 `;
 
 const Btn1 = styled.button`
-  width: 40%;
+  width: 30%;
   min-width: 70px;
-  height: 40px;
+  height: 27px;
   font-size: 0.8rem;
   /* 14px; */
   background-color: #4fc166;
@@ -117,7 +117,7 @@ const Btn1 = styled.button`
 
 const Img = styled.div`
 border: none;
-margin-left:80%;
+margin-left:60%;
     width: 35px;
     height: 15px;
     /* background-image: url('https://ifh.cc/g/L9Q8RN.png'); 
