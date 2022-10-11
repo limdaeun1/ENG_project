@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const MypageBox = () => {
   const done = true;
+  const name =localStorage.getItem("name")
 
   return (
     <>
@@ -14,7 +15,7 @@ const MypageBox = () => {
                 src="https://innertrip.co.kr/wp-content/uploads/2022/02/Try-gather-for-free-avatar.png"
                 alt="profile"
               />
-              <h2>다은님</h2>
+              <h2>{name}</h2>
             </Name>
             {/* <Hr /> */}
           </Profil>

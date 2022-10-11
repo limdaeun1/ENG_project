@@ -36,7 +36,7 @@ const Container = styled.div`
   border-radius: 10px;
   border-bottom: solid 0.5px #8c8787;
   padding: 0 3% 0 3%;
-  background-color: white;
+  background-color: #f2f9ed;
 `
 
 const Btn = styled.button`

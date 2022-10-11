@@ -1,24 +1,82 @@
 import styled from "styled-components";
+import { useDispatch } from 'react-redux'
+import { getTag , getScriptlist } from "../../redux/modules/script";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import SCScriptlist from "./SCScriptlist";
 
 const SCScript= () => {
+   const dispatch= useDispatch();
+   const [tags, setTags] = useState([])
+   const [people , setPeople ] = useState("")
+   const [isNow,setIsNow] = useState(true);  //스크립트 컴포넌트 바꿔서 띄워주는 용도
+   const {isLoading, error, scriptlist} = useSelector((state) => state.script);
+   
+   const Tagmap = async (payload) => {
+      try {
+        const response = await dispatch(getTag(payload)).unwrap();
+        setTags(response.categories)
+        setPeople(payload)
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-   const aa = ["일상","놀러가기","연애","맛집","미드","가족","연설","짝사랑","영화","맛집탐방","기념일","회사생활"]   
+   const handleNow = ()=>{
+      setIsNow(true);
+   }
+   
+   const handleAuc = ()=>{
+       setIsNow(false);
+   }
+
+   const clickTag = (tag) => {
+      const payload = {
+         people : people ,
+         tag : tag,
+      }
+      console.log(payload)
+      dispatch(getScriptlist(payload))
+      handleAuc()
+   }
+
+   if (isLoading) {
+      return <>
+      <ScriptBox>
+      <P><p>✔️ 인원별로 선택</p></P>
+         <Box>
+            <People >2인</People>
+            <People >3인</People>
+            <People >4인</People>
+         </Box>
+         <Box2>
+         <p>✔️ 태그별로 선택</p>
+         <p>로딩중...</p>
+         </Box2> 
+      </ScriptBox>
+            </>;
+    }
 
        return (
       <>
       <ScriptBox>
+         {isNow ? <>
          <P><p>✔️ 인원별로 선택</p></P>
-      <Box>
-         <People>2인</People>
-         <People>3인</People>
-         <People>4인</People>
-      </Box>
-      <Box2>
-      <p>✔️ 태그별로 선택</p>
-      {aa.map((time,i) => (
-         <Tag key={i}>#{time}</Tag>
+         <Box>
+            <People onClick = {()=>Tagmap(2)}>2인</People>
+            <People onClick = {()=>Tagmap(3)}>3인</People>
+            <People onClick = {()=>Tagmap(4)}>4인</People>
+         </Box>
+         <Box2>
+         <p>✔️ 태그별로 선택</p>
+         {tags?.map((tag,i) => (
+            <Tag onClick={()=>clickTag(tag.split('#')[1])} key={i}>{tag}</Tag>
          ))}
-      </Box2>
+         </Box2> 
+         </> 
+         :
+         <SCScriptlist/> 
+         }
       </ScriptBox>
       </>
       );
@@ -36,15 +94,15 @@ const SCScript= () => {
    border-radius: 10px;
    line-height: 1.8;
    background-color: #e2f4e6;
-  box-shadow: 10px 10px 10px #e9ecef;
+   box-shadow: 10px 10px 10px #e9ecef;
 `;
 
-   const Box = styled.div`
-      width: 100%;
-      min-width: 360px;
-      height: 65px;
-      padding-left:10px;
-   `
+const Box = styled.div`
+   width: 100%;
+   min-width: 360px;
+   height: 65px;
+   padding-left:10px;
+`
 
    const Box2 = styled.div`
    margin:-30px 6px 0 6px;
@@ -85,7 +143,7 @@ const SCScript= () => {
       }
       font-weight: 500;
       box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
-
+      background-color: white;
      
    `
 

@@ -58,16 +58,17 @@ const CSLayout = () => {
   min-width: 800px;
   display:flex;
   font-size: 10px;
+  margin-top: -10px;
 `;
 
   const ButOut=styled.div`
   border: none;
   background: #40c057;
   border-radius: 20px;
-  width: 9%;
+  width: 6%;
   min-width: 80px;
   max-width: 150px;
-  height: 3.1em;
+  height: 2.6em;
   margin-left: 6%;
   margin-top: 2%;
   text-align : center;
@@ -77,7 +78,7 @@ const CSLayout = () => {
   justify-content:space-between;
   display: inline-block;
   font-size: 1.5em;
-  line-height: 45px;
+  line-height: 40px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
     &:hover {
@@ -86,14 +87,14 @@ const CSLayout = () => {
 `;
 
 const InfoBar=styled.div`
-border: none;
+  border: none;
   background: #D3F9D8;
   border-radius: 20px;
-width: 75%;
-height: 2.9rem;
-min-width: 500px;
-max-width: 1500px;
-  margin-left: 6%;
+  width: 75%;
+  height: 2.3rem;
+  min-width: 500px;
+  max-width: 1500px;
+  margin-left: 3%;
   margin-top: 2%;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
@@ -120,29 +121,34 @@ const Box=styled.div`
 border: none;
 display:block;
 width: 100%;
+height: 100%;
 min-width: 800px;
+/* margin-top: -40px; */
 `;
 
 const CamBox=styled.div`
 border: none;
 background: #ebfbee;
 border-radius: 20px;
-height: 535px;
+height: auto;
 width: 75%;
-margin: 5% auto 5% auto;
+margin: 10px auto 0px auto;
 min-width: 750px;
+box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 
 const ScriptChatBox=styled.div`
 /* border: solid 1px green; */
-margin: 5% auto 5% auto;
-min-height: 400px;
-height: 100%;
+margin: 5px auto 5px auto;
+min-height: 40%;
+/* min-height: 400px; */
+/* height: 50%; */
 min-width: 750px;
 width: 75%;
 display: block;
 align-items: center;
 justify-content: center;
 border-radius: 20px;
+/* margin-top:-67px; */
 /* box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%); */
 `;

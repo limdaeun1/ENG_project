@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 
-const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
-console.log(roomManager)
-console.log(userId)
-
-
+const CSUserCard = ({user, Authorization,roomId,client,userId,roomManager,}) => {
+  console.log(roomManager);
+  console.log(userId);
+  console.log(user.memberId);
 
   const onSubmitBan = () => {
     client.current.publish({
@@ -21,27 +19,9 @@ console.log(userId)
     });
   };
 
-const swalbtn = () =>{
-  Swal.fire({
-    title: "강퇴하시겠습니까?",
-    html: `${user?.memberName}님을 강퇴하시겠습니까?`,
-    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
-    cancelButtonColor: '#d33',
-    showCancelButton: true,
-    confirmButtonText: "강퇴",
-    cancelButtonText: '취소',
-}).then(result => {
-  if(result.isConfirmed){
-    onSubmitBan();
-    Swal.fire('강퇴처리 되었습니다.','','success');
-  }
-})
-}
-  
-
   return (
     <>
-     {roomManager == userId ? (
+      {roomManager == userId ? (
         user?.memberId == userId ? (
           <UserBox>
             <UserImgBox
@@ -56,16 +36,20 @@ const swalbtn = () =>{
             />
             <UserNameBox>{user?.memberName}</UserNameBox>
             <BtnBox>
-            <ManagerBtn>방장</ManagerBtn>
+              <ManagerBtn>방장</ManagerBtn>
               <ExitBtn
               onClick={() => {
-                swalbtn()
+                if (window.confirm("강퇴 오키?") === true) {
+                  return onSubmitBan();
+                } else {
+                  return alert("강퇴 취소");
+                }
               }}
             >
               OUT
             </ExitBtn>
             </BtnBox>
-
+            
           </UserBox>
         )
       ) : roomManager == user?.memberId ? (
@@ -84,30 +68,29 @@ const swalbtn = () =>{
         </UserBox>
       )}
     </>
-
   );
 };
 
-export default UserCard;
-
+export default CSUserCard;
 const UserBox = styled.div`
-  height:content-fit;
-  width:93%;
-  display:flex;
-   align-items:center;
-  margin:0px 15px 0px 10px;
+  /* border: 1px solid black; */
+  height: content-fit;
+  width: 93%;
+  display: flex;
+  align-items: center;
+  margin: 0px 15px 0px 10px;
   padding-top: 5px;
-`
+`;
 const UserImgBox = styled.img`
- border-radius: 10px;
-  object-fit:cover;
+  border-radius: 10px;
+  object-fit: cover;
   width: 50px;
   height: 50px;
   padding: 5px;
-`
+`;
 const UserNameBox = styled.div`
   width: 30%;
-`
+`;
 const BtnBox = styled.div`
   display: flex;
   margin-left:auto;

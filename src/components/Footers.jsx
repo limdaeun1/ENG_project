@@ -22,19 +22,28 @@ const Footertxt = styled.div`
 border: none;
 font-size: 15px;
   background-color: #ecebebe3;
-  height: 100%;
+  height: 200px;
   margin-top:10%;
   width: 100%;
   ul {
     display: flex;
-    padding: 3%;
+    height: 100%;
+    /* width:100%; */
     justify-content: center;
+    /* border: solid 1px; */
+    border: none;
     li {
+      /* border: solid 1px; */
+      border: none;
       list-style: none;
-      padding: 3%;
+      width: 10%;
       color: gray;
-      min-width: 3%;
-      font-size: 1rem;
+      min-width: 60px;
+      padding-top: 6%;
+      font-size: 0.9rem;
+      text-align : center;
+      justify-content : center;
+      align-items : center;
     }
   }
 `;
