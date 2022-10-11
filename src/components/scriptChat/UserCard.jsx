@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
 console.log(roomManager)
 console.log(userId)
+
+
 
   const onSubmitBan = () => {
     client.current.publish({
@@ -18,7 +21,22 @@ console.log(userId)
     });
   };
 
-
+const swalbtn = () =>{
+  Swal.fire({
+    title: "강퇴하시겠습니까?",
+    html: `${user?.memberName}님을 강퇴하시겠습니까?`,
+    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+    cancelButtonColor: '#d33',
+    showCancelButton: true,
+    confirmButtonText: "강퇴",
+    cancelButtonText: '취소',
+}).then(result => {
+  if(result.isConfirmed){
+    onSubmitBan();
+    Swal.fire('강퇴처리 되었습니다.','','success');
+  }
+})
+}
   
 
   return (
@@ -41,11 +59,7 @@ console.log(userId)
             <ManagerBtn>방장</ManagerBtn>
               <ExitBtn
               onClick={() => {
-                if (window.confirm("강퇴 오키?") === true) {
-                  return onSubmitBan();
-                } else {
-                  return alert("강퇴 취소");
-                }
+                swalbtn()
               }}
             >
               OUT

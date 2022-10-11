@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,6 +58,18 @@ const SCChat = () => {
     chattingRef.current?.scrollIntoView({ behavior: "smooth" });
 
 
+//강제퇴장
+    const ban = () =>{
+      navigate("/");
+      Swal.fire({
+        title: "강제퇴장되었습니다.",
+        confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+        showCancelButton: false,
+        confirmButtonText: "확인",
+    })
+    }
+
+
   //웹소캣 연결 & 구독
   const connect = () => {
     client.current = new StompJs.Client({
@@ -112,7 +125,7 @@ const SCChat = () => {
       else if(content.type === 4){
         console.log(content.vanId)
         if(content.vanId == userId) {
-          navigate("/")
+          ban()
         }
         else {
           return null
@@ -225,6 +238,9 @@ const SCChat = () => {
     setChat({ content: "" });
   };
 
+
+    
+
   // console.log(participant)
   // console.log(participant?.length)
   // console.log(roomManager)
@@ -306,6 +322,7 @@ const SCChat = () => {
               onKeyUp={handleKeyPress} //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
               onChange={changeHandler}
             />
+            <button onClick={()=>{ban()}}>확인용</button>
             <SendBtnImg
               onClick={() => {
                 submit();

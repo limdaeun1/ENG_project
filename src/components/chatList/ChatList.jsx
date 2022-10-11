@@ -91,6 +91,8 @@ const ChatList = () => {
             {toggleState === 1 ? (
               one.length !== 0 ? (
                 <ActiveContentBox>
+                    <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+
                   {one.map((room) => {
                     return (
                       <ChatListCard
@@ -107,6 +109,7 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
+                    <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -115,6 +118,7 @@ const ChatList = () => {
             {toggleState === 2 ? (
               two.length !== 0 ? (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   {two.map((room) => {
                     return (
                       <ChatListCard
@@ -131,6 +135,7 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -139,6 +144,7 @@ const ChatList = () => {
             {toggleState === 3 ? (
               three.length !== 0 ? (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   {three.map((room) => {
                     return (
                       <ChatListCard
@@ -155,6 +161,7 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -163,6 +170,7 @@ const ChatList = () => {
             {toggleState === 4 ? (
               four.length !== 0 ? (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   {four.map((room) => {
                     return (
                       <ChatListCard
@@ -179,6 +187,7 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
+                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -290,15 +299,21 @@ const AciveTabBox = styled.div`
   font-size: 0.9em;
 `;
 
-const ContentBox = styled.div`
-  border: none;
-  background: white;
-  padding: 20px;
-  max-width: 1000px;
-  min-width: 705px;
-  min-height: 500px;
-  display: none;
-`;
+// const ContentBox = styled.div`
+//   border: none;
+//   background: white;
+//   padding: 20px;
+//   max-width: 1000px;
+//   min-width: 705px;
+//   min-height: 500px;
+//   display: none;
+// `;
+const ReloadBtnBox = styled.div`
+  width: 1000px;
+  height: 20px;
+  margin-left: auto;
+`
+
 const ActiveContentBox = styled.div`
   border: none;
   display: block;
