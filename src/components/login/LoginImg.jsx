@@ -22,7 +22,8 @@ const LoginImg = () => {
 export default LoginImg
 
 const Container = styled.div`
-border: none;
+/* border: none; */
+border: solid 1px;
     width: 90%;
     margin-bottom: 5%;
     margin-left: 5%;
@@ -31,10 +32,12 @@ border: none;
 `
 
 const Logo = styled.div`
-border: none;
+/* border: none; */
+border: solid 1px;
 text-align: center;
     img{
         width: 2.5em;
+        border: solid 1px;
     }
     /* margin-top: -100px; */
 `
