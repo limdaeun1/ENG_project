@@ -31,6 +31,7 @@ class SCCamSet extends Component {
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
+    
 }
 componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload); //beforeunload => 사용자가 페이지를 이탈하려고 할 때 호출하는 함수
@@ -75,6 +76,48 @@ deleteSubscriber(streamManager) {
         });
     }
 }
+
+publishAudio(e) {
+   if (this.state.publisher.stream.audioActive == true) {
+      this.state.publisher.publishAudio(false);
+        console.log("음소거함") }
+    else {
+        this.state.publisher.publishAudio(true);
+        console.log("켜기")
+     }
+}
+
+
+publishVideo() {
+    if(this.state.publisher.stream.videoActive == true) {
+    this.state.publisher.publishVideo(false);
+         console.log("카메라끄기") }
+    else {
+        this.state.publisher.publishVideo(true);
+        console.log("카메라켜기")
+    }
+}    
+
+subscribeToAudio(sub) {
+    if(sub.stream.audioActive == true) {
+        sub.subscribeToAudio(false);
+          console.log("음소거함") }
+    else {
+        sub.subscribeToAudio(true);
+        console.log("마이크켬")
+    }
+}
+    
+subscribeToVideo(sub) {
+    if(sub.stream.videoActive == true) {
+        sub.subscribeToVideo(false);
+          console.log("카메라끔") }
+    else {
+        sub.subscribeToVideo(true);
+        console.log("카메라켬")
+    }
+}
+  
 
 
 joinSession() {
@@ -213,13 +256,17 @@ render() {
           <CamBox>
           {this.state.publisher !== undefined ? (
             <>
-            <CamBig streamManager={this.state.publisher} />
+            <CamBig streamManager={this.state.publisher}/>
+            <button onClick={()=>this.publishAudio()}>음소거</button>
+            <button onClick={()=>this.publishVideo()}>카메라끄기</button>
             </>
           ) : null}
             <CamSmallBox>
           {this.state.subscribers.map((sub, i) => (
-            <div key={i} onClick={() => this.handleMainVideoStream(sub)}>
+            <div key={i} >
               <CamSmall streamManager={sub}/>
+              <button onClick={()=>this.subscribeToAudio(sub)}>음소거</button>
+            <button onClick={()=>this.subscribeToVideo(sub)}>카메라끄기</button>
             </div> 
           ))}
             </CamSmallBox>

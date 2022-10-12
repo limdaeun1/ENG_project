@@ -18,11 +18,14 @@ render() {
         {this.props.streamManager !== undefined ? (
           <Camsmall>
             <OpenViduVideoComponent2 streamManager={this.props.streamManager}/>
+           
+            <Nick>
             <Iconbox>
-              <Mute src={mute}></Mute>
-              <Videooff  src={videooff}></Videooff>
+              <Mute src={mute} onClick={()=>console.log("클릭")}></Mute>
+              <Videooff  src={videooff} ></Videooff>
+              <button >켜기</button>
             </Iconbox>
-            <Nick><p>{this.getNicknameTag()}</p></Nick>
+              <p>{this.getNicknameTag()}</p></Nick>
           </Camsmall>
         ) : null}
     </>
@@ -63,7 +66,5 @@ width: 18px;
 height: 20px;
 `
 const Iconbox = styled.div`
-  margin-top: -30px;
-  margin-left: 120px;
 `
 

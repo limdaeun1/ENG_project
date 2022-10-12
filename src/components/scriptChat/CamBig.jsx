@@ -12,6 +12,8 @@ export default class CamBig extends Component {
 }
 
 
+
+
 render() {   
   return (
     <>
@@ -19,11 +21,11 @@ render() {
           <>
           <Cam>
             <OpenViduVideoComponent streamManager={this.props.streamManager}/>
-            <Iconbox>
-              <Mute src={mute}></Mute>
-              <Videooff  src={videooff}></Videooff>
-            </Iconbox>
             <Nick>
+            <Iconbox>
+              <Mute src={mute} onClick={()=>console.log("클릭")}></Mute>
+              <Videooff  src={videooff} onClick={()=>console.log("클릭")}></Videooff>
+            </Iconbox>
               <p>{this.getNicknameTag()}</p>
             </Nick>
           </Cam>
@@ -54,19 +56,23 @@ p{
   font-size: 14px;
   font-weight: 600;
 }
+display: flex;
+align-items: center;
+justify-content: center;
+height: 20px;
 `
 
 const Mute = styled.img`
-width: 30px;
-height: 20px;
+width: 20px;
+height: 15px;
 margin-right: 10px;
 `
 
 const Videooff = styled.img`
-width: 20px;
-height: 20px;
+width: 15px;
+height: 15px;
 `
 const Iconbox = styled.div`
-  margin-top: -30px;
-  margin-left: 180px;
+height: 20px;
+margin-right: 10px;
 `
