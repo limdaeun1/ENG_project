@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,7 +12,6 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import UserCard from "./UserCard";
-
 const SCChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name");
@@ -75,7 +75,7 @@ const SCChat = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
       // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-      brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+      brokerURL: "ws://3.38.253.255:8080/ws-stomp/websocket",
       connectHeaders: {
         Authorization: Authorization,
       },
@@ -107,7 +107,7 @@ const SCChat = () => {
  //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
-    return new SockJS("http://35.174.109.220:8080/ws-stomp");
+    return new SockJS("http://3.38.253.255:8080/ws-stomp");
   };
 
   //구독
@@ -273,15 +273,16 @@ const SCChat = () => {
         <div>
           <ChatBox>
             {messages.map((c, i) => {
+              console.log(c)
               return c.type === 2 ? (
                 c.user == name ? (
-                  <MyChat key={i}>
+                  <MyChat key={uuidv4()}>
                     {/* <MyName>{c.user}</MyName> */}
                     <MyMsg>{c.chatMessage}</MyMsg>
                     <div ref={chattingRef} />
                   </MyChat>
                 ) : (
-                  <OtherChat key={i}>
+                  <OtherChat key={uuidv4()}>
                     <ImgBox src={c.image} />
                     <div>
                       <OtherName>{c.user}</OtherName>
@@ -291,12 +292,17 @@ const SCChat = () => {
                   </OtherChat>
                 )
               ) : c.type === 3 ? (
-                <InfoBox>
+                <InfoBox
+                key={uuidv4()}
+                >
                   {c.chatMessage}
                   <div ref={chattingRef} />
                 </InfoBox>
               ) : (
-                <EnterExitBox key={i}>
+                <EnterExitBox 
+                // key={i}
+                key={uuidv4()}
+                >
                   {c.chatMessage}
                   <div ref={chattingRef} />
                 </EnterExitBox>
@@ -322,7 +328,6 @@ const SCChat = () => {
               onKeyUp={handleKeyPress} //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
               onChange={changeHandler}
             />
-            <button onClick={()=>{ban()}}>확인용</button>
             <SendBtnImg
               onClick={() => {
                 submit();
