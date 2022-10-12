@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { getChatrooms } from "../../redux/modules/chatroom";
 import { useDispatch, useSelector } from "react-redux";
 import NonCard from "./NonCard";
+import reolad from "../../img/reload.png"
+
 
 const ChatList = () => {
   const navigate = useNavigate();
@@ -42,7 +44,106 @@ const ChatList = () => {
   });
 
   if (isLoading) {
-    return <div>로딩중...</div>;
+    // return <div>로딩중...</div>;
+    return <div>
+            <Container>
+        <BigBox>
+          <BlocTabsContiner>
+            {toggleState === 1 ? (
+              <AciveTabBox onClick={() => toggleTab(1)}>생활영어</AciveTabBox>
+            ) : (
+              <TabBox onClick={() => toggleTab(1)}>생활영어</TabBox>
+            )}
+
+            {toggleState === 2 ? (
+              <AciveTabBox onClick={() => toggleTab(2)}>스크립트</AciveTabBox>
+            ) : (
+              <TabBox onClick={() => toggleTab(2)}>스크립트</TabBox>
+            )}
+
+            {toggleState === 3 ? (
+              <AciveTabBox onClick={() => toggleTab(3)}>시험대비</AciveTabBox>
+            ) : (
+              <TabBox onClick={() => toggleTab(3)}>시험대비</TabBox>
+            )}
+
+            {toggleState === 4 ? (
+              <AciveTabBox onClick={() => toggleTab(4)}>캠스터디</AciveTabBox>
+            ) : (
+              <TabBox onClick={() => toggleTab(4)}>캠스터디</TabBox>
+            )}
+
+            <AddRoomBtn
+              onClick={() => {
+                addRoom();
+              }}
+            >
+              방만들기
+            </AddRoomBtn>
+          </BlocTabsContiner>
+
+          <div style={{ flexGrow: "1" }}>
+            {toggleState === 1 ? (
+              one.length !== 0 ? (
+                <div>
+                    <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
+                <ActiveContentBox>
+                  <p>...로딩중</p>
+                </ActiveContentBox>
+                </div>
+              ) : (
+                <div>
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+                </div>
+              )
+            ) : null}
+
+            {toggleState === 2 ? (
+              two.length !== 0 ? (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              ) : (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              )
+            ) : null}
+
+            {toggleState === 3 ? (
+              three.length !== 0 ? (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              ) : (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              )
+            ) : null}
+
+            {toggleState === 4 ? (
+              four.length !== 0 ? (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              ) : (
+                <ActiveContentBox>
+                <p>...로딩중</p>
+                </ActiveContentBox>
+              )
+            ) : null}
+          </div>
+        </BigBox>
+        <BannerBox />
+      </Container>
+    </div>
   }
 
   if (error) {
@@ -90,8 +191,14 @@ const ChatList = () => {
           <div style={{ flexGrow: "1" }}>
             {toggleState === 1 ? (
               one.length !== 0 ? (
+                <div>
+                    <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                 <ActiveContentBox>
-                    <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+
 
                   {one.map((room) => {
                     return (
@@ -107,18 +214,30 @@ const ChatList = () => {
                     );
                   })}
                 </ActiveContentBox>
+                </div>
               ) : (
+                <div>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                 <ActiveContentBox>
-                    <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+
                   <NonCard></NonCard>
                 </ActiveContentBox>
+                </div>
               )
             ) : null}
 
             {toggleState === 2 ? (
               two.length !== 0 ? (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   {two.map((room) => {
                     return (
                       <ChatListCard
@@ -135,7 +254,11 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -144,7 +267,11 @@ const ChatList = () => {
             {toggleState === 3 ? (
               three.length !== 0 ? (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   {three.map((room) => {
                     return (
                       <ChatListCard
@@ -161,7 +288,11 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -170,7 +301,11 @@ const ChatList = () => {
             {toggleState === 4 ? (
               four.length !== 0 ? (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   {four.map((room) => {
                     return (
                       <ChatListCard
@@ -187,7 +322,11 @@ const ChatList = () => {
                 </ActiveContentBox>
               ) : (
                 <ActiveContentBox>
-                  <button onClick={()=>{dispatch(getChatrooms())}}>새고</button>
+                  <ReloadContainer>
+                    <ReloadBtnBox
+                    src={reolad}
+                    onClick={()=>{dispatch(getChatrooms())}} />
+                  </ReloadContainer>
                   <NonCard></NonCard>
                 </ActiveContentBox>
               )
@@ -308,10 +447,17 @@ const AciveTabBox = styled.div`
 //   min-height: 500px;
 //   display: none;
 // `;
-const ReloadBtnBox = styled.div`
-  width: 1000px;
-  height: 20px;
-  margin-left: auto;
+const ReloadContainer = styled.div`
+height: 30px;
+  width:100%;
+  min-width:400px;
+  /* background-color:green; */
+`
+const ReloadBtnBox = styled.img`
+width:30px;
+height:30px;
+cursor:pointer;
+float:right
 `
 
 const ActiveContentBox = styled.div`
