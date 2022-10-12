@@ -36,6 +36,8 @@ export const getKakao = createAsyncThunk(
       localStorage.setItem("name", user )
       const userId = data.data.data.memberId
       localStorage.setItem("userId",userId)
+      const userImg = data.data.data.memberImg
+      localStorage.setItem("userImg",userImg)
       window.location.assign("/"); //토큰 저장하면 자동으로 메인화면으로 이동
       window.alert (`Welcome, ${user} !`);
       return data;
