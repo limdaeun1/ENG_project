@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const MypageBox = () => {
   const done = true;
   const name =localStorage.getItem("name")
+  const img =localStorage.getItem("userImg")
 
   return (
     <>
@@ -12,7 +13,7 @@ const MypageBox = () => {
           <Profil>
             <Name>
               <Avatar
-                src="https://innertrip.co.kr/wp-content/uploads/2022/02/Try-gather-for-free-avatar.png"
+                src={img}
                 alt="profile"
               />
               <h2>{name}</h2>
@@ -82,7 +83,7 @@ border: none;
 const Name = styled.div`
 border: none;
 margin-top: 6%;
-margin-left: 4%;
+margin-left: 2%;
 width: 100%;
 height: 80%;
   display: flex;

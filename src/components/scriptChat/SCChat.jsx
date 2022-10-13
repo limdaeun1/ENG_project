@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,7 +12,6 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import UserCard from "./UserCard";
-
 const SCChat = () => {
   const Authorization = localStorage.getItem("token");
   const name = localStorage.getItem("name");
@@ -46,7 +46,8 @@ const SCChat = () => {
 
 
   const navigate = useNavigate();
-  const chattingRef = useRef(null);
+  // const chattingRef = useRef(null);
+  const chattingRef = useRef([]);
 
   useEffect(() => {
     connect();
@@ -54,8 +55,40 @@ const SCChat = () => {
     return () => disconnect();
   }, []);
 
-  const scrollToElement = () =>
-    chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+  //기존 스크룰
+  // const scrollToElement = () =>
+  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+
+
+
+
+    // useEffect(() => {
+    // 	// 현재 스크롤 위치 === scrollRef.current.scrollTop
+    //   // 스크롤 길이 === scrollRef.current.scrollHeight
+    //   if (chattingRef.current?.scrollHeight == null) {
+    //     chattingRef.current.scrollTop = 250
+    //   }
+    //   else{
+    //     chattingRef.current.scrollTop = chattingRef.current?.scrollHeight;
+    //   }
+ 
+        
+    //     console.log(chattingRef.current?.scrollHeight)
+      
+    // },[messages,roomManager,memberCount,notice]);
+
+
+
+    const scrollToBottom = () => {
+      if (chattingRef.current) {
+        chattingRef.current.scrollTop = chattingRef.current.scrollHeight;
+      }
+    };
+
+    useEffect(() => {
+      scrollToBottom();
+    }, [messages]);
+    
 
 
 //강제퇴장
@@ -115,28 +148,31 @@ const SCChat = () => {
     //이곳에서 모든 구독(subScribe)가 되어야 합니다.
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
       const content = JSON.parse(chat.body);
-      //참가자목록
-      if (content.type === 9) {
-        console.log(content)
-        const a = content.enterMembers
-        setParticipant(a)
-      } 
+     
+
       //van처리
-      else if(content.type === 4){
-        console.log(content.vanId)
+      if(content.type === 4){
+        // console.log(content.vanId)
         if(content.vanId == userId) {
           ban()
         }
         else {
           return null
         }
-        
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
+        console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
-      }
+      }      
+
+       //참가자목록
+      else if (content.type === 9) {
+        // console.log(content)
+        const a = content.enterMembers
+        setParticipant(a)
+      } 
 
       //채팅저장
       else {
@@ -149,7 +185,7 @@ const SCChat = () => {
             image: content.image,
           },
         ]);
-        setTimeout(() => scrollToElement(), 50);
+        // setTimeout(() => scrollToElement(), 50);
       }
     });
   };
@@ -180,16 +216,20 @@ const SCChat = () => {
 
   //공지 등록
   const onSubmitNotice = () => {
-    client.current.publish({
-      destination: "/pub/chat/message",
-      headers: { Authorization: Authorization },
-      //전송할 데이터를 입력
-      body: JSON.stringify({
-        type: 2,
-        message: "!공지등록 " + noticeRef.current.value,
-        roomId: roomId.id,
-      }),
-    });
+    if (noticeRef.current.value == "") {
+      alert("공지사항을 입력하세요");
+    } else {
+      client.current.publish({
+        destination: "/pub/chat/message",
+        headers: { Authorization: Authorization },
+        //전송할 데이터를 입력
+        body: JSON.stringify({
+          type: 2,
+          message: "!공지등록 " + noticeRef.current.value,
+          roomId: roomId.id,
+        }),
+      });
+    }
   };
 
 
@@ -271,35 +311,43 @@ const SCChat = () => {
     {/* 채팅박스 */}
     <CamChatBox id="chatBox">
         <div>
-          <ChatBox>
+          <ChatBox ref={chattingRef}>
             {messages.map((c, i) => {
+              console.log(c)
               return c.type === 2 ? (
                 c.user == name ? (
-                  <MyChat key={i}>
+                  <MyChat key={uuidv4()}>
                     {/* <MyName>{c.user}</MyName> */}
                     <MyMsg>{c.chatMessage}</MyMsg>
-                    <div ref={chattingRef} />
+                    {/* <div ref={chattingRef} /> */}
                   </MyChat>
                 ) : (
-                  <OtherChat key={i}>
+                  <OtherChat key={uuidv4()}>
                     <ImgBox src={c.image} />
                     <div>
                       <OtherName>{c.user}</OtherName>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
                     </div>
-                    <div ref={chattingRef} />
+                    {/* <div ref={chattingRef} /> */}
                   </OtherChat>
                 )
               ) : c.type === 3 ? (
-                <InfoBox>
+                <InfoBox
+                key={uuidv4()}
+                >
                   {c.chatMessage}
-                  <div ref={chattingRef} />
+                  {/* <div ref={chattingRef} /> */}
                 </InfoBox>
               ) : (
-                <EnterExitBox key={i}>
+                <div style={{width:"100%"}}>
+                <EnterExitBox 
+                // key={i}
+                key={uuidv4()}
+                >
                   {c.chatMessage}
-                  <div ref={chattingRef} />
+                  {/* <div ref={chattingRef} /> */}
                 </EnterExitBox>
+                </div>
               );
             })}
           </ChatBox>
@@ -319,10 +367,10 @@ const SCChat = () => {
               name="content"
               value={chat.content}
               ref={inputRef}
-              onKeyUp={handleKeyPress} //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
+              onKeyUp={handleKeyPress}
+              //keydown or keypress일때하면 안됨. 올라갈때 실행되야지 엔터가 자동으로 안먹힘. 그래서 keyup사용
               onChange={changeHandler}
             />
-            <button onClick={()=>{ban()}}>확인용</button>
             <SendBtnImg
               onClick={() => {
                 submit();
@@ -340,7 +388,7 @@ const SCChat = () => {
             />
             <NoticeInputBox
               ref={noticeRef}
-              onKeyUp={handleKeyPress}
+              // onKeyUp={handleKeyPress}
               placeholder="공지사항을 입력하세요"
             />
 
@@ -428,7 +476,13 @@ const InfoBox = styled.div`
 
 const EnterExitBox = styled.div`
   text-align: center;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
+  border-radius: 1%;
+  background: #dee2e6;
+  font-size: 14px;
 `;
 
 const OtherChat = styled.div`
@@ -472,6 +526,7 @@ const MyMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
   border-radius: 10px 10px 0px 10px;
   color: white;
   background: linear-gradient(to right, #69db7c, #38d9a9);
@@ -487,6 +542,7 @@ const OtherMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
   border-radius: 10px 10px 10px 0px;
   padding: 0px 10px 0px 10px;
   color: black;

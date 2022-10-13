@@ -12,17 +12,39 @@ export default class CamBig extends Component {
     return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
 }
 
+subscribeToAudio() {
+  if(this.props.streamManager.stream.audioActive == true) {
+    this.props.streamManager.subscribeToAudio(false);
+        console.log("음소거함") }
+  else {
+    this.props.streamManager.subscribeToAudio(true);
+      console.log("마이크켬")
+  }
+}
+
+subscribeToVideo() {
+  if(this.props.streamManager.stream.videoActive == true) {
+    this.props.streamManager.subscribeToVideo(false);
+        console.log("카메라끔") }
+  else {
+    this.props.streamManager.subscribeToVideo(true);
+      console.log("카메라켬")
+  }
+}
+
 render() {   
   return (
     <>
         {this.props.streamManager !== undefined ? (
           <Camsmall>
             <OpenViduVideoComponent2 streamManager={this.props.streamManager}/>
+           
+            <Nick>
             <Iconbox>
-              <Mute src={mute}></Mute>
-              <Videooff  src={videooff}></Videooff>
+              <Mute src={mute} onClick={()=>this.subscribeToAudio()}></Mute>
+              <Videooff  src={videooff} onClick={()=>this.subscribeToVideo()}></Videooff>
             </Iconbox>
-            <Nick><p>{this.getNicknameTag()}</p></Nick>
+              <p>{this.getNicknameTag()}</p></Nick>
           </Camsmall>
         ) : null}
     </>
@@ -50,20 +72,24 @@ p{
   font-size: 14px;
   font-weight: 600;
 }
+display: flex;
+align-items: center;
+justify-content: center;
+height: 20px;
 `
 
 const Mute = styled.img`
-width: 23px;
-height: 20px;
-margin-right: 10px;
+width: 15px;
+height: 15px;
+margin-right: 8px;
 `
 
 const Videooff = styled.img`
-width: 18px;
-height: 20px;
+width: 12px;
+height: 14px;
 `
 const Iconbox = styled.div`
-  margin-top: -30px;
-  margin-left: 120px;
+height: 20px;
+margin-right: 10px;
 `
 

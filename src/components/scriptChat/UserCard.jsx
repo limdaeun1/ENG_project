@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
-const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
-console.log(roomManager)
-console.log(userId)
-
+const UserCard = ({ user, Authorization, roomId, client, userId, roomManager}) => {
 
 
   const onSubmitBan = () => {
@@ -21,7 +18,7 @@ console.log(userId)
     });
   };
 
-const swalbtn = () =>{
+const banBtn = () =>{
   Swal.fire({
     title: "강퇴하시겠습니까?",
     html: `${user?.memberName}님을 강퇴하시겠습니까?`,
@@ -34,6 +31,36 @@ const swalbtn = () =>{
   if(result.isConfirmed){
     onSubmitBan();
     Swal.fire('강퇴처리 되었습니다.','','success');
+  }
+})
+}
+
+const onSubmitManager = () => {
+  client.current.publish({
+    destination: "/pub/chat/message",
+    headers: { Authorization: Authorization },
+    //전송할 데이터를 입력
+    body: JSON.stringify({
+      type: 6,
+      message: user.memberId,
+      roomId: roomId.id,
+    }),
+  });
+};
+
+const managerBtn = () =>{
+  Swal.fire({
+    title: "방장권한을 위임하시겠습니까?",
+    html: `${user?.memberName}님에게 방장권한을 위임하시겠습니까?`,
+    confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+    cancelButtonColor: '#d33',
+    showCancelButton: true,
+    confirmButtonText: "위임",
+    cancelButtonText: '취소',
+}).then(result => {
+  if(result.isConfirmed){
+    onSubmitManager(); 
+    Swal.fire('방장을 위임했습니다.','','success');
   }
 })
 }
@@ -56,10 +83,14 @@ const swalbtn = () =>{
             />
             <UserNameBox>{user?.memberName}</UserNameBox>
             <BtnBox>
-            <ManagerBtn>방장</ManagerBtn>
+            <ManagerBtn
+            onClick={() => {
+              managerBtn()
+            }}
+            >방장</ManagerBtn>
               <ExitBtn
               onClick={() => {
-                swalbtn()
+                banBtn()
               }}
             >
               OUT
@@ -73,14 +104,14 @@ const swalbtn = () =>{
           <UserImgBox
             src={user?.memberImg}
           />
-          <UserNameBox>👑{user?.memberName}</UserNameBox>
+          <UserNameBox  >👑{user?.memberName}</UserNameBox>
         </UserBox>
       ) : (
         <UserBox>
           <UserImgBox
             src={user?.memberImg}
           />
-          <UserNameBox>{user?.memberName}</UserNameBox>
+          <UserNameBox >{user?.memberName}</UserNameBox>
         </UserBox>
       )}
     </>
