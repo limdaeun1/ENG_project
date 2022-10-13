@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const MainText = () => {
+
+
   return (
     <Container>
         <TextBox>
@@ -57,6 +59,10 @@ const TextBox = styled.h1`
  font-size: 2.5rem;
  margin-bottom: 4%;
  margin-top: -20px;
+ /* ::selection {
+     background: red;
+     color: white;
+   } */
 `
 
 const Box = styled.article`

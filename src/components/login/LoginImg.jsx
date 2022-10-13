@@ -12,7 +12,7 @@ const LoginImg = () => {
         <Imgbox><Img></Img></Imgbox>
         <Kakao>
             <a href={KAKAO_AUTH_URL}>
-            <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile28.uf.tistory.com%2Fimage%2F99BEE8465C3D7D12140EAC"></img>
+            <img src="https://ifh.cc/g/8QQ5yW.png"></img>
             </a></Kakao>
     </Container>
 
@@ -64,9 +64,10 @@ margin: auto;
 
 
 const Kakao = styled.div`
+/* border: solid 1px red; */
 border: none;
     text-align: center;
     img{
-        width: 2.5em;
+        width: 2.9em;
     }
 `

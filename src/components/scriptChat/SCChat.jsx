@@ -75,7 +75,7 @@ const SCChat = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
       // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-      brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+      brokerURL: "ws://3.38.253.255:8080/ws-stomp/websocket",
       connectHeaders: {
         Authorization: Authorization,
       },
@@ -107,7 +107,7 @@ const SCChat = () => {
  //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
-    return new SockJS("http://35.174.109.220:8080/ws-stomp");
+    return new SockJS("http://3.38.253.255:8080/ws-stomp");
   };
 
   //구독

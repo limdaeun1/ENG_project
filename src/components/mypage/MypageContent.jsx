@@ -41,6 +41,7 @@ const MypageContent = () => {
 export default MypageContent
 
 const Container = styled.div`
+/* border: solid 1px blue; */
 border: none;
     width: 50%;
     min-width: 490px;
@@ -91,6 +92,10 @@ const AciveTabBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  /* ::selection {
+     background: red;
+     color: white;
+   } */
 `;
 
 const ContentBox = styled.div`
