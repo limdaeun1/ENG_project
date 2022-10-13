@@ -7,7 +7,7 @@ import videoon from "../../img/videoon.png";
 import muteon from "../../img/muteon.png";
 
 
-export default class CSCam extends Component {
+export default class CSCamp extends Component {
   constructor(props){
     super(props);
     
@@ -22,37 +22,37 @@ export default class CSCam extends Component {
     return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
 }
 
-subscribeToAudio() {
-  if(this.props.streamManager.stream.audioActive == true) {
-    this.props.streamManager.subscribeToAudio(false);
-    this.setState({
-      micOn : false,
-     })
-        console.log("음소거함") }
-  else {
-    this.props.streamManager.subscribeToAudio(true);
-    this.setState({
-      micOn : true,
-     })
-      console.log("마이크켬")
+publishAudio(e) {
+    if (this.props.streamManager.stream.audioActive == true) {
+       this.props.streamManager.publishAudio(false);
+         this.setState({
+          micOn : false,
+         })
+         console.log("음소거함") }
+     else {
+         this.props.streamManager.publishAudio(true);
+         this.setState({
+          micOn : true,
+         })
+         console.log("켜기")
+      }
   }
-}
-
-subscribeToVideo() {
-  if(this.props.streamManager.stream.videoActive == true) {
-    this.props.streamManager.subscribeToVideo(false);
+  
+  publishVideo() {
+    if(this.props.streamManager.stream.videoActive == true) {
+    this.props.streamManager.publishVideo(false);
     this.setState({
       videoOn : false,
      })
-        console.log("카메라끔") }
-  else {
-    this.props.streamManager.subscribeToVideo(true);
-    this.setState({
-      videoOn : true,
-     })
-      console.log("카메라켬")
-  }
-}
+      console.log("카메라끄기") }
+    else {
+        this.props.streamManager.publishVideo(true);
+        this.setState({
+          videoOn : true,
+         })
+        console.log("카메라켜기")
+    }
+  }    
 
 render() {   
   return (
@@ -65,9 +65,9 @@ render() {
               <p>{this.getNicknameTag()}</p>
               <Iconbox>
                 {this.state.micOn ?
-                <Mute src={mute} onClick={()=>this.subscribeToAudio()}></Mute> : <Mute2 src={muteon} onClick={()=>this.subscribeToAudio()}></Mute2>}
+                <Mute src={mute} onClick={()=>this.publishAudio()}></Mute> : <Mute2 src={muteon} onClick={()=>this.publishAudio()}></Mute2> }
                 {this.state.videoOn ?
-                <Videooff  src={videooff} onClick={()=>this.subscribeToVideo()}></Videooff> : <Videooff  src={videoon} onClick={()=>this.subscribeToVideo()}></Videooff> }
+                <Videooff  src={videooff} onClick={()=>this.publishVideo()}></Videooff> : <Videooff  src={videoon} onClick={()=>this.publishVideo()}></Videooff> }
               </Iconbox>
             </Nick>
           </Cam>
