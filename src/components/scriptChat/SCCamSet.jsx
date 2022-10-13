@@ -31,6 +31,7 @@ class SCCamSet extends Component {
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
+    
 }
 componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload); //beforeunload => 사용자가 페이지를 이탈하려고 할 때 호출하는 함수
@@ -75,6 +76,7 @@ deleteSubscriber(streamManager) {
         });
     }
 }
+
 
 
 joinSession() {
@@ -213,12 +215,12 @@ render() {
           <CamBox>
           {this.state.publisher !== undefined ? (
             <>
-            <CamBig streamManager={this.state.publisher} />
+            <CamBig streamManager={this.state.publisher}/>
             </>
           ) : null}
             <CamSmallBox>
           {this.state.subscribers.map((sub, i) => (
-            <div key={i} onClick={() => this.handleMainVideoStream(sub)}>
+            <div key={i} >
               <CamSmall streamManager={sub}/>
             </div> 
           ))}
