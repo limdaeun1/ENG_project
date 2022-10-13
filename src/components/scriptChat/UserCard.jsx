@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 
-const UserCard = ({ user, Authorization, roomId, client, userId, roomManager }) => {
-console.log(roomManager)
-console.log(userId)
-
+const UserCard = ({ user, Authorization, roomId, client, userId, roomManager}) => {
 
 
   const onSubmitBan = () => {
@@ -62,7 +59,7 @@ const managerBtn = () =>{
     cancelButtonText: '취소',
 }).then(result => {
   if(result.isConfirmed){
-    onSubmitManager();
+    onSubmitManager(); 
     Swal.fire('방장을 위임했습니다.','','success');
   }
 })
@@ -107,14 +104,14 @@ const managerBtn = () =>{
           <UserImgBox
             src={user?.memberImg}
           />
-          <UserNameBox>👑{user?.memberName}</UserNameBox>
+          <UserNameBox  >👑{user?.memberName}</UserNameBox>
         </UserBox>
       ) : (
         <UserBox>
           <UserImgBox
             src={user?.memberImg}
           />
-          <UserNameBox>{user?.memberName}</UserNameBox>
+          <UserNameBox >{user?.memberName}</UserNameBox>
         </UserBox>
       )}
     </>

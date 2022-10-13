@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -55,8 +57,31 @@ const CSChat = () => {
   }, []);
   
 
-  const scrollToElement = () =>
-    chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+  // const scrollToElement = () =>
+  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+
+
+  const scrollToBottom = () => {
+    if (chattingRef.current) {
+      chattingRef.current.scrollTop = chattingRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+
+  //강제퇴장
+  const ban = () =>{
+    navigate("/");
+    Swal.fire({
+      title: "강제퇴장되었습니다.",
+      confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+      showCancelButton: false,
+      confirmButtonText: "확인",
+  })
+  }
 
 
 
@@ -103,30 +128,33 @@ const CSChat = () => {
   //구독
   const subscribe = () => {
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
-      var content = JSON.parse(chat.body);
-         //참가자목록
-      if (content.type === 9) {
-        console.log(content)
-        const a = content.enterMembers
-        setParticipant(a)
-      } 
-      //van처리
-      else if(content.type === 4){
-        console.log(content.vanId)
+      const content = JSON.parse(chat.body);
+      
+      
+       //van처리
+       if(content.type === 4){
+        // console.log(content.vanId)
         if(content.vanId == userId) {
-          navigate("/")
+          ban()
         }
         else {
           return null
         }
-        
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
+        console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
-      }
-      
+      }      
+
+       //참가자목록
+      else if (content.type === 9) {
+        // console.log(content)
+        const a = content.enterMembers
+        setParticipant(a)
+      } 
+
       //채팅저장
       else {
         setMessages((_messages) => [
@@ -138,7 +166,7 @@ const CSChat = () => {
             image: content.image,
           },
         ]);
-        setTimeout(() => scrollToElement(), 50);
+        // setTimeout(() => scrollToElement(), 50);
       }
     });
   };
@@ -270,14 +298,14 @@ const CSChat = () => {
           <>
             <div >
           {/* 채팅박스 */}
-          <ChatBox id="chatBox">
+          <ChatBox ref={chattingRef} id="chatBox">
             {messages.map((c, i) => {
               return c.type === 2 ? (
                 c.user == name ? (
                   <MyChat key={i}>
                     {/* <MyName>{c.user}</MyName> */}
                     <MyMsg>{c.chatMessage}</MyMsg>
-                    <div ref={chattingRef} />
+                    {/* <div ref={chattingRef} /> */}
                   </MyChat>
                 ) : (
                   <OtherChat key={i}>
@@ -286,18 +314,18 @@ const CSChat = () => {
                       <OtherName>{c.user}</OtherName>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
                     </div>
-                    <div ref={chattingRef} />
+                    {/* <div ref={chattingRef} /> */}
                   </OtherChat>
                 )
               ) : c.type === 3 ? (
                 <InfoBox>
                   {c.chatMessage}
-                  <div ref={chattingRef} />
+                  {/* <div ref={chattingRef} /> */}
                 </InfoBox>
               ) : (
                 <EnterExitBox key={i}>
                   {c.chatMessage}
-                  <div ref={chattingRef} />
+                  {/* <div ref={chattingRef} /> */}
                 </EnterExitBox>
               );
             })}
@@ -468,6 +496,7 @@ const MyMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
   border-radius: 10px 10px 0px 10px;
   color: white;
   background: linear-gradient(to right, #69db7c, #38d9a9);
@@ -483,6 +512,7 @@ const OtherMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
   border-radius: 10px 10px 10px 0px;
   padding: 0px 10px 0px 10px;
   color: black;
