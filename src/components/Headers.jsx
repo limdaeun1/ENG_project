@@ -2,19 +2,62 @@ import styled from 'styled-components'
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const Headers = () => {
   const navigate = useNavigate();
   // let dispatch = useDispatch();
   const userlogin = useSelector((state) => state.user);
+  
   const logoutHandler = () => {
-    // window.alert("로그아웃 하시겠습니까?");
-    localStorage.removeItem("token"); //로그아웃 버튼 누르면 로컬스토리지의 토큰을 지운다.
+    Swal.fire({
+      title: '로그아웃 하시겠습니까?',
+      text: 'Are you sure you want to log out?',
+      icon: 'question',
+      
+      showCancelButton: true, 
+      confirmButtonColor: '#3085d6', 
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Log-out',
+      cancelButtonText: 'Cancel', 
+      reverseButtons: true,
+      
+   }).then(result => {
+      if (result.isConfirmed) {
+    // Swal.fire('로그아웃이 완료되었습니다.', 'Eng-FLUENCER', 'success');
+    localStorage.removeItem("token"); 
     localStorage.removeItem("name");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userImg");
     navigate("/");
-    window.location.reload(); //자동 새로고침을 위해 버튼을 누를때마다 리로드 해주도록 한다.
+    window.location.reload(); 
+
+      }
+   })
   };
+
+  const logincheck = () =>{
+
+    Swal.fire({
+      title: '로그인이 필요한 서비스입니다.',
+      text: '로그인 페이지로 이동하시겠습니까?',
+      icon: 'info',
+      
+      showCancelButton: true, 
+      confirmButtonColor: '#3085d6', 
+      cancelButtonColor: '#d33',
+      confirmButtonText: '이동',
+      cancelButtonText: '취소', 
+      reverseButtons: true, 
+      
+   }).then(result => {
+      if (result.isConfirmed) { 
+         navigate("/login");
+      }
+   });
+  }
+
+  
 
   
   return (
@@ -41,8 +84,7 @@ const Headers = () => {
             ) : (
               <Btn1
                 onClick={() => {
-                  alert("로그인이 필요한 서비스입니다.");
-                  navigate("/login");
+                  logincheck()
                 }}
                 > My page</Btn1>
             )}
