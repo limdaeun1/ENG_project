@@ -1,8 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/api";
+// import Swal from "sweetalert2";
 
 const initialState = {
   };
+
+  // const swal= () =>{}
 
 export const user = createSlice({
    name: "user",
@@ -39,8 +42,18 @@ export const getKakao = createAsyncThunk(
       const userImg = data.data.data.memberImg
       localStorage.setItem("userImg",userImg)
       window.location.assign("/"); //토큰 저장하면 자동으로 메인화면으로 이동
-      window.alert (`Welcome, ${user} !`);
+      //  window.alert (`Welcome, ${user} !`);
+      // window.on('click', '#success', function(e) {
+      //   swal(
+      //     'Success',
+      //     'You clicked the <b style="color:green;">Success</b> button!',
+      //     'success'
+      //   )
+      // });
       return data;
+
+
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

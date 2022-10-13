@@ -3,10 +3,33 @@ import styled, {keyframes} from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Page3 from "../../img/Page3.png";
+import Swal from "sweetalert2";
 
 const MainPhoto = () => {
   const navigate = useNavigate();
   const userlogin = useSelector((state) => state.user);
+
+  const logincheck = () =>{
+
+    Swal.fire({
+      title: '로그인이 필요한 서비스입니다.',
+      text: '로그인 페이지로 이동하시겠습니까?',
+      icon: 'info',
+      
+      showCancelButton: true, 
+      confirmButtonColor: '#3085d6', 
+      cancelButtonColor: '#d33',
+      confirmButtonText: '이동',
+      cancelButtonText: '취소', 
+      reverseButtons: true, 
+      
+   }).then(result => {
+      if (result.isConfirmed) { 
+         navigate("/login");
+      }
+   });
+  }
+
 
   return (
     <>
@@ -18,8 +41,7 @@ const MainPhoto = () => {
         <Btnbox>
         {userlogin.is_Login !== true ? ( 
         <Btn onClick={() =>  {
-          alert("로그인이 필요한 서비스입니다.");
-          navigate("/login");
+          logincheck()
         } }>스터디룸 입장</Btn>
               ) : (
                 <Btn
