@@ -11,8 +11,25 @@ export default class CamBig extends Component {
     return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
 }
 
+publishAudio(e) {
+  if (this.props.streamManager.stream.audioActive == true) {
+     this.props.streamManager.publishAudio(false);
+       console.log("음소거함") }
+   else {
+       this.props.streamManager.publishAudio(true);
+       console.log("켜기")
+    }
+}
 
-
+publishVideo() {
+  if(this.props.streamManager.stream.videoActive == true) {
+  this.props.streamManager.publishVideo(false);
+       console.log("카메라끄기") }
+  else {
+      this.props.streamManager.publishVideo(true);
+      console.log("카메라켜기")
+  }
+}    
 
 render() {   
   return (
@@ -23,8 +40,8 @@ render() {
             <OpenViduVideoComponent streamManager={this.props.streamManager}/>
             <Nick>
             <Iconbox>
-              <Mute src={mute} onClick={()=>console.log("클릭")}></Mute>
-              <Videooff  src={videooff} onClick={()=>console.log("클릭")}></Videooff>
+              <Mute src={mute} onClick={()=>this.publishAudio()}></Mute>
+              <Videooff  src={videooff} onClick={()=>this.publishVideo()}></Videooff>
             </Iconbox>
               <p>{this.getNicknameTag()}</p>
             </Nick>
