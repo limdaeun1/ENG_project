@@ -44,7 +44,6 @@ const ChatList = () => {
   });
 
   if (isLoading) {
-    // return <div>로딩중...</div>;
     return <div>
             <Container>
         <BigBox>
@@ -86,11 +85,6 @@ const ChatList = () => {
             {toggleState === 1 ? (
               one.length !== 0 ? (
                 <div>
-                    <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
                 <ActiveContentBox>
                   <p>...로딩중</p>
                 </ActiveContentBox>
