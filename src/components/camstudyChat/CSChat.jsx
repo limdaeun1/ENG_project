@@ -323,7 +323,8 @@ const CSChat = () => {
                   {/* <div ref={chattingRef} /> */}
                 </InfoBox>
               ) : (
-                <EnterExitBox key={i}>
+
+                <EnterExitBox key ={i} >
                   {c.chatMessage}
                   {/* <div ref={chattingRef} /> */}
                 </EnterExitBox>
