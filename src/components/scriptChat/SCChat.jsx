@@ -23,7 +23,7 @@ const SCChat = () => {
   const [chat, setChat] = useState({ content: "" });
   //백과 협의한 메세지 type(0:입장, 1:퇴장, 2:채팅)
   const [messages, setMessages] = useState([
-    { chatMessage: "", user: "", type: "", image: "" },
+    { chatMessage: "", user: "", type: "", image: "",time:"" },
   ]); 
   const inputRef = useRef("");
 
@@ -60,22 +60,6 @@ const SCChat = () => {
   //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
 
 
-
-
-    // useEffect(() => {
-    // 	// 현재 스크롤 위치 === scrollRef.current.scrollTop
-    //   // 스크롤 길이 === scrollRef.current.scrollHeight
-    //   if (chattingRef.current?.scrollHeight == null) {
-    //     chattingRef.current.scrollTop = 250
-    //   }
-    //   else{
-    //     chattingRef.current.scrollTop = chattingRef.current?.scrollHeight;
-    //   }
- 
-        
-    //     console.log(chattingRef.current?.scrollHeight)
-      
-    // },[messages,roomManager,memberCount,notice]);
 
 
 
@@ -143,6 +127,9 @@ const SCChat = () => {
     return new SockJS("http://3.38.253.255:8080/ws-stomp");
   };
 
+
+  // console.log(latesUser)
+
   //구독
   const subscribe = () => {
     //이곳에서 모든 구독(subScribe)가 되어야 합니다.
@@ -162,7 +149,7 @@ const SCChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        console.log(content)
+        // console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }      
@@ -175,7 +162,19 @@ const SCChat = () => {
       } 
 
       //채팅저장
-      else {
+      // else if(content.type === 2) {
+      //   setMessages((_messages) => [
+      //     ..._messages,
+      //     {
+      //       chatMessage: content.msg,
+      //       user: content.sender,
+      //       type: content.type,
+      //       image: content.image,
+      //     },
+      //   ]); 
+      // }
+
+      else if(content.type === 2) {
         setMessages((_messages) => [
           ..._messages,
           {
@@ -183,12 +182,29 @@ const SCChat = () => {
             user: content.sender,
             type: content.type,
             image: content.image,
+            time: content.chatTime,
           },
-        ]);
+        ]);           
+      }
+
+
+      //공지 및 입장 퇴장 메세징
+      else {
+          setMessages((_messages) => [
+            ..._messages,
+            {
+              chatMessage: content.msg,
+              user: content.sender,
+              type: content.type,
+              image: content.image,
+            },
+          ]); 
+
         // setTimeout(() => scrollToElement(), 50);
       }
     });
   };
+
 
   //채팅(type2)
   const submit = () => {
@@ -285,6 +301,7 @@ const SCChat = () => {
   // console.log(participant?.length)
   // console.log(roomManager)
   // console.log(inputRef.current.value)
+  // console.log(latesUser)
   return (
     <>
 
@@ -313,39 +330,110 @@ const SCChat = () => {
         <div>
           <ChatBox ref={chattingRef}>
             {messages.map((c, i) => {
-              console.log(c)
               return c.type === 2 ? (
+                //내 메세지면
                 c.user == name ? (
                   <MyChat key={uuidv4()}>
                     {/* <MyName>{c.user}</MyName> */}
                     <MyMsg>{c.chatMessage}</MyMsg>
-                    {/* <div ref={chattingRef} /> */}
                   </MyChat>
-                ) : (
-                  <OtherChat key={uuidv4()}>
+                )
+                 :
+                    // 다른사람 메세지면서 
+                //  ( messages[i+1]?.time == messages[i].time 
+                //   ?(messages[i-1].user == messages[i].user 
+                //     // 다른사람 메세지면서 시간이 같고 이전에사람도 같고
+                //     ?(
+                //       <OtherChat key={uuidv4()}>
+                //       {/* <ImgBox src={c.image} /> */}
+                //       <div>
+                //         <OtherName>{c.user}</OtherName>
+                //         <OtherMsg>{c.chatMessage}</OtherMsg>
+                //       </div>
+                //       {/* <p>{c.time}</p> */}
+                //     </OtherChat>
+                //     )
+                //     // 다른사람 메세지면서 시간이 같고 보낸사람은 다르고
+                //     :(messages[i+1]?.user == messages[i].user 
+                //     ?(
+                //       <OtherChat key={uuidv4()}>
+                //       <ImgBox src={c.image} />
+                //       <div>
+                //         <OtherName>{c.user}</OtherName>
+                //         <OtherMsg>{c.chatMessage}</OtherMsg>
+                //       </div>
+                //       <p>{c.time}</p>
+                //     </OtherChat>  
+                //     )
+                //     :(
+                //       <OtherChat key={uuidv4()}>
+                //       <ImgBox src={c.image} />
+                //       <div>
+                //         <OtherName>{c.user}</OtherName>
+                //         <OtherMsg>{c.chatMessage}</OtherMsg>
+                //       </div>
+                //       <p>{c.time}</p>
+                //     </OtherChat>                      
+                //     )
+                //    )
+                //   )
+                //   ://시간은 다르고
+                //   ( messages[i-1].user === messages[i].user 
+                //     ?( //보낸사람은 같으면
+                //       <OtherChat key={uuidv4()}>
+                //     <div>
+                //       <OtherName>{c.user}</OtherName>
+                //       <OtherMsg>{c.chatMessage}</OtherMsg>
+                //     </div>
+                //     <p>{c.time}</p>
+                //   </OtherChat>
+                //     )
+                //     :( //보낸사람도 다르면
+                //     <OtherChat key={uuidv4()}>
+                //     <ImgBox src={c.image} />
+                //     <div>
+                //       <OtherName>{c.user}</OtherName>
+                //       <OtherMsg>{c.chatMessage}</OtherMsg>
+                //     </div>
+                //     <p>{c.time}</p>
+                //   </OtherChat>
+                //     )
+
+                //   )
+
+                // )
+                ( messages[i-1].user === messages[i].user 
+                  ?(
+                    <OtherChat key={uuidv4()}>
+                    <div style={{width:"50px"}} />
+                    {/* <ImgBox src={c.image} /> */}
+                    <div>
+                      {/* <OtherName>{c.user}</OtherName> */}
+                      <OtherMsg>{c.chatMessage}</OtherMsg>
+                    </div>
+                  </OtherChat>
+                  )
+                  :(
+                   <OtherChat key={uuidv4()}>
                     <ImgBox src={c.image} />
                     <div>
                       <OtherName>{c.user}</OtherName>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
                     </div>
-                    {/* <div ref={chattingRef} /> */}
                   </OtherChat>
+                  )
+
                 )
               ) : c.type === 3 ? (
                 <InfoBox
                 key={uuidv4()}
                 >
                   {c.chatMessage}
-                  {/* <div ref={chattingRef} /> */}
                 </InfoBox>
               ) : (
-                <div style={{width:"100%"}}>
-                <EnterExitBox 
-                // key={i}
-                key={uuidv4()}
-                >
+                <div  key={uuidv4()} style={{width:"100%",textAlign:"center"}}>
+                <EnterExitBox>
                   {c.chatMessage}
-                  {/* <div ref={chattingRef} /> */}
                 </EnterExitBox>
                 </div>
               );
@@ -472,13 +560,15 @@ const ChatBox = styled.div`
 const InfoBox = styled.div`
   text-align: center;
   color: green;
+  width: 100%;
 `;
 
 const EnterExitBox = styled.div`
-  text-align: center;
-  width: 30%;
-  align-items: center;
-  justify-content: center;
+  /* text-align: center; */
+  width: 100px;
+  display: inline-block;
+  /* align-items: center;
+  justify-content: center; */
   margin-top: 10px;
   border-radius: 1%;
   background: #dee2e6;
@@ -543,6 +633,7 @@ const OtherMsg = styled.div`
   font-size: small;
   word-break: break-all;
   white-space: pre-line;
+  margin-top: 10px;
   border-radius: 10px 10px 10px 0px;
   padding: 0px 10px 0px 10px;
   color: black;
