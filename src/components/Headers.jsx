@@ -8,7 +8,7 @@ const Headers = () => {
   // let dispatch = useDispatch();
   const userlogin = useSelector((state) => state.user);
   const logoutHandler = () => {
-    window.alert("로그아웃 하시겠습니까?");
+    // window.alert("로그아웃 하시겠습니까?");
     localStorage.removeItem("token"); //로그아웃 버튼 누르면 로컬스토리지의 토큰을 지운다.
     localStorage.removeItem("name");
     localStorage.removeItem("userId");

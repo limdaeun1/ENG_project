@@ -29,9 +29,11 @@ const MypageBox = () => {
 export default MypageBox
 
 const UploadSection = styled.section`
+/* border: solid 1px red; */
 border: none;
   width: 100%;
-  height: 45vh;
+  /* height: 45vh; */
+  height: 370px;
   display: flex;
   align-items: center;
   justify-content: center;
