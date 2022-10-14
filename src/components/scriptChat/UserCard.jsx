@@ -137,7 +137,7 @@ const UserImgBox = styled.img`
   padding: 5px;
 `
 const UserNameBox = styled.div`
-  width: 30%;
+  width: 100%;
 `
 const BtnBox = styled.div`
   display: flex;
