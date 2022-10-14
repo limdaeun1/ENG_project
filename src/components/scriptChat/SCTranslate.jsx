@@ -40,9 +40,9 @@ const messagedata = {
         </Textbox>
         <Btn onClick={Translatemap}>번역하기</Btn>
 
-        <div>
-        {translates === "" ? <p>값이 없습니다</p>: <p>{translates}</p>}
-        </div>
+        <Translatebox>
+        {translates === "" ? <p></p>: <p>{translates}</p>}
+        </Translatebox>
 
       </Div>
       
@@ -67,13 +67,28 @@ const messagedata = {
     width: 100%;
     height: 155px;
      resize: none;
-    border:solid 1px red;
+    /* border:solid 1px red; */
+    border: none;
     :focus {
       outline: none;
     }
     background-color: #e2f4e6;
     border-radius: 10px;
    `
+
+const Translatebox = styled.div`
+width: 100%;
+height: 155px;
+ resize: none;
+/* border:solid 1px red; */
+border: none;
+:focus {
+  outline: none;
+}
+background-color: #e2f4e6;
+border-radius: 10px;
+margin-top: 48px;
+`
 
    const Btn = styled.button`
       font-weight: 600;
