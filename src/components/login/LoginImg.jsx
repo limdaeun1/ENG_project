@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from "react-router-dom";
-import { KAKAO_AUTH_URL } from "../../shared/OAuth";
+
 
 const LoginImg = () => {
     const navigate = useNavigate();
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`; 
 
   return (
     <Container>

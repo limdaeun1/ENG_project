@@ -3,8 +3,8 @@ import axios from "axios";
 
 export const instance = axios.create({
 
-  // baseURL: "http://18.144.83.110:8080/",
-  baseURL: "http://3.38.253.255:8080/",
+ 
+  baseURL: process.env.REACT_APP_ENG_FLUENCER,
 
 });
 
