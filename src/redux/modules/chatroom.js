@@ -83,6 +83,18 @@ export const postTimer = createAsyncThunk(
   }
   );
 
+//메모장 불러오기
+export const getMemo = createAsyncThunk(
+  "chatroom/getMemo",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.get(`auth/memo/${payload}`);
+      return data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+); 
 
 const initialState = {
   roomlist:[],
