@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { postMemo } from "../../redux/modules/chatroom";
+import { postMemo , getMemo } from "../../redux/modules/chatroom";
 import { useState } from "react";
 
 const SCWhiteBoard= (id) => {
@@ -15,6 +15,20 @@ const SCWhiteBoard= (id) => {
     dispatch(postMemo(memodata))
   }
 
+  const GetMemo = async () => {
+    try {
+      const response = await dispatch(getMemo(id.id)).unwrap();
+      console.log(response.data.data)
+      if(response.data.data !== null) {
+      setMemo(response.data.data) }
+      else {
+        window.alert("해당 방의 저장된 메모가 없습니다!")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
     return (
       <>
       <Div>
@@ -25,6 +39,7 @@ const SCWhiteBoard= (id) => {
         </Textbox>
       </Div>
       <Btn onClick={SaveMemo}>저장하기</Btn>
+      <Btn onClick={GetMemo}>불러오기</Btn>
       </>
       );
    };
@@ -71,4 +86,5 @@ const SCWhiteBoard= (id) => {
       /* margin-top:10px;
       margin-right:2%; */
       width: 60px;
+      margin: 4px;
    `
