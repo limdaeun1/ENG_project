@@ -64,19 +64,60 @@ const managerBtn = () =>{
   }
 })
 }
-  
+
+const declareBtn =() =>{
+  Swal.fire({
+    title: '신고유형을 선택하세요',
+    input: 'select',
+    inputOptions: {
+        "증오심 표현 또는 노골적 폭력":"증오심 표현 또는 노골적 폭력",
+        "음란물": '음란물',
+        "잘못된 정보": "잘못된 정보",
+    },
+    inputPlaceholder: '신고유형을 선택하세요',
+    showCancelButton: true,
+    inputValidator: (value) => {
+        if (!value) {
+          return 'You need to choose something!'
+        }
+        else{
+            client.current.publish({
+            destination: "/pub/chat/message",
+            headers: { Authorization: Authorization },
+            //전송할 데이터를 입력
+            body: JSON.stringify({
+              type: 7,
+              message: user.memberId,
+              roomId: roomId.id,
+              etc:value
+            }),
+          });
+        }
+    }
+  }).then(result => {
+    if(result.isConfirmed){
+      Swal.fire(`${user?.memberName}님을 신고했습니다.`,'','success');
+    }}
+)
+}
 
   return (
     <>
      {roomManager == userId ? (
+      // 방장이 본인이면서 해당 카드가 본인일때
         user?.memberId == userId ? (
           <UserBox>
             <UserImgBox
               src={user?.memberImg}
             />
             <UserNameBox>👑{user?.memberName}</UserNameBox>
+            <BtnBox>
+              {/* <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn> */}
+            </BtnBox>
+            
           </UserBox>
         ) : (
+          //방장이 본인이면서 해당 카드가 본인이 아닐때
           <UserBox>
             <UserImgBox
               src={user?.memberImg}
@@ -95,23 +136,47 @@ const managerBtn = () =>{
             >
               OUT
             </ExitBtn>
+            <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn>
             </BtnBox>
 
           </UserBox>
         )
-      ) : roomManager == user?.memberId ? (
-        <UserBox>
+      ) //다른사람이 방장일때
+      : roomManager == user?.memberId ? (
+        user?.memberId == userId 
+        ?(
+      <UserBox>
           <UserImgBox
             src={user?.memberImg}
           />
           <UserNameBox  >👑{user?.memberName}</UserNameBox>
+          <BtnBox>
+          <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn>
+            </BtnBox>
         </UserBox>
+        )
+        :(
+          <UserBox>
+          <UserImgBox
+            src={user?.memberImg}
+          />
+          <UserNameBox  >👑{user?.memberName}</UserNameBox>
+          <BtnBox>
+          <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn>
+            </BtnBox>
+        </UserBox>
+        )
+  
       ) : (
+        //다른사람이 방장이 아닐때
         <UserBox>
           <UserImgBox
             src={user?.memberImg}
           />
           <UserNameBox >{user?.memberName}</UserNameBox>
+          <BtnBox>
+          {/* <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn> */}
+            </BtnBox>
         </UserBox>
       )}
     </>
@@ -145,7 +210,7 @@ const BtnBox = styled.div`
   padding:5px;
 `
 const ExitBtn = styled.button`
-  margin-left:10px;
+  margin:0px 10px 0px 10px;
   width:40px;
   height: 30px;
   background: linear-gradient(#f03e3e,#e03131, #c92a2a);
@@ -160,6 +225,17 @@ const ManagerBtn = styled.button`
   width:40px;
   height: 30px;
   background: linear-gradient(#4c6ef5,#3b5bdb,#364fc7);
+  box-shadow: 2px 2px 2px #a6a7a9;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`
+const DeclareBtn = styled.button`
+  /* margin-left:auto; */
+  width:40px;
+  height: 30px;
+  background: linear-gradient(#0ca678,#099268,#087f5b);
   box-shadow: 2px 2px 2px #a6a7a9;
   color:white;
   border: none;

@@ -27,6 +27,7 @@ const SCChat = () => {
   ]); 
   const inputRef = useRef("");
 
+
   //공지 관리
   const [notice, setNoitce] = useState(false);
   const noticeRef = useRef("");
