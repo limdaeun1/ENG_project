@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,7 +23,7 @@ const CSChat = () => {
   const [chat, setChat] = useState({ content: "" });
   //백과 협의한 메세지 type(0:입장, 1:퇴장, 2:채팅)
   const [messages, setMessages] = useState([
-    {chatMessage: "",user: "",type: "",  image: "", },
+    {chatMessage: "",user: "",type: "",  image: "",time:"" },
   ]);
   const inputRef = useRef("");
 
@@ -55,8 +57,31 @@ const CSChat = () => {
   }, []);
   
 
-  const scrollToElement = () =>
-    chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+  // const scrollToElement = () =>
+  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+
+
+  const scrollToBottom = () => {
+    if (chattingRef.current) {
+      chattingRef.current.scrollTop = chattingRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages,toggleState]);
+
+
+  //강제퇴장
+  const ban = () =>{
+    navigate("/");
+    Swal.fire({
+      title: "강제퇴장되었습니다.",
+      confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+      showCancelButton: false,
+      confirmButtonText: "확인",
+  })
+  }
 
 
 
@@ -65,7 +90,7 @@ const CSChat = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
       // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-      brokerURL: "ws://35.174.109.220:8080/ws-stomp/websocket",
+      brokerURL: process.env.REACT_APP_CHAT_WEBSOCKET,
       connectHeaders: {
         Authorization: Authorization,
       },
@@ -97,37 +122,54 @@ const CSChat = () => {
   //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
-    return new SockJS("http://35.174.109.220:8080/ws-stomp");
+    return new SockJS(process.env.REACT_APP_CHAT_SOCK);
   };
 
   //구독
   const subscribe = () => {
     client.current.subscribe(`/sub/chat/room/${roomId.id}`, function (chat) {
-      var content = JSON.parse(chat.body);
-         //참가자목록
-      if (content.type === 9) {
-        console.log(content)
-        const a = content.enterMembers
-        setParticipant(a)
-      } 
-      //van처리
-      else if(content.type === 4){
-        console.log(content.vanId)
+      const content = JSON.parse(chat.body);
+      
+      
+       //van처리
+       if(content.type === 4){
+        // console.log(content.vanId)
         if(content.vanId == userId) {
-          navigate("/")
+          ban()
         }
         else {
           return null
         }
-        
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
+        console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
-      }
-      
+      }      
+
+       //참가자목록
+      else if (content.type === 9) {
+        // console.log(content)
+        const a = content.enterMembers
+        setParticipant(a)
+      } 
+
       //채팅저장
+      else if(content.type === 2) {
+        setMessages((_messages) => [
+          ..._messages,
+          {
+            chatMessage: content.msg,
+            user: content.sender,
+            type: content.type,
+            image: content.image,
+            time: content.chatTime,
+          },
+        ]);           
+      }
+
+      //공지 및 입장 퇴장 메세징
       else {
         setMessages((_messages) => [
           ..._messages,
@@ -137,12 +179,14 @@ const CSChat = () => {
             type: content.type,
             image: content.image,
           },
-        ]);
-        setTimeout(() => scrollToElement(), 50);
-      }
+        ]); 
+
+      // setTimeout(() => scrollToElement(), 50);
+    }
+
+
     });
   };
-  // console.log(inputRef.current.value)
   //채팅(type2)
   const submit = () => {
     if (inputRef.current.value == "") {
@@ -270,35 +314,193 @@ const CSChat = () => {
           <>
             <div >
           {/* 채팅박스 */}
-          <ChatBox id="chatBox">
+          <ChatBox ref={chattingRef}>
             {messages.map((c, i) => {
               return c.type === 2 ? (
-                c.user == name ? (
-                  <MyChat key={i}>
-                    {/* <MyName>{c.user}</MyName> */}
+                //내 메세지면
+                c.user == name ?
+
+                      // 본인메세지
+                (
+                  messages[i-1].user !== name
+                  ?(messages[i+1]?.user == name
+                    ?(messages[i+1]?.time == messages[i].time
+                      ?(
+                        <MyChat key={uuidv4()}>
+                      <MsgTimeBox >
                     <MyMsg>{c.chatMessage}</MyMsg>
-                    <div ref={chattingRef} />
+                    </MsgTimeBox>
                   </MyChat>
-                ) : (
-                  <OtherChat key={i}>
-                    <ImgBox src={c.image} />
+                      )
+                      :(<MyChat key={uuidv4()}>
+                        <MsgTimeBox >
+                      <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                    </MyChat>)
+                    )
+                    :(
+                    <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                  </MyChat>))
+                  :(messages[i+1]?.user == name
+                    ?(messages[i+1]?.time == messages[i].time
+                      ?(
+                        
+                        <MyChat key={uuidv4()}>
+                          <MsgTimeBox>
+                        <MyMsg>{c.chatMessage}</MyMsg>
+                        </MsgTimeBox>
+                      </MyChat>
+                      )
+                      :(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox >
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                      </MyChat>
+                      ))
+                    :(messages[i+1]?.time == messages[i].time
+                      ?(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                      </MyChat>
+                      )
+                      :(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                        
+                      </MyChat>
+                      ))
+)
+                )
+                 :             // 다른사람 메세지
+                    (
+                      messages[i-1].user !== messages[i].user 
+                      ?(messages[i+1]?.user == messages[i].user
+                        ?(messages[i+1]?.time == messages[i].time 
+                          ?(
+
+                            <OtherChat key={uuidv4()}>
+                          <ImgBox src={c.image} />
+                          <div>
+                            <OtherName>{c.user}</OtherName>
+                            <OtherMsg>{c.chatMessage}</OtherMsg>
+                          </div>
+                        </OtherChat>
+
+                          )
+                          :( 
+                          
+                          <OtherChat key={uuidv4()}>
+                          <ImgBox src={c.image} />
+                          <div>
+                            <OtherName>{c.user}</OtherName>
+                            <OtherMsg>{c.chatMessage}</OtherMsg>
+                          </div>
+                          <TimeMsg>{c.time}</TimeMsg>
+                        </OtherChat>
+                        
+                        ))
+                        :(messages[i+1]?.time == messages[i].time 
+                          ?( <OtherChat key={uuidv4()}>
+                              <ImgBox src={c.image} />
+                              <MsgTimeBox2>
+                              <div>
+                                <OtherName>{c.user}</OtherName>
+                                <OtherMsg>{c.chatMessage}</OtherMsg>
+                              </div>
+                              <TimeMsg>{c.time}</TimeMsg>
+                              </MsgTimeBox2>
+                            </OtherChat>)
+                          :(                
+                                <OtherChat key={uuidv4()}>
+                              <ImgBox src={c.image} />
+                              <MsgTimeBox2>
+                              <div>
+                                <OtherName>{c.user}</OtherName>
+                                <OtherMsg>{c.chatMessage}</OtherMsg>
+                              </div>
+                              <TimeMsg>{c.time}</TimeMsg>
+                              </MsgTimeBox2>
+                            </OtherChat>)))
+                      :( messages[i+1]?.user == messages[i].user
+                        ?(messages[i+1]?.time == messages[i].time //고침 다음이랑 시간이 같으면
+                          ?(
+                    <OtherChat key={uuidv4()}>
+                    <div style={{width:"50px"}} />
+                    {/* <ImgBox src={c.image} /> */}
                     <div>
-                      <OtherName>{c.user}</OtherName>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
                     </div>
-                    <div ref={chattingRef} />
                   </OtherChat>
-                )
+                          )
+                          :(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          )
+
+                        )
+                        :(messages[i+1]?.user !== messages[i].user
+                          ?(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          ) 
+                          :(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          )
+
+                        ))
+                    )
               ) : c.type === 3 ? (
-                <InfoBox>
+                <InfoBox
+                key={uuidv4()}
+                >
                   {c.chatMessage}
-                  <div ref={chattingRef} />
                 </InfoBox>
-              ) : (
-                <EnterExitBox key={i}>
-                  {c.chatMessage}
-                  <div ref={chattingRef} />
-                </EnterExitBox>
+              ) : ( c.type === 0 || c.type === 1
+                ?(
+                  <div  key={uuidv4()} style={{width:"100%",textAlign:"center"}}>
+                  <EnterExitBox>
+                    {c.chatMessage}
+                  </EnterExitBox>
+                  </div>
+                )
+                :(
+                  null
+                )
               );
             })}
           </ChatBox>
@@ -353,7 +555,7 @@ const CSChat = () => {
           </> : null}
           {toggleState === 2 ? (
                   <UserContainer>
-                  <div >
+                  <div style={{float:"right", display:"flex",margin:"2% 2%"}}>
                     {participant?.length}/{memberCount}명
                   </div>
                   {participant?.map((user, i)=>{return <CSUserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
@@ -398,6 +600,8 @@ const ContentsContainer = styled.div`
   border-radius: 5px;
 `
 
+
+
 const ChatBox = styled.div`
   overflow-x: hidden;
   height: 200px;
@@ -418,11 +622,18 @@ const ChatBox = styled.div`
 const InfoBox = styled.div`
   text-align: center;
   color: green;
+  width: 100%;
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
 `;
 
 const EnterExitBox = styled.div`
-  text-align: center;
-  margin-top: 10px;
+  width: 40%;
+  display: inline-block;
+  margin: 10px 0px 10px 0px;
+  border-radius: 5px;
+  color:#adb5bd;
+  font-size: 14px;
 `;
 
 const OtherChat = styled.div`
@@ -435,6 +646,7 @@ const MyChat = styled.div`
   width: 100%;
   float: right;
   clear: both;
+  display: flex;
   border: none;
   height: auto;
   margin: 10px 10px 0px 0px;
@@ -458,9 +670,19 @@ const OtherName = styled.div`
   line-height: 30px;
 `;
 
+const MsgTimeBox = styled.div`
+  margin-left:auto;
+  display:flex;
+`
+
+const MsgTimeBox2 = styled.div`
+  /* margin-left:auto; */
+  display:flex;
+`
+
 const MyMsg = styled.div`
   border: none;
-  max-width: 80%;
+  max-width: 250px;
   width: fit-content;
   margin-left: auto;
   padding: 0px 10px 0px 10px;
@@ -468,6 +690,7 @@ const MyMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
   border-radius: 10px 10px 0px 10px;
   color: white;
   background: linear-gradient(to right, #69db7c, #38d9a9);
@@ -475,7 +698,7 @@ const MyMsg = styled.div`
 
 const OtherMsg = styled.div`
   border: none;
-  /* max-width: 40%; */
+  max-width: 230px;
   min-width: fit-content;
   padding: 0px 10px 0px 10px;
   margin-right: 10px;
@@ -483,11 +706,18 @@ const OtherMsg = styled.div`
   background: white;
   font-size: small;
   word-break: break-all;
+  white-space: pre-line;
+  margin-top: 10px;
   border-radius: 10px 10px 10px 0px;
-  padding: 0px 10px 0px 10px;
+  /* padding: 0px 10px 0px 10px; */
   color: black;
   background-color: #f1f3f5;
 `;
+
+const TimeMsg = styled.div`
+  font-size:13px;
+  margin-top:auto;
+`
 
 const SendBox = styled.div`
   background-color: white;

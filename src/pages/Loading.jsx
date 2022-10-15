@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { getKakao } from "../redux/modules/user";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const Loading = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,22 @@ const Loading = () => {
   let code = params.get("code");
   console.log(code); //주소창에서 localhost3000/loading/?code= ....  에서 code= "~~~" 가져오기
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+ 
+Toast.fire({
+    icon: 'success',
+    title: 'Welcome to Eng-FLUENCER!!'
+})
 
 
   useEffect(() => {
@@ -25,8 +42,9 @@ const Loading = () => {
 
   return (
     <Div>
-      <img src="https://cdn.jjalbot.com/2021/12/tPaZBIZ-K/tPaZBIZ-K.gif" />
-    </Div> // 스피너 gif
+      {/* <img src="https://cdn.jjalbot.com/2021/12/tPaZBIZ-K/tPaZBIZ-K.gif" /> */}   
+      {/* 스피너 gif */}
+    </Div>
   );
 };
 

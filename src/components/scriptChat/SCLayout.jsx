@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState , useEffect} from "react";
 import SCCamSet from "../scriptChat/SCCamSet";
+import SCTranslate from "../scriptChat/SCTranslate";
 import SCChat from "../scriptChat/SCChat";
 import SCScript from "../scriptChat/SCScript";
 import SCWhiteBoard from "./SCMemo";
@@ -52,7 +53,7 @@ const SCLayout = () => {
 
         <Box>
 
-          <SCCamSet id={id}/>  
+          {/* <SCCamSet id={id}/>   */}
 
           <ScriptChatBox>
 
@@ -64,7 +65,12 @@ const SCLayout = () => {
 
             {toggleState === 2
             ? <ActiveTabBox onClick={() => toggleTab(2)}>Memo</ActiveTabBox>
-            :<TabBox onClick={() => toggleTab(2)} >Memo</TabBox>}          
+            :<TabBox onClick={() => toggleTab(2)} >Memo</TabBox>}      
+
+             {toggleState === 3
+            ? <ActiveTabBox onClick={() => toggleTab(3)}>Translate</ActiveTabBox>
+            :<TabBox onClick={() => toggleTab(3)} >Translate</TabBox>} 
+                   
             </TabContainer>
 
             <div style={{flexGrow : "1"}}>
@@ -76,6 +82,12 @@ const SCLayout = () => {
             {toggleState === 2 
             ? <ActiveContentBox > <SCWhiteBoard id={id}/></ActiveContentBox>
             :<ContentBox  ><SCWhiteBoard id={id}/></ContentBox>}
+            
+            
+            {toggleState === 3 
+            ? <ActiveContentBox ><SCTranslate/></ActiveContentBox>
+            :<ContentBox  ><SCTranslate/></ContentBox>}
+            
           </div>
 
             </ScriptContainer>

@@ -79,7 +79,7 @@ const Container = styled.div`
   box-shadow: 3px 0px 3px #d5d6d6;
   border-radius: 10px;
   padding: 30px;
-  margin: 3%;
+  margin: 0px 3% 3% 3%;
   align-items: center;
   min-width: 220px;
   cursor: pointer;
