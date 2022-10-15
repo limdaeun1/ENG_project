@@ -1,19 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from "react-router-dom";
-import { KAKAO_AUTH_URL } from "../../shared/OAuth";
+import naverBtn from "../../img/naverBtn.png"
+
 
 const LoginImg = () => {
     const navigate = useNavigate();
-
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`; 
+    const NAVER_AUTH_URL =`https://nid.naver.com/oauth2.0/authorize?client_id=${process.env.REACT_APP_NAVER_REST_API_KEY}&response_type=code&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}`
   return (
     <Container>
         <Logo><img src="https://ifh.cc/g/g8oOgd.png"></img></Logo>
         <Imgbox><Img></Img></Imgbox>
         <Kakao>
             <a href={KAKAO_AUTH_URL}>
-            <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=http%3A%2F%2Fcfile28.uf.tistory.com%2Fimage%2F99BEE8465C3D7D12140EAC"></img>
-            </a></Kakao>
+            <img src="https://ifh.cc/g/8QQ5yW.png"></img>
+            </a>
+        </Kakao>
+        <Naver>
+            <a href={NAVER_AUTH_URL}>
+            <img src={naverBtn}></img>
+            </a>
+        </Naver>
     </Container>
 
   )
@@ -64,9 +72,19 @@ margin: auto;
 
 
 const Kakao = styled.div`
+/* border: solid 1px red; */
 border: none;
     text-align: center;
     img{
-        width: 2.5em;
+        width: 2.9em;
+    }
+`
+
+const Naver = styled.div`
+/* border: solid 1px red; */
+border: none;
+    text-align: center;
+    img{
+        width: 2.9em;
     }
 `

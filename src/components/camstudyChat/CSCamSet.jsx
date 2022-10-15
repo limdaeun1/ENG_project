@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CSCam from "./CSCam";
+import CSCamp from "./CSCamp";
 import React, { Component } from 'react';
 import axios from "axios";
 import { OpenVidu } from 'openvidu-browser';
@@ -208,7 +209,7 @@ return (
   <>
         <CamSmallBox1>
         {this.state.publisher !== undefined ? (
-              <CSCam streamManager={this.state.publisher} />   ) : null}
+              <CSCamp streamManager={this.state.publisher} />   ) : null}
         {this.state.subscribers[0] ? (      
               <CSCam streamManager={this.state.subscribers[0]}/> ) : null}
         {this.state.subscribers[1] ? (           

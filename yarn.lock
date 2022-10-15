@@ -8755,10 +8755,10 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-sweetalert2@^11.4.38:
-  version "11.4.38"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.38.tgz#f8cec3a87b99d7f3edd9756676d11d3c86e46b4a"
-  integrity sha512-H8FDIiL7hLe7uUEdTO6xwk2Vexvr05IL7FGZAIHEFmjjnZRWtRrSUYm//r+4bL8d6XhjWFRHXBs32ZCwH+ir8g==
+sweetalert2@^11.5.0:
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.5.0.tgz#6dee8dea9903cb5306b859614a0d757d489da46a"
+  integrity sha512-Ret0s0E8HMvGDkcHXnDVd8j7gijpGpuBhasiVzy+QAv+w0uEdFnjLMCfEOrIzbmVgeqxdzc6weBD0nucRGgKuA==
 
 symbol-tree@^3.2.4:
   version "3.2.4"
@@ -9168,6 +9168,11 @@ uuid@8.3.2, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 v8-to-istanbul@^8.1.0:
   version "8.1.1"
