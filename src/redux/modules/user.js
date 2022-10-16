@@ -30,11 +30,13 @@ export const getKakao = createAsyncThunk(
     try {
       const data = await instance.get(`/login/kakao?code=${code}`); //서버주소+코드정보(?서버주소?) 로 get요청을 보내면 response에 토큰을 받을수있다. 코드르 보내주면서 동시에 토큰을 받아옴.
       // const data = await instance.get(`/auth/kakao?code=${code}`);
-
+      const ACCESS_TOKEN1 = data.headers.authorization.substring(10,97);
+      const ACCESS_TOKEN2 = data.headers.authorization.substring(97,105);
+      const ACCESS_TOKEN3 = data.headers.authorization.substring(105);
+      localStorage.setItem(process.env.REACT_APP_TOKEN_A, ACCESS_TOKEN1 )
+      localStorage.setItem(process.env.REACT_APP_TOKEN_B, ACCESS_TOKEN2 )
+      localStorage.setItem(process.env.REACT_APP_TOKEN_C, ACCESS_TOKEN3)
       
-      console.log(data);
-      const ACCESS_TOKEN = data.headers.authorization;//토큰위치 확인 후 ACCESS_TOKEN에 저장
-      localStorage.setItem("token", ACCESS_TOKEN); //로컬스토리지에 토큰저장
       const user = data.data.data.memberName
       localStorage.setItem("name", user )
       const userId = data.data.data.memberId
@@ -70,15 +72,20 @@ export const getKakao = createAsyncThunk(
         const data = await instance.get(`/login/naver?code=${code}&state=123`); //서버주소+코드정보(?서버주소?) 로 get요청을 보내면 response에 토큰을 받을수있다. 코드르 보내주면서 동시에 토큰을 받아옴.
         // const data = await instance.get(`/auth/kakao?code=${code}`);
         console.log(data);
-        const ACCESS_TOKEN = data.headers.authorization;//토큰위치 확인 후 ACCESS_TOKEN에 저장
-        localStorage.setItem("token", ACCESS_TOKEN); //로컬스토리지에 토큰저장
+        const ACCESS_TOKEN1 = data.headers.authorization.substring(10,97);
+        const ACCESS_TOKEN2 = data.headers.authorization.substring(97,105);
+        const ACCESS_TOKEN3 = data.headers.authorization.substring(105);
+        localStorage.setItem(process.env.REACT_APP_TOKEN_A, ACCESS_TOKEN1 )
+        localStorage.setItem(process.env.REACT_APP_TOKEN_B, ACCESS_TOKEN2 )
+        localStorage.setItem(process.env.REACT_APP_TOKEN_C, ACCESS_TOKEN3)
+
         const user = data.data.data.memberName
         localStorage.setItem("name", user )
         const userId = data.data.data.memberId
         localStorage.setItem("userId",userId)
         const userImg = data.data.data.memberImg
         localStorage.setItem("userImg",userImg)
-        // window.location.assign("/"); 
+        window.location.assign("/"); 
         return data;
   
   
