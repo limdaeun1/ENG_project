@@ -13,7 +13,7 @@ import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import UserCard from "./UserCard";
 const SCChat = () => {
-  const Authorization = localStorage.getItem("token");
+  const Authorization = `Bearer eyJ${localStorage.getItem(process.env.REACT_APP_TOKEN_A)}${localStorage.getItem(process.env.REACT_APP_TOKEN_B)}${localStorage.getItem(process.env.REACT_APP_TOKEN_C)}`;
   const name = localStorage.getItem("name");
   const userId = localStorage.getItem("userId")
   const roomId = useParams();

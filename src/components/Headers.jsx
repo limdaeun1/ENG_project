@@ -25,10 +25,8 @@ const Headers = () => {
    }).then(result => {
       if (result.isConfirmed) {
     // Swal.fire('로그아웃이 완료되었습니다.', 'Eng-FLUENCER', 'success');
-    localStorage.removeItem("token"); 
-    localStorage.removeItem("name");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userImg");
+    localStorage.clear();
+  
     navigate("/");
     window.location.reload(); 
 
