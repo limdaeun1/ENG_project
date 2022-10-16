@@ -78,7 +78,7 @@ export const getKakao = createAsyncThunk(
         localStorage.setItem("userId",userId)
         const userImg = data.data.data.memberImg
         localStorage.setItem("userImg",userImg)
-        // window.location.assign("/"); 
+        window.location.assign("/"); 
         return data;
   
   
