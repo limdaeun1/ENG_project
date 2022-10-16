@@ -12,12 +12,17 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import UserCard from "./UserCard";
+
+
 const SCChat = () => {
   const Authorization = `Bearer eyJ${localStorage.getItem(process.env.REACT_APP_TOKEN_A)}${localStorage.getItem(process.env.REACT_APP_TOKEN_B)}${localStorage.getItem(process.env.REACT_APP_TOKEN_C)}`;
   const name = localStorage.getItem("name");
   const userId = localStorage.getItem("userId")
   const roomId = useParams();
   const client = useRef({});
+
+
+ 
 
   //채팅 메세지 관리
   const [chat, setChat] = useState({ content: "" });
@@ -52,7 +57,7 @@ const SCChat = () => {
 
   useEffect(() => {
     connect();
-
+    
     return () => disconnect();
   }, []);
 
@@ -60,7 +65,12 @@ const SCChat = () => {
   // const scrollToElement = () =>
   //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
 
+//   window.onbeforeunload = function (e) {
+//     // e.preventDefault()
+//       disconnect();
+// };
 
+// window.addEventListener('beforeunload', navigate("/"));
 
 
 
@@ -86,7 +96,13 @@ const SCChat = () => {
         confirmButtonText: "확인",
     })
     }
-
+    // function heartbeat() {
+    //   this.isAlive = true;
+    // }
+    // function connection(ws) {
+    //   ws.isAlive = true;
+    //   ws.on('pong', heartbeat);
+    // }
 
   //웹소캣 연결 & 구독
   const connect = () => {
@@ -117,7 +133,35 @@ const SCChat = () => {
             roomId: roomId.id,
           }),
         });
-
+        var heartbeat_msg = '--heartbeat--', heartbeat_interval = null;
+        // missed_heartbeats = 0;
+        if (heartbeat_interval === null) {
+          // missed_heartbeats = 0;
+          heartbeat_interval = setInterval(function() {
+              try {
+                  // missed_heartbeats++;
+                  // if (missed_heartbeats >= 6)
+                      // throw new Error("Too many missed heartbeats.");
+                  client.current.publish({                                     
+                    destination: "/pub/chat/message", 
+                    headers: { Authorization: Authorization },
+                    //전송할 데이터를 입력
+                    body: JSON.stringify({
+                      type: 8,                        
+                      message: heartbeat_msg,
+                      roomId: roomId.id,
+                      // userId:userId,
+                    }),
+                  });
+              } catch(e) {
+                  clearInterval(heartbeat_interval);
+                  // const heartbeat_interval = null;
+                  // console.warn("Closing connection. Reason: " + e.message);
+                  // console.log("짱많이 보냄")
+                  // disconnect();
+              }
+          }, 3000);
+      }
       },
     });
     client.current.activate();
@@ -153,7 +197,11 @@ const SCChat = () => {
         // console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
-      }      
+      }    
+      
+      else if(content.type === 8){
+        console.log(content)
+      }
 
        //참가자목록
       else if (content.type === 9) {
@@ -285,7 +333,6 @@ const SCChat = () => {
   };
 
 
-    
 
   // console.log(participant)
   // console.log(participant?.length)
