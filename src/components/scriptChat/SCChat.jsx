@@ -12,12 +12,17 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import UserCard from "./UserCard";
+
+
 const SCChat = () => {
-  const Authorization = localStorage.getItem("token");
+  const Authorization = `Bearer eyJ${localStorage.getItem(process.env.REACT_APP_TOKEN_A)}${localStorage.getItem(process.env.REACT_APP_TOKEN_B)}${localStorage.getItem(process.env.REACT_APP_TOKEN_C)}`;
   const name = localStorage.getItem("name");
   const userId = localStorage.getItem("userId")
   const roomId = useParams();
   const client = useRef({});
+
+
+ 
 
   //채팅 메세지 관리
   const [chat, setChat] = useState({ content: "" });
@@ -26,6 +31,7 @@ const SCChat = () => {
     { chatMessage: "", user: "", type: "", image: "",time:"" },
   ]); 
   const inputRef = useRef("");
+
 
   //공지 관리
   const [notice, setNoitce] = useState(false);
@@ -51,7 +57,7 @@ const SCChat = () => {
 
   useEffect(() => {
     connect();
-
+    
     return () => disconnect();
   }, []);
 
@@ -59,7 +65,12 @@ const SCChat = () => {
   // const scrollToElement = () =>
   //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
 
+//   window.onbeforeunload = function (e) {
+//     // e.preventDefault()
+//       disconnect();
+// };
 
+// window.addEventListener('beforeunload', navigate("/"));
 
 
 
@@ -71,7 +82,7 @@ const SCChat = () => {
 
     useEffect(() => {
       scrollToBottom();
-    }, [messages]);
+    }, [messages,toggleState]);
     
 
 
@@ -86,13 +97,23 @@ const SCChat = () => {
     })
     }
 
+    const moveList = () =>{
+      navigate("/");
+      Swal.fire({
+        title: "비정상적인 접근입니다.",
+        confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+        showCancelButton: false,
+        confirmButtonText: "확인",
+    })
+    }
+
 
   //웹소캣 연결 & 구독
   const connect = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
       // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
-      brokerURL: "ws://3.38.253.255:8080/ws-stomp/websocket",
+      brokerURL: process.env.REACT_APP_CHAT_WEBSOCKET,
       connectHeaders: {
         Authorization: Authorization,
       },
@@ -116,7 +137,35 @@ const SCChat = () => {
             roomId: roomId.id,
           }),
         });
-
+        var heartbeat_msg = '--heartbeat--', heartbeat_interval = null;
+        // missed_heartbeats = 0;
+        if (heartbeat_interval === null) {
+          // missed_heartbeats = 0;
+          heartbeat_interval = setInterval(function() {
+              try {
+                  // missed_heartbeats++;
+                  // if (missed_heartbeats >= 6)
+                      // throw new Error("Too many missed heartbeats.");
+                  client.current.publish({                                     
+                    destination: "/pub/chat/message", 
+                    headers: { Authorization: Authorization },
+                    //전송할 데이터를 입력
+                    body: JSON.stringify({
+                      type: 8,                        
+                      message: heartbeat_msg,
+                      roomId: roomId.id,
+                      // userId:userId,
+                    }),
+                  });
+              } catch(e) {
+                  clearInterval(heartbeat_interval);
+                  // const heartbeat_interval = null;
+                  // console.warn("Closing connection. Reason: " + e.message);
+                  // console.log("짱많이 보냄")
+                  // disconnect();
+              }
+          }, 3000);
+      }
       },
     });
     client.current.activate();
@@ -124,7 +173,7 @@ const SCChat = () => {
  //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
     // return new SockJS("http://54.180.142.30/ws-stomp");
-    return new SockJS("http://3.38.253.255:8080/ws-stomp");
+    return new SockJS(process.env.REACT_APP_CHAT_SOCK);
   };
 
 
@@ -149,10 +198,20 @@ const SCChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        // console.log(content)
+        console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
-      }      
+      }    
+      
+      else if(content.type === 8){
+        // console.log(content)
+        if(content.vanId == userId) {
+          moveList()
+        }
+        else{
+          return null
+        }
+      }
 
        //참가자목록
       else if (content.type === 9) {
@@ -160,19 +219,8 @@ const SCChat = () => {
         const a = content.enterMembers
         setParticipant(a)
       } 
-
+    
       //채팅저장
-      // else if(content.type === 2) {
-      //   setMessages((_messages) => [
-      //     ..._messages,
-      //     {
-      //       chatMessage: content.msg,
-      //       user: content.sender,
-      //       type: content.type,
-      //       image: content.image,
-      //     },
-      //   ]); 
-      // }
 
       else if(content.type === 2) {
         setMessages((_messages) => [
@@ -295,7 +343,6 @@ const SCChat = () => {
   };
 
 
-    
 
   // console.log(participant)
   // console.log(participant?.length)
@@ -332,110 +379,189 @@ const SCChat = () => {
             {messages.map((c, i) => {
               return c.type === 2 ? (
                 //내 메세지면
-                c.user == name ? (
-                  <MyChat key={uuidv4()}>
-                    {/* <MyName>{c.user}</MyName> */}
+                c.user == name ?
+
+                      // 본인메세지
+                (
+                  messages[i-1].user !== name
+                  ?(messages[i+1]?.user == name
+                    ?(messages[i+1]?.time == messages[i].time
+                      ?(
+                        <MyChat key={uuidv4()}>
+                      <MsgTimeBox >
                     <MyMsg>{c.chatMessage}</MyMsg>
+                    </MsgTimeBox>
                   </MyChat>
+                      )
+                      :(<MyChat key={uuidv4()}>
+                        <MsgTimeBox >
+                      <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                    </MyChat>)
+                    )
+                    :(
+                    <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                  </MyChat>))
+                  :(messages[i+1]?.user == name
+                    ?(messages[i+1]?.time == messages[i].time
+                      ?(
+                        
+                        <MyChat key={uuidv4()}>
+                          <MsgTimeBox>
+                        <MyMsg>{c.chatMessage}</MyMsg>
+                        </MsgTimeBox>
+                      </MyChat>
+                      )
+                      :(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox >
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                      </MyChat>
+                      ))
+                    :(messages[i+1]?.time == messages[i].time
+                      ?(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                      </MyChat>
+                      )
+                      :(
+                        <MyChat key={uuidv4()}>
+                        <MsgTimeBox>
+                        <TimeMsg >{c.time}</TimeMsg>
+                      <MyMsg>{c.chatMessage}</MyMsg>
+                      </MsgTimeBox>
+                        
+                      </MyChat>
+                      ))
+)
                 )
-                 :
-                    // 다른사람 메세지면서 
-                //  ( messages[i+1]?.time == messages[i].time 
-                //   ?(messages[i-1].user == messages[i].user 
-                //     // 다른사람 메세지면서 시간이 같고 이전에사람도 같고
-                //     ?(
-                //       <OtherChat key={uuidv4()}>
-                //       {/* <ImgBox src={c.image} /> */}
-                //       <div>
-                //         <OtherName>{c.user}</OtherName>
-                //         <OtherMsg>{c.chatMessage}</OtherMsg>
-                //       </div>
-                //       {/* <p>{c.time}</p> */}
-                //     </OtherChat>
-                //     )
-                //     // 다른사람 메세지면서 시간이 같고 보낸사람은 다르고
-                //     :(messages[i+1]?.user == messages[i].user 
-                //     ?(
-                //       <OtherChat key={uuidv4()}>
-                //       <ImgBox src={c.image} />
-                //       <div>
-                //         <OtherName>{c.user}</OtherName>
-                //         <OtherMsg>{c.chatMessage}</OtherMsg>
-                //       </div>
-                //       <p>{c.time}</p>
-                //     </OtherChat>  
-                //     )
-                //     :(
-                //       <OtherChat key={uuidv4()}>
-                //       <ImgBox src={c.image} />
-                //       <div>
-                //         <OtherName>{c.user}</OtherName>
-                //         <OtherMsg>{c.chatMessage}</OtherMsg>
-                //       </div>
-                //       <p>{c.time}</p>
-                //     </OtherChat>                      
-                //     )
-                //    )
-                //   )
-                //   ://시간은 다르고
-                //   ( messages[i-1].user === messages[i].user 
-                //     ?( //보낸사람은 같으면
-                //       <OtherChat key={uuidv4()}>
-                //     <div>
-                //       <OtherName>{c.user}</OtherName>
-                //       <OtherMsg>{c.chatMessage}</OtherMsg>
-                //     </div>
-                //     <p>{c.time}</p>
-                //   </OtherChat>
-                //     )
-                //     :( //보낸사람도 다르면
-                //     <OtherChat key={uuidv4()}>
-                //     <ImgBox src={c.image} />
-                //     <div>
-                //       <OtherName>{c.user}</OtherName>
-                //       <OtherMsg>{c.chatMessage}</OtherMsg>
-                //     </div>
-                //     <p>{c.time}</p>
-                //   </OtherChat>
-                //     )
+                 :             // 다른사람 메세지
+                    (
+                      messages[i-1].user !== messages[i].user 
+                      ?(messages[i+1]?.user == messages[i].user
+                        ?(messages[i+1]?.time == messages[i].time 
+                          ?(
 
-                //   )
+                            <OtherChat key={uuidv4()}>
+                          <ImgBox src={c.image} />
+                          <div>
+                            <OtherName>{c.user}</OtherName>
+                            <OtherMsg>{c.chatMessage}</OtherMsg>
+                          </div>
+                        </OtherChat>
 
-                // )
-                ( messages[i-1].user === messages[i].user 
-                  ?(
+                          )
+                          :( 
+                          
+                          <OtherChat key={uuidv4()}>
+                          <ImgBox src={c.image} />
+                          <div>
+                            <OtherName>{c.user}</OtherName>
+                            <OtherMsg>{c.chatMessage}</OtherMsg>
+                          </div>
+                          <TimeMsg>{c.time}</TimeMsg>
+                        </OtherChat>
+                        
+                        ))
+                        :(messages[i+1]?.time == messages[i].time 
+                          ?( <OtherChat key={uuidv4()}>
+                              <ImgBox src={c.image} />
+                              <MsgTimeBox2>
+                              <div>
+                                <OtherName>{c.user}</OtherName>
+                                <OtherMsg>{c.chatMessage}</OtherMsg>
+                              </div>
+                              <TimeMsg>{c.time}</TimeMsg>
+                              </MsgTimeBox2>
+                            </OtherChat>)
+                          :(                
+                                <OtherChat key={uuidv4()}>
+                              <ImgBox src={c.image} />
+                              <MsgTimeBox2>
+                              <div>
+                                <OtherName>{c.user}</OtherName>
+                                <OtherMsg>{c.chatMessage}</OtherMsg>
+                              </div>
+                              <TimeMsg>{c.time}</TimeMsg>
+                              </MsgTimeBox2>
+                            </OtherChat>)))
+                      :( messages[i+1]?.user == messages[i].user
+                        ?(messages[i+1]?.time == messages[i].time //고침 다음이랑 시간이 같으면
+                          ?(
                     <OtherChat key={uuidv4()}>
                     <div style={{width:"50px"}} />
                     {/* <ImgBox src={c.image} /> */}
                     <div>
-                      {/* <OtherName>{c.user}</OtherName> */}
                       <OtherMsg>{c.chatMessage}</OtherMsg>
                     </div>
                   </OtherChat>
-                  )
-                  :(
-                   <OtherChat key={uuidv4()}>
-                    <ImgBox src={c.image} />
-                    <div>
-                      <OtherName>{c.user}</OtherName>
-                      <OtherMsg>{c.chatMessage}</OtherMsg>
-                    </div>
-                  </OtherChat>
-                  )
+                          )
+                          :(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          )
 
-                )
+                        )
+                        :(messages[i+1]?.user !== messages[i].user
+                          ?(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          ) 
+                          :(
+                            <OtherChat key={uuidv4()}>
+                              <MsgTimeBox2>
+                            <div style={{width:"50px"}} />
+                            <div>
+                              <OtherMsg>{c.chatMessage}</OtherMsg>
+                            </div>
+                            <TimeMsg>{c.time}</TimeMsg>
+                            </MsgTimeBox2>
+                          </OtherChat>
+                          )
+
+                        ))
+                    )
               ) : c.type === 3 ? (
                 <InfoBox
                 key={uuidv4()}
                 >
                   {c.chatMessage}
                 </InfoBox>
-              ) : (
-                <div  key={uuidv4()} style={{width:"100%",textAlign:"center"}}>
-                <EnterExitBox>
-                  {c.chatMessage}
-                </EnterExitBox>
-                </div>
+              ) : ( c.type === 0 || c.type === 1
+                ?(
+                  <div  key={uuidv4()} style={{width:"100%",textAlign:"center"}}>
+                  <EnterExitBox>
+                    {c.chatMessage}
+                  </EnterExitBox>
+                  </div>
+                )
+                :(
+                  null
+                )
               );
             })}
           </ChatBox>
@@ -496,8 +622,8 @@ const SCChat = () => {
       
       {toggleState === 2 ? (
       <UserContainer>
-       <div >
-        {participant?.length}/{memberCount}명
+       <div style={{float:"right", display:"flex",margin:"2% 2%"}}>
+       참가자 : {participant?.length}/{memberCount}명
        </div>
         {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
         </UserContainer>) : null}
@@ -519,8 +645,8 @@ const CamChatBox = styled.div`
 `;
 const UserContainer = styled.div`
 width:90%;
-min-height:315px; 
-height:315px;
+min-height:310px; 
+height:310px;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
@@ -561,17 +687,16 @@ const InfoBox = styled.div`
   text-align: center;
   color: green;
   width: 100%;
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
 `;
 
 const EnterExitBox = styled.div`
-  /* text-align: center; */
-  width: 100px;
+  width: 40%;
   display: inline-block;
-  /* align-items: center;
-  justify-content: center; */
-  margin-top: 10px;
-  border-radius: 1%;
-  background: #dee2e6;
+  margin: 10px 0px 10px 0px;
+  border-radius: 5px;
+  color:#adb5bd;
   font-size: 14px;
 `;
 
@@ -585,9 +710,11 @@ const MyChat = styled.div`
   width: 100%;
   float: right;
   clear: both;
+  display: flex;
   border: none;
   height: auto;
   margin: 10px 10px 0px 0px;
+  /* background-color: green; */
 `;
 const ImgBox = styled.img`
   border-radius: 10px;
@@ -606,9 +733,21 @@ const OtherName = styled.div`
   justify-content: center;
   line-height: 30px;
 `;
+
+const MsgTimeBox = styled.div`
+  margin-left:auto;
+  display:flex;
+`
+
+const MsgTimeBox2 = styled.div`
+  /* margin-left:auto; */
+  display:flex;
+`
+
 const MyMsg = styled.div`
   border: none;
-  max-width: 80%;
+  max-width: 230px;
+  /* display: inline-block; */
   width: fit-content;
   margin-left: auto;
   padding: 0px 10px 0px 10px;
@@ -624,7 +763,7 @@ const MyMsg = styled.div`
 
 const OtherMsg = styled.div`
   border: none;
-  /* max-width: 80%; */
+  max-width: 200px;
   width: fit-content;
   padding: 0px 10px 0px 10px;
   margin-right: 10px;
@@ -635,10 +774,15 @@ const OtherMsg = styled.div`
   white-space: pre-line;
   margin-top: 10px;
   border-radius: 10px 10px 10px 0px;
-  padding: 0px 10px 0px 10px;
+  /* padding: 0px 10px 0px 10px; */
   color: black;
   background-color: #f1f3f5;
 `;
+
+const TimeMsg = styled.div`
+  font-size:13px;
+  margin-top:auto;
+`
 
 const SendBox = styled.div`
   background-color: white;
