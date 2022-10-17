@@ -141,8 +141,10 @@ const declareBtn =() =>{
 
           </UserBox>
         )
-      ) //다른사람이 방장일때
-      : roomManager == user?.memberId ? (
+      ) 
+      ://다른사람이 방장일때
+      ( roomManager == user?.memberId ? 
+        (
         user?.memberId == userId 
         ?(
       <UserBox>
@@ -169,7 +171,9 @@ const declareBtn =() =>{
   
       ) : (
         //다른사람이 방장이 아닐때
-        <UserBox>
+        user?.memberId == userId 
+        ?(
+          <UserBox>
           <UserImgBox
             src={user?.memberImg}
           />
@@ -178,7 +182,22 @@ const declareBtn =() =>{
           {/* <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn> */}
             </BtnBox>
         </UserBox>
-      )}
+        )
+        :(
+          <UserBox>
+          <UserImgBox
+            src={user?.memberImg}
+          />
+          <UserNameBox >{user?.memberName}</UserNameBox>
+          <BtnBox>
+          <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn>
+            </BtnBox>
+        </UserBox>
+        )
+
+      )
+      )
+      }
     </>
 
   );
