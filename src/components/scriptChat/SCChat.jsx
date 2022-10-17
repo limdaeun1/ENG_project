@@ -96,13 +96,17 @@ const SCChat = () => {
         confirmButtonText: "확인",
     })
     }
-    // function heartbeat() {
-    //   this.isAlive = true;
-    // }
-    // function connection(ws) {
-    //   ws.isAlive = true;
-    //   ws.on('pong', heartbeat);
-    // }
+
+    const moveList = () =>{
+      navigate("/");
+      Swal.fire({
+        title: "비정상적인 접근입니다.",
+        confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+        showCancelButton: false,
+        confirmButtonText: "확인",
+    })
+    }
+
 
   //웹소캣 연결 & 구독
   const connect = () => {
@@ -194,13 +198,19 @@ const SCChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        // console.log(content)
+        console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }    
       
       else if(content.type === 8){
-        console.log(content)
+        // console.log(content)
+        if(content.vanId == userId) {
+          moveList()
+        }
+        else{
+          return null
+        }
       }
 
        //참가자목록
