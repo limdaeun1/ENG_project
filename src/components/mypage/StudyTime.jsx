@@ -7,7 +7,7 @@ const StudyTime = () => {
 
 
   if (isLoading) {
-    return <div>로딩 중....</div>;
+    return <div>...</div>;
   }
 
   if (error) {
@@ -47,4 +47,8 @@ border: none;
         text-overflow : ellipsis;
         max-width: 500px;
     }
+    &:hover {
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+  }
 `

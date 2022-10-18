@@ -100,6 +100,7 @@ const Div = styled.div`
 border: none;
   width: 100%;
  height: 140px;
+ min-width: 800px;
  font-size: 14px;
   text-align: center;
   display: flex;
@@ -112,6 +113,10 @@ border: none;
   width: 10%;
   min-width: 150px;
   margin-left: 1%;
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.2s linear;
+  }
 `
 
 const Btn = styled.button`
@@ -130,6 +135,8 @@ const Btn = styled.button`
   /* margin-top: 8px; */
   &:hover {
     background-color: #89f6ab;
+    transform: scale(1.1);
+    transition: all 0.2s linear;
   }
   font-weight: 540;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
@@ -150,6 +157,8 @@ const Btn1 = styled.button`
   /* margin-top: 8px; */
   &:hover {
     background-color: #89f6ab;
+    transform: scale(1.1);
+    transition: all 0.2s linear;
   }
   font-weight: 540;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;

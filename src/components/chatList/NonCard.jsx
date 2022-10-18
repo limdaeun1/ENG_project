@@ -7,7 +7,7 @@ const NonCard = () => {
     <>
 
     <Container >
-      <img style = {{width:"60%"}}  src={roomcat}/>
+      <Img src={roomcat}/>
 
       <div style ={{display:"flex"}}>
         <Round />
@@ -37,6 +37,7 @@ const Container = styled.div`
   min-width: 220px;
   font-size: 20px;
   color: #099268;
+  width: 90%;
 `;
 
 const Round = styled.div`
@@ -77,3 +78,8 @@ const ParticipationBtn = styled.div`
   border-radius: 10px;
   text-align: center;
 `;
+
+const Img = styled.img`
+  width:60%;
+  max-width: 400px;
+`

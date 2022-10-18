@@ -12,6 +12,7 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import CSUserCard from "./CSUserCard";
+import CSMemo from "./CSMemo";
 
 const CSChat = () => {
   const Authorization = `Bearer eyJ${localStorage.getItem(process.env.REACT_APP_TOKEN_A)}${localStorage.getItem(process.env.REACT_APP_TOKEN_B)}${localStorage.getItem(process.env.REACT_APP_TOKEN_C)}`;
@@ -83,7 +84,15 @@ const CSChat = () => {
   })
   }
 
-
+  const moveList = () =>{
+    navigate("/");
+    Swal.fire({
+      title: "비정상적인 접근입니다.",
+      confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+      showCancelButton: false,
+      confirmButtonText: "확인",
+  })
+  }
 
   //웹소캣 연결 & 구독
   const connect = () => {
@@ -114,6 +123,35 @@ const CSChat = () => {
             roomId: roomId.id,
           }),
         });
+        var heartbeat_msg = '--heartbeat--', heartbeat_interval = null;
+        // missed_heartbeats = 0;
+        if (heartbeat_interval === null) {
+          // missed_heartbeats = 0;
+          heartbeat_interval = setInterval(function() {
+              try {
+                  // missed_heartbeats++;
+                  // if (missed_heartbeats >= 6)
+                      // throw new Error("Too many missed heartbeats.");
+                  client.current.publish({                                     
+                    destination: "/pub/chat/message", 
+                    headers: { Authorization: Authorization },
+                    //전송할 데이터를 입력
+                    body: JSON.stringify({
+                      type: 8,                        
+                      message: heartbeat_msg,
+                      roomId: roomId.id,
+                      // userId:userId,
+                    }),
+                  });
+              } catch(e) {
+                  clearInterval(heartbeat_interval);
+                  // const heartbeat_interval = null;
+                  // console.warn("Closing connection. Reason: " + e.message);
+                  // console.log("짱많이 보냄")
+                  // disconnect();
+              }
+          }, 3000);
+      }
       },
     });
     client.current.activate();
@@ -147,6 +185,16 @@ const CSChat = () => {
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }      
+
+      else if(content.type === 8){
+        // console.log(content)
+        if(content.vanId == userId) {
+          moveList()
+        }
+        else{
+          return null
+        }
+      }
 
        //참가자목록
       else if (content.type === 9) {
@@ -573,7 +621,7 @@ const CSChat = () => {
         </TabContainer>
         {/* 메모장 */}
         <div style={{ flexGrow: "1" }}>
-         <MemoBox>메모</MemoBox>
+         <MemoBox><CSMemo id={roomId}/></MemoBox>
         </div>
       </ScriptContainer>
     </Container>
