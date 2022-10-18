@@ -1,7 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, {keyframes}  from 'styled-components'
 import { useNavigate } from "react-router-dom";
-import naverBtn from "../../img/naverBtn.png"
 
 
 const LoginImg = () => {
@@ -13,7 +12,7 @@ const LoginImg = () => {
         <Logo>
             <img src="https://ifh.cc/g/vkrmFP.png" onClick={() => navigate("/")}></img>
         </Logo>
-        <Imgbox><Img onClick={() => navigate("/")}></Img></Imgbox>
+        <Imgbox><Img></Img></Imgbox>
         <Naver>
             <a href={NAVER_AUTH_URL}>
             <img src="https://ifh.cc/g/CYPS0t.png"></img>
@@ -32,9 +31,19 @@ const LoginImg = () => {
 
 export default LoginImg
 
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
 const Container = styled.div`
 border: none;
-/* border: solid 1px; */
     width: 100%;
     height: 100%;
     min-width: 600px;
@@ -45,16 +54,13 @@ border: none;
 
 const Logo = styled.div`
 border: none;
-/* border: solid 1px red; */
 text-align: center;
 width: 15%;
 min-width:200px;
 margin: auto;
 height: auto;
-/* background-image:"https://ifh.cc/g/vkrmFP.png"; */
     img{
         width: 100%;
-        /* border: solid 1px orange; */
         margin-top:15%;
         margin-bottom:5%;
     }
@@ -66,34 +72,30 @@ height: auto;
 
 const Imgbox = styled.div`
 border: none;
-/* border: solid 1px yellow; */
-width:40%;
+width:84%;
 min-width: 600px;
-min-height: 600px;
+min-height: 500px;
     border-radius: 15px;
-    margin: 1% auto 0 auto ;
+    margin: 1% auto 7% auto ;
+    animation: ${smoothAppear} 3s 0s 1;
     `
 
 const Img = styled.div`
 border: none;
-/* border: solid 1px green; */
-margin: auto;
-width: 100%;
-height: 600px;
-    background-image: url('https://img.freepik.com/premium-vector/people-in-video-conference-characters_24877-71478.jpg');
+margin: 2% 5% auto 5%;
+width: 90%;
+height: 500px;
+    background-image: url('https://ifh.cc/g/k5twLN.png');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     `
 
-
 const Kakao = styled.div`
-/* border: solid 1px red; */
 width:20%;
 min-width:330px;
 height: 82px;
 margin: auto;
-/* border: none; */
     text-align: center;
     img{
         width: 100%;
@@ -113,7 +115,6 @@ width:20%;
 min-width:330px;
 height: 50px;
 margin: auto;
-/* border: none; */
     text-align: center;
     border-radius: 10px;
     background-color: #03C75A;

@@ -21,18 +21,18 @@ border:none;
 margin-top: 10%;
     display: flex;
     justify-content:center;
-    width: 90%;
+    width: 100%;
+    min-width:800px;
     height: 250px;
-    margin-left: 5%;
-    margin-right: 5%;
 `
 
 const Ad1 = styled.div`
     img{
-        width: 100%;
+        width: 90%;
         min-width: 170px; 
         height: 100%;
         border-radius: 20px;
+        margin: 0% 5% 0% 5%;
     }
 
 `
@@ -40,9 +40,10 @@ const Ad1 = styled.div`
 const Ad2 = styled.div`
     margin-left: 5%;
     img{
-        width: 100%;
+        width: 90%;
         height: 100%;
         min-width: 250px; 
         border-radius: 20px;
+        margin: 0% 5% 0% 5%;
     }
 `

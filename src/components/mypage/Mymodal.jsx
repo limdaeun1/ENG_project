@@ -68,10 +68,6 @@ const Roomname = styled.h3`
 
 const P2 = styled.p`
   width: 300px;
-  /* height:200px; */
-  /* border: solid; */
-  /* overflow-x: hidden;
-    overflow-y: scroll; */
     display: inline-block;
 `
 

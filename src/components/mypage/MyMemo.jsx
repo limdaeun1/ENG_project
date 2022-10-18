@@ -60,7 +60,6 @@ export default MyMemo
 const Box = styled.div`
     border: none;
     width: 210px;
-    /* min-width: 200px; */
     align-items: center;
     justify-content: center;
     margin: 10px;
@@ -74,8 +73,6 @@ const Box = styled.div`
 `
 
 const Div = styled.div`
-  /* max-width: 485px; */
-  /* width: 100%; */
   height: auto;
   display: grid;
   grid-template-columns: 200px 200px 500px;
@@ -97,7 +94,6 @@ const Roomname = styled.h3`
 `
 
 const P2 = styled.p`
-  /* white-space : nowrap; */
   overflow : hidden;
   text-overflow : ellipsis;
   max-width: 200px;
