@@ -8,18 +8,6 @@ const NonCard = () => {
 
     <Container >
       <img style = {{width:"60%"}}  src={roomcat}/>
-
-      {/* <div style ={{display:"flex"}}>
-        <Round />
-        <TitleBox></TitleBox>
-        <LockStatusBox ></LockStatusBox>
-        <PeopleParticipationBox>
-        <NumPeopleBox>
-        </NumPeopleBox>
-        <ParticipationBtn></ParticipationBtn>
-        </PeopleParticipationBox>
-      </div> */}
-
     </Container>
     </>
 
@@ -37,43 +25,4 @@ const Container = styled.div`
   min-width: 220px;
   font-size: 20px;
   color: #099268;
-`;
-
-const Round = styled.div`
-  min-width: 10px;
-  min-height: 10px;
-  border-radius: 100%;
-`
-
-const TitleBox = styled.div`
-  width: 400px;
-  max-width: 500px;
-  padding: 5px;
-  border-radius: 10px;
-  margin-left: 20px;
-  text-align: center;
-`;
-const LockStatusBox = styled.div`
-  width: 30px;
-  height: 30px;
-`;
-const PeopleParticipationBox = styled.div`
-  display: flex;
-  margin-left: auto;
-  align-items: center;
-`;
-
-const NumPeopleBox = styled.div`
-  width: 40px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
-  margin-right: 5px;
-`;
-
-const ParticipationBtn = styled.div`
-  width: 30px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
 `;
