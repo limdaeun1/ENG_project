@@ -8755,10 +8755,10 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-sweetalert2@^11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.5.0.tgz#6dee8dea9903cb5306b859614a0d757d489da46a"
-  integrity sha512-Ret0s0E8HMvGDkcHXnDVd8j7gijpGpuBhasiVzy+QAv+w0uEdFnjLMCfEOrIzbmVgeqxdzc6weBD0nucRGgKuA==
+sweetalert2@^11.4.38:
+  version "11.5.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.5.2.tgz#d0752eccb466e6cdf072009238580825bb2f64da"
+  integrity sha512-gVS4tSvYxY83RdgL7OQijDRP/othOA/v3JRjiWctGSRYY1NkX6sBirYLtgoRFprQ24HAQdbsWZiFg1k3uLoZZw==
 
 symbol-tree@^3.2.4:
   version "3.2.4"

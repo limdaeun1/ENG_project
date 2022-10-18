@@ -25,6 +25,7 @@ font-size: 15px;
   height: 200px;
   margin-top:10%;
   width: 100%;
+  min-width: 800px;
   ul {
     display: flex;
     height: 100%;

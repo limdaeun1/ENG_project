@@ -54,6 +54,8 @@ const Btn = styled.button`
   background-color: #000000;
   &:hover {
     background-color: #666666;
+    transform: scale(1.3);
+    transition: all 0.2s linear;
   }
 `
 
@@ -65,8 +67,15 @@ const Roomname = styled.h3`
 `
 
 const P2 = styled.p`
-  max-width: 200px;
+  width: 300px;
+  /* height:200px; */
+  /* border: solid; */
+  /* overflow-x: hidden;
+    overflow-y: scroll; */
+    display: inline-block;
 `
+
+
 const P3 = styled.p`
   font-size: 14px;
   font-weight: 700;

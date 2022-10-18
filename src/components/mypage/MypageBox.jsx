@@ -29,9 +29,10 @@ const MypageBox = () => {
 export default MypageBox
 
 const UploadSection = styled.section`
-/* border: solid 1px red; */
-border: none;
-  width: 100%;
+border: solid 1px red;
+/* border: none; */
+  width: 80%;
+  min-width: 490px;
   /* height: 45vh; */
   height: 370px;
   display: flex;
@@ -43,7 +44,8 @@ border: none;
 `;
 
 const BorderSection = styled.div`
-border: none;
+/* border: none; */
+border: solid 1px red;
   max-width: 500px;
   width: 100%;
   height: 100%;
@@ -58,14 +60,15 @@ border: none;
 `;
 
 const Profil = styled.li`
-border: none;
+border: solid 1px red;
+/* border: none; */
 list-style:none;
   align-items: center;
   margin-bottom: 0.5em;
   border-radius: 15px;
   padding: 0.5em 3em;
   box-shadow: 6px 6px 8px 8px rgb(64 60 67 / 16%);
-  max-width: 30rem;
+  /* max-width: 30rem; */
   width: 80%;
   height: 75%;
   list-style: none;
@@ -78,6 +81,10 @@ border: none;
   margin: 0.5em 1.5em 0.5em 1em;
   border-radius: 50%;
   height: 80%;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+  }
 `;
 
 const Name = styled.div`
@@ -89,6 +96,7 @@ height: 80%;
   display: flex;
   align-items: center;
   font-size: 0.8em;
+
 `;
 
 // const Hr = styled.hr`
