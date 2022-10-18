@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from 'styled-components'
 import MyMemo from "./MyMemo";
 import StudyTime from "./StudyTime";
-
+import Nonmypage from "./Nonmypage";
 
 const MypageContent = () => {
     const [toggleState, setToggleState] = useState(1);
@@ -13,6 +13,7 @@ const MypageContent = () => {
       
   return (
     <>
+    <Bigcontainer>
     <Container>
     <BlocTabsContiner>
             {toggleState === 1 
@@ -27,29 +28,37 @@ const MypageContent = () => {
            <div style={{flexGrow : "1"}}>
             {toggleState === 1 
             ? <ActiveContentBox > <StudyTime/> </ActiveContentBox>
-            :<ContentBox  > <StudyTime/></ContentBox>}
+            :<ContentBox  > <StudyTime/> </ContentBox>}
             
             {toggleState === 2 
             ? <ActiveContentBox > <MyMemo/></ActiveContentBox>
             :<ContentBox  ><MyMemo/></ContentBox>}
           </div>
     </Container>
+    </Bigcontainer>
     </>
   )
 }
 
 export default MypageContent
 
+const Bigcontainer = styled.section`
+border: solid 1px red;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Container = styled.div`
-/* border: solid 1px blue; */
-border: none;
+border: solid 1px blue;
+/* border: none; */
     width: 50%;
     min-width: 490px;
     height: auto;
     align-items: center;
     justify-content: center;
     place-content:center ;
-    margin:5% auto 30% auto;
+    margin:5% auto 0% auto;
     
 `;
 
@@ -77,6 +86,11 @@ const TabBox = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-right: 2px;
+  &:hover {
+    transform: scale(0.9);
+    transition: all 0.2s linear;
+    color: white;
+  }
 `;
 
 const AciveTabBox = styled.div`
@@ -96,6 +110,11 @@ const AciveTabBox = styled.div`
      background: red;
      color: white;
    } */
+   &:hover {
+    transform: scale(0.9);
+    transition: all 0.2s linear;
+    color: white;
+  }
 `;
 
 const ContentBox = styled.div`
