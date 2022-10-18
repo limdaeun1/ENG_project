@@ -7,6 +7,7 @@ import { getChatrooms } from "../../redux/modules/chatroom";
 import { useDispatch, useSelector } from "react-redux";
 import NonCard from "./NonCard";
 import reolad from "../../img/reload.png"
+import ListSlider from "./ListSlider";
 
 
 const ChatList = () => {
@@ -28,48 +29,30 @@ const ChatList = () => {
   };
 
   let one = roomlist.filter((roomlist) => {
-    return roomlist.category === "생활영어";
-  });
-
-  let two = roomlist.filter((roomlist) => {
     return roomlist.category === "스크립트";
   });
-
-  let three = roomlist.filter((roomlist) => {
-    return roomlist.category === "시험대비";
-  });
-
-  let four = roomlist.filter((roomlist) => {
+console.log(one)
+  let two = roomlist.filter((roomlist) => {
     return roomlist.category === "캠스터디";
   });
 
+
   if (isLoading) {
     return <div>
+       <ListSlider/>
             <Container>
         <BigBox>
           <BlocTabsContiner>
             {toggleState === 1 ? (
-              <AciveTabBox onClick={() => toggleTab(1)}>생활영어</AciveTabBox>
+              <AciveTabBox onClick={() => toggleTab(1)}>스크립트</AciveTabBox>
             ) : (
-              <TabBox onClick={() => toggleTab(1)}>생활영어</TabBox>
+              <TabBox onClick={() => toggleTab(1)}>스크립트</TabBox>
             )}
 
             {toggleState === 2 ? (
-              <AciveTabBox onClick={() => toggleTab(2)}>스크립트</AciveTabBox>
+              <AciveTabBox onClick={() => toggleTab(2)}>캠스터디</AciveTabBox>
             ) : (
-              <TabBox onClick={() => toggleTab(2)}>스크립트</TabBox>
-            )}
-
-            {toggleState === 3 ? (
-              <AciveTabBox onClick={() => toggleTab(3)}>시험대비</AciveTabBox>
-            ) : (
-              <TabBox onClick={() => toggleTab(3)}>시험대비</TabBox>
-            )}
-
-            {toggleState === 4 ? (
-              <AciveTabBox onClick={() => toggleTab(4)}>캠스터디</AciveTabBox>
-            ) : (
-              <TabBox onClick={() => toggleTab(4)}>캠스터디</TabBox>
+              <TabBox onClick={() => toggleTab(2)}>캠스터디</TabBox>
             )}
 
             <AddRoomBtn
@@ -109,33 +92,8 @@ const ChatList = () => {
                 </ActiveContentBox>
               )
             ) : null}
-
-            {toggleState === 3 ? (
-              three.length !== 0 ? (
-                <ActiveContentBox>
-                <p>...로딩중</p>
-                </ActiveContentBox>
-              ) : (
-                <ActiveContentBox>
-                <p>...로딩중</p>
-                </ActiveContentBox>
-              )
-            ) : null}
-
-            {toggleState === 4 ? (
-              four.length !== 0 ? (
-                <ActiveContentBox>
-                <p>...로딩중</p>
-                </ActiveContentBox>
-              ) : (
-                <ActiveContentBox>
-                <p>...로딩중</p>
-                </ActiveContentBox>
-              )
-            ) : null}
           </div>
         </BigBox>
-        <BannerBox />
       </Container>
     </div>
   }
@@ -144,34 +102,25 @@ const ChatList = () => {
     return <div>{error.message}</div>;
   }
 
-  return (
-    <div>
+  return (<>
+  
       <Container>
+      <ListSlider/>
         <BigBox>
           <BlocTabsContiner>
             {toggleState === 1 ? (
-              <AciveTabBox onClick={() => toggleTab(1)}>생활영어</AciveTabBox>
+              <AciveTabBox onClick={() => toggleTab(1)}>스크립트</AciveTabBox>
             ) : (
-              <TabBox onClick={() => toggleTab(1)}>생활영어</TabBox>
+              <TabBox onClick={() => toggleTab(1)}>스크립트</TabBox>
             )}
 
             {toggleState === 2 ? (
-              <AciveTabBox onClick={() => toggleTab(2)}>스크립트</AciveTabBox>
+              <AciveTabBox onClick={() => toggleTab(2)}>캠스터디</AciveTabBox>
             ) : (
-              <TabBox onClick={() => toggleTab(2)}>스크립트</TabBox>
+              <TabBox onClick={() => toggleTab(2)}>캠스터디</TabBox>
             )}
 
-            {toggleState === 3 ? (
-              <AciveTabBox onClick={() => toggleTab(3)}>시험대비</AciveTabBox>
-            ) : (
-              <TabBox onClick={() => toggleTab(3)}>시험대비</TabBox>
-            )}
-
-            {toggleState === 4 ? (
-              <AciveTabBox onClick={() => toggleTab(4)}>캠스터디</AciveTabBox>
-            ) : (
-              <TabBox onClick={() => toggleTab(4)}>캠스터디</TabBox>
-            )}
+        
 
             <AddRoomBtn
               onClick={() => {
@@ -204,6 +153,7 @@ const ChatList = () => {
                         roomName={room.roomName}
                         key={room.roomId}
                         lock={room.lock}
+                        roomimage={room.roomImage}
                       />
                     );
                   })}
@@ -226,12 +176,13 @@ const ChatList = () => {
 
             {toggleState === 2 ? (
               two.length !== 0 ? (
-                <ActiveContentBox>
+                <>
                   <ReloadContainer>
                     <ReloadBtnBox
                     src={reolad}
                     onClick={()=>{dispatch(getChatrooms())}} />
                   </ReloadContainer>
+                <ActiveContentBox>
                   {two.map((room) => {
                     return (
                       <ChatListCard
@@ -242,94 +193,32 @@ const ChatList = () => {
                         roomName={room.roomName}
                         key={room.roomId}
                         lock={room.lock}
+                        roomimage={room.roomImage}
                       />
                     );
                   })}
+                  
                 </ActiveContentBox>
+                </>
               ) : (
+                <>
+                <ReloadContainer>
+                <ReloadBtnBox
+                src={reolad}
+                onClick={()=>{dispatch(getChatrooms())}} />
+              </ReloadContainer>
                 <ActiveContentBox>
-                  <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
                   <NonCard></NonCard>
                 </ActiveContentBox>
+                </>
               )
             ) : null}
 
-            {toggleState === 3 ? (
-              three.length !== 0 ? (
-                <ActiveContentBox>
-                  <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
-                  {three.map((room) => {
-                    return (
-                      <ChatListCard
-                        category={room.category}
-                        maxCount={room.maxCount}
-                        nowCount={room.nowCount}
-                        id={room.roomId}
-                        roomName={room.roomName}
-                        key={room.roomId}
-                        lock={room.lock}
-                      />
-                    );
-                  })}
-                </ActiveContentBox>
-              ) : (
-                <ActiveContentBox>
-                  <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
-                  <NonCard></NonCard>
-                </ActiveContentBox>
-              )
-            ) : null}
-
-            {toggleState === 4 ? (
-              four.length !== 0 ? (
-                <ActiveContentBox>
-                  <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
-                  {four.map((room) => {
-                    return (
-                      <ChatListCard
-                        category={room.category}
-                        maxCount={room.maxCount}
-                        nowCount={room.nowCount}
-                        id={room.roomId}
-                        roomName={room.roomName}
-                        key={room.roomId}
-                        lock={room.lock}
-                      />
-                    );
-                  })}
-                </ActiveContentBox>
-              ) : (
-                <ActiveContentBox>
-                  <ReloadContainer>
-                    <ReloadBtnBox
-                    src={reolad}
-                    onClick={()=>{dispatch(getChatrooms())}} />
-                  </ReloadContainer>
-                  <NonCard></NonCard>
-                </ActiveContentBox>
-              )
-            ) : null}
+         
           </div>
         </BigBox>
-        <BannerBox />
       </Container>
-    </div>
+      </>
   );
 };
 
@@ -337,13 +226,12 @@ export default ChatList;
 
 const Container = styled.div`
   border: none;
-  display: flex;
-  min-height: 400px;
-  /* align-items: center; */
-  /* justify-content: center; */
-  width: 90%;
-  margin: 100px auto 20px auto;
+ 
+  margin: 0 20% 10% 23%;
   font-size: 14px;
+  width: 70%;
+  max-width: 1200px;
+  min-width: 1000px;
 `;
 
 const BlocTabsContiner = styled.div`
@@ -377,17 +265,6 @@ const AddRoomBtn = styled.div`
   cursor: pointer;
 `;
 
-const BannerBox = styled.img`
-  border: none;
-  height: 50%;
-  min-height: 500px;
-  width: 20%;
-  background-color: #b2f2bb;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 9%;
-  margin-bottom: 10%;
-`;
 
 const TabBox = styled.div`
   padding: 1.2% 3% 1.2% 3%;
@@ -409,6 +286,7 @@ const TabBox = styled.div`
   margin-top: 0.3%;
   font-size: 0.9em;
 `;
+
 const AciveTabBox = styled.div`
   padding: 1.2% 3% 1.2% 3%;
   text-align: center;
@@ -432,37 +310,29 @@ const AciveTabBox = styled.div`
   font-size: 0.9em;
 `;
 
-// const ContentBox = styled.div`
-//   border: none;
-//   background: white;
-//   padding: 20px;
-//   max-width: 1000px;
-//   min-width: 705px;
-//   min-height: 500px;
-//   display: none;
-// `;
 const ReloadContainer = styled.div`
 height: 30px;
-  width:100%;
-  min-width:400px;
-  /* background-color:green; */
+margin: 10px;
 `
 const ReloadBtnBox = styled.img`
 width:30px;
 height:30px;
 cursor:pointer;
-float:right
+float: right;
 `
 
 const ActiveContentBox = styled.div`
   border: none;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const BigBox = styled.div`
   border: none;
-  display: block;
+  /* display: block; */
   min-height: 500px;
-  margin-left: 20%;
-  width: 90%;
+  width: 80%;
+  /* max-width: 80%; */
 `;

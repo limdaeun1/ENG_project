@@ -12,6 +12,7 @@ import send from "../../img/send.png";
 import promotion from "../../img/promotion.png";
 import conversation from "../../img/conversation.png";
 import CSUserCard from "./CSUserCard";
+import CSMemo from "./CSMemo";
 
 const CSChat = () => {
   const Authorization = `Bearer eyJ${localStorage.getItem(process.env.REACT_APP_TOKEN_A)}${localStorage.getItem(process.env.REACT_APP_TOKEN_B)}${localStorage.getItem(process.env.REACT_APP_TOKEN_C)}`;
@@ -620,7 +621,7 @@ const CSChat = () => {
         </TabContainer>
         {/* 메모장 */}
         <div style={{ flexGrow: "1" }}>
-         <MemoBox>메모</MemoBox>
+         <MemoBox><CSMemo id={roomId}/></MemoBox>
         </div>
       </ScriptContainer>
     </Container>
