@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import unlock from "../../img/unlock.png";
-import lock from "../../img/lock.png";
+import lock from "../../img/lock2.png";
 import next from "../../img/next.png";
 import { useNavigate } from "react-router-dom";
 import { enterRoomCam } from "../../redux/modules/chatroom";
@@ -29,8 +28,7 @@ const ChatListCard = (room) => {
       EnterCam()
     }
   }
- 
-  //방으로 입장
+
   const EnterCam = async () => {
     try {
       const response = await dispatch(enterRoomCam(payload)).unwrap();
@@ -53,17 +51,15 @@ const ChatListCard = (room) => {
 
   return (
     <>
-      <Container>
-        <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
-        <Round />
-        <TitleBox>{room.roomName} </TitleBox>
-        {room.lock===true ? <LockStatusBox src={lock}/> :<LockStatusBox src={unlock}/> }
-        <PeopleParticipationBox>
-          <NumPeopleBox>{room.nowCount}/{room.maxCount}</NumPeopleBox>
-          {category==="캠스터디" ? <ParticipationBtn src={next} onClick={() => enterhandler(id)}/> : <ParticipationBtn src={next} onClick={() => enterhandler(id) }/>}
-        </PeopleParticipationBox>
-
+    <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
+      <Container onClick={() => enterhandler(id) }>
+          <PeopleParticipationBox>
+          {room.lock===true ? <LockStatusBox src={lock}/> :<LockStatusBox2/> }
+            <NumPeopleBox>{room.nowCount}명/{room.maxCount}명</NumPeopleBox>
+          </PeopleParticipationBox>
+        <TitleBox>{room.roomName}</TitleBox>
       </Container>
+
     </>
   );
 };
@@ -71,18 +67,23 @@ const ChatListCard = (room) => {
 export default ChatListCard;
 
 const Container = styled.div`
-  display: flex;
-  background-color: #d3f9d8;
-  /* background: linear-gradient(to right, #c3fae8,#b2f2bb,#96f2d7); */
-  /* background: linear-gradient(to right, #96f2d7,#b2f2bb,#96f2d7); */
-  /* background: linear-gradient(to right, #b2f2bb,#96f2d7,#b2f2bb); */
   box-shadow: 3px 0px 3px #d5d6d6;
   border-radius: 10px;
-  padding: 30px;
-  margin: 0px 3% 3% 3%;
+  padding: 0 30px 30px 30px;
+  margin: 0px 1% 3% 1%;
   align-items: center;
-  min-width: 220px;
+  min-width: 190px;
   cursor: pointer;
+  height: 200px;
+  width: 23%;
+  background-image: linear-gradient( rgba(145, 143, 143, 0.243), rgba(237, 231, 231, 0.187) ),url({room.roomimage});
+  background-size: cover;
+  position: relative;
+  transition: all 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.5) 3px 3px 8px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  }
 `;
 
 const Round = styled.div`
@@ -93,36 +94,48 @@ const Round = styled.div`
 `
 
 const TitleBox = styled.div`
-  width: 400px;
-  max-width: 500px;
-  background-color: #f8f9fa;
+  background-color: #fbfeffb0;
   padding: 5px;
   border-radius: 10px;
-  margin-left: 20px;
   text-align: center;
+  max-width: 210px;
+  margin-top: 110px;
+  font-size: 0.7vw;
+  font-weight: 600;
+  color:#000000f9;;
 `;
 const LockStatusBox = styled.img`
   width: 30px;
   height: 30px;
+  margin-right: 6%;
+  margin-top: -1.5%;
+`;
+const LockStatusBox2 = styled.img`
+  width: 30px;
+  height: 30px;
+  display: none;
 `;
 const PeopleParticipationBox = styled.div`
   display: flex;
   margin-left: auto;
   align-items: center;
+  padding: 20px 20px 20px 0;
 `;
 
 const NumPeopleBox = styled.div`
   width: 40px;
- background: linear-gradient(to right, #ffd43b,#fcc419);
+ background-color: #f1b910;
   padding: 5px;
   border-radius: 10px;
   text-align: center;
   margin-right: 5px;
+  color:white;
+  font-weight: 600;
+  font-size: 0.7rem;
 `;
 
 const ParticipationBtn = styled.img`
   width: 30px;
-  /* background-color: #37b24d; */
   padding: 5px;
   border-radius: 10px;
   text-align: center;

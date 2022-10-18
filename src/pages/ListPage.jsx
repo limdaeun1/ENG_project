@@ -5,12 +5,11 @@ import Footers from '../components/Footers';
 
 const ListPage = () => {
   return (
-    <div>
+    <>
       <Headers/>
       <ChatList />
       <Footers/>
-    </div>
-    
+    </>
   )
 }
 
