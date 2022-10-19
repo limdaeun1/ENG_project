@@ -91,4 +91,5 @@ const CSMemo = (id) => {
       }
       float: right;
       width: 60px;
+      margin-left:0.5vw;
    `
