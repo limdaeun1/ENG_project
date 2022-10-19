@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styled from "styled-components";
 import GitHub from "../img/GitHub.png";
@@ -141,6 +140,7 @@ const Contact = styled.div`
     margin-right : 12px;
     &:hover{
         cursor : pointer;
+
     }
     padding: 5px;
 `

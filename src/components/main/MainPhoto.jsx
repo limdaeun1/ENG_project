@@ -37,7 +37,7 @@ const MainPhoto = () => {
       <Title>
         <h1>Eng - FLUENCER</h1>
         <h2>영어 공부를 위한 양방향 화상채팅 서비스</h2>
-        <p>스크립트를 통해 편하게 대화하세요</p>
+        <p>스크립트를 통해 편하게 공부하세요.</p>
         <Btnbox>
         {userlogin.is_Login !== true ? ( 
         <Btn onClick={() =>  {
@@ -72,11 +72,11 @@ const smoothAppear = keyframes`
 const Container = styled.div`
   border: none;
   height: 600px;
-  width: 100vw;
+  width: 100%;
+  min-width:800px;
   background-image: url(${Page3});
   background-size: cover;
   background-position: center;
-  /* box-shadow: 2px 2px 10px gray; */
   align-items: center;
   text-align: center;
   animation: ${smoothAppear} 3s 0s 1;
@@ -84,30 +84,28 @@ const Container = styled.div`
 
 const Title = styled.div`
 border: none;
-  height: 130px;
-  width: 400px;
-  h1{
-    color: #dbffd6;
-    font-weight: 900;
-    text-shadow: -2px 0 #2bd315, 0 2px #2bd315, 2px 0 #2bd315, 0 -2px #2bd315;
-    
-  }
-  h2{
-    font-weight: 700;
-    font-size: 20px;
-   
-  }
-  p{
-    font-weight: 700;
-    font-size: 15px;
-  
-  }
+  height: 300px;
+  width: 380px;
   border-radius: 20px;
   text-align: center;
   color: #087d0e;
   display: inline-block;
   margin-top: 140px;
-  margin-right: -600px;
+margin-left: 50%;
+  h1{
+    color: #dbffd6;
+    font-weight: 900;
+    text-shadow: -2px 0 #2bd315, 0 2px #2bd315, 2px 0 #2bd315, 0 -2px #2bd315;
+  }
+  h2{
+    font-weight: 700;
+    font-size: 20px;
+  }
+  p{
+    font-weight: 700;
+    font-size: 15px;
+  }
+
 `
 
 const Btn = styled.button`
@@ -122,12 +120,13 @@ const Btn = styled.button`
   transition: all 0.5s;
   &:hover {
     background-color: #89f6ab;
+    transform: scale(1.1);
+    transition: all 0.2s linear;
   }
   font-weight: 750;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
 `;
 
 const Btnbox = styled.div`
-border: none;
 margin-top:15%;
 `;
