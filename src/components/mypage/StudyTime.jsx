@@ -1,10 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import notimer from '../../img/notimer.png'
 
 const StudyTime = () => {
   const { isLoading, error, mypagelist } = useSelector((state) => state.mypage);
 
+  console.log(mypagelist)
 
   if (isLoading) {
     return <div>...</div>;
@@ -15,13 +17,19 @@ const StudyTime = () => {
   }
 
   return (
-    <>
-    {mypagelist?.timeDtoList.map((time,i) => (
-      <Box key={i}> 
-      <p>{time.category}</p><h3>{time.roomName}</h3><p>{time.time.replace(/(.{2})/g,"$1:").slice(0, -1)}</p>
-      </Box>
-    ))}
-    </>
+    <div>
+    {
+      mypagelist?.timeDtoList?.length == 0 
+      ?(<ImgContainer >
+        <ImgBox src = {notimer} />
+        </ImgContainer>) 
+      :(<div>{mypagelist?.timeDtoList.map((time,i) => (
+        <Box key={i}> 
+        <p>{time.category}</p><h3>{time.roomName}</h3><p>{time.time.replace(/(.{2})/g,"$1:").slice(0, -1)}</p>
+        </Box>
+      ))}</div>)
+    }
+    </div>
   )
 }
 
@@ -52,4 +60,13 @@ border: none;
     transition: all 0.2s linear;
     cursor: pointer;
   }
+`
+const ImgContainer = styled.div`
+  text-align:center;
+  display:block;
+`
+
+const ImgBox = styled.img`
+  width:15vw
+  ;min-width:200px;
 `

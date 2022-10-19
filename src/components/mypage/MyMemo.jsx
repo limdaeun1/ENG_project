@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import Mymodal from './Mymodal';
 import Swal from "sweetalert2";
-
+import memo from '../../img/memo.png'
 
 const MyMemo = () => {
   const { isLoading, error, mypagelist } = useSelector((state) => state.mypage);
@@ -40,17 +40,23 @@ Toast.fire({
 
   return (
     <>
-    <Div>
-      {mypagelist?.memoDtoList.map((memo) => (
-      <Box key={memo.roomId}  >
-        <Mymodal id={memo.roomId} modalVisibleId={modalVisibleId}
-        setModalVisibleId={setModalVisibleId} day={memo.createDate} content={memo.contents} name={memo.roomName}/>
-        <P3 onClick={()=>showModal(memo.roomId)}>{memo.createDate}</P3>
-        <Roomname onClick={()=>showModal(memo.roomId)}>{memo.roomName}</Roomname>
-        <P2 onClick={()=>showModal(memo.roomId)}>{memo.contents}</P2>
-      </Box>
-      ))}
-    </Div>  
+        {
+      mypagelist?.memoDtoList?.length == 0 
+      ?(<ImgContainer  >
+      <ImgBox  src = {memo} />
+      </ImgContainer>) 
+      :(<Div>
+        {mypagelist?.memoDtoList.map((memo) => (
+        <Box key={memo.roomId}  >
+          <Mymodal id={memo.roomId} modalVisibleId={modalVisibleId}
+          setModalVisibleId={setModalVisibleId} day={memo.createDate} content={memo.contents} name={memo.roomName}/>
+          <P3 onClick={()=>showModal(memo.roomId)}>{memo.createDate}</P3>
+          <Roomname onClick={()=>showModal(memo.roomId)}>{memo.roomName}</Roomname>
+          <P2 onClick={()=>showModal(memo.roomId)}>{memo.contents}</P2>
+        </Box>
+        ))}
+      </Div>)
+    }
     </>
   )
 }
@@ -112,4 +118,13 @@ const P3 = styled.p`
   text-align: center;
   cursor: pointer;
 
+`
+const ImgContainer = styled.div`
+  text-align:center;
+  display:block;
+`
+
+const ImgBox = styled.img`
+  width:15vw
+  ;min-width:200px;
 `

@@ -348,13 +348,6 @@ const SCChat = () => {
     setChat({ content: "" });
   };
 
-
-
-  // console.log(participant)
-  // console.log(participant?.length)
-  // console.log(roomManager)
-  // console.log(inputRef.current.value)
-  // console.log(latesUser)
   return (
     <div >
 
@@ -364,11 +357,11 @@ const SCChat = () => {
           {toggleState === 1 ? (
             <ActiveTabBox onClick={() => toggleTab(1)}>채팅</ActiveTabBox>
           ) : (
-            <TabBox onClick={() => toggleTab(1)}>채팅</TabBox>
+            <UserTabBox onClick={() => toggleTab(1)}>채팅</UserTabBox>
           )}
 
           {toggleState === 2 ? (
-            <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
+            <UserActiveTabBox onClick={() => toggleTab(2)}>UserList</UserActiveTabBox>
           ) : (
             <TabBox onClick={() => toggleTab(2)}>UserList</TabBox>
           )}
@@ -505,7 +498,7 @@ const SCChat = () => {
                         ?(messages[i+1]?.time == messages[i].time //고침 다음이랑 시간이 같으면
                           ?(
                     <OtherChat key={uuidv4()}>
-                    <div style={{width:"50px"}} />
+                    <ImgBox2/>
                     {/* <ImgBox src={c.image} /> */}
                     <div>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
@@ -515,7 +508,7 @@ const SCChat = () => {
                           :(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2/>
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -529,7 +522,7 @@ const SCChat = () => {
                           ?(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2/>
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -540,7 +533,7 @@ const SCChat = () => {
                           :(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2/>
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -576,6 +569,7 @@ const SCChat = () => {
         {/* 메세지 전송(notice = false: 메세지 전송 모드, notice=true: 공지 전송 모드 ) */}
         {notice === false ? (
           <SendBox>
+            <SendDiv>
             <SendBtnImg
               src={promotion}
               onClick={() => {
@@ -597,9 +591,11 @@ const SCChat = () => {
               }}
               src={send}
             />
+            </SendDiv>
           </SendBox>
         ) : (
           <SendBox>
+            <SendDiv>
             <SendBtnImg
               src={conversation}
               onClick={() => {
@@ -619,6 +615,7 @@ const SCChat = () => {
               }}
               src={send}
             />
+            </SendDiv>
           </SendBox>
         )}
       </CamChatBox>
@@ -732,6 +729,9 @@ const ImgBox = styled.img`
   height: 50px;
   object-fit: cover;
 `;
+const ImgBox2 =styled.div`
+width:50px;
+` 
 
 const OtherName = styled.div`
   border: none;
@@ -800,18 +800,26 @@ const SendBox = styled.div`
   height: 30px;
   width: 90%;
   display: flex;
+  padding: auto;
 `;
 
+const SendDiv = styled.div`
+  display:flex;
+  ;margin:auto;
+  ;width:90%;
+`
+
 const SendBtnImg =styled.img`
-  width: 30px;
-  height:30px;
+  width: 20px;
+  height:20px;
   cursor: pointer;
 `
 
 const InputBox = styled.textarea`
   border: none;
   outline: none;
-  width: 100%;
+  width: 80%;
+  margin-left:auto;
   height: 20px;
   resize: none;
   font-size: 15px;
@@ -825,7 +833,8 @@ const InputBox = styled.textarea`
 const NoticeInputBox = styled.textarea`
   border: none;
   outline: none;
-  width: 100%;
+  width: 80%;
+  margin-left:auto;
   height: 20px;
   resize: none;
   font-size: 15px;
@@ -851,7 +860,25 @@ const ActiveTabBox = styled.div`
   text-align: center;
   min-width: 100px;
   width:7vw;
-  background: #51cf66;
+  color: white;
+  background: linear-gradient(to right, #69db7c, #38d9a9);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: small;
+  border: none;
+`;
+
+
+const UserActiveTabBox = styled.div`
+  padding: 4px;
+  text-align: center;
+  min-width: 100px;
+  width:7vw;
+  color: white;
+  background: linear-gradient(to right, #74c0fc, #91a7ff);
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -866,7 +893,25 @@ const TabBox = styled.div`
   text-align: center;
   min-width: 95px;
   width: 6vw;
-  background: #b2f2bb;
+  color:#495057;
+  background: linear-gradient(to right,#d3f9d8,#b2f2bb);
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 0.2%;
+  font-size: small;
+  border: none;
+`;
+const UserTabBox = styled.div`
+  padding: 4px;
+  text-align: center;
+  min-width: 95px;
+  width: 6vw;
+  color:#495057;
+  background: linear-gradient(to right,#d0ebff,#dbe4ff);
   cursor: pointer;
   box-sizing: content-box;
   position: relative;

@@ -17,15 +17,15 @@ const MypageContent = () => {
     <Container>
     <BlocTabsContiner>
             {toggleState === 1 
-            ? <AciveTabBox onClick={() => toggleTab(1)}>내 공부 시간</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(1)} >내 공부 시간</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(1)}>Study Time</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(1)} >Study Time</TabBox>}
 
             {toggleState === 2 
-            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 메모</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(2)} >내 메모</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(2)}> My Memo</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} > My Memo</TabBox>}
     </BlocTabsContiner>
 
-           <div style={{flexGrow : "1"}}>
+           <div style={{flexGrow : "1", width:"40vw"}}>
             {toggleState === 1 
             ? <ActiveContentBox > <StudyTime/> </ActiveContentBox>
             :<ContentBox  > <StudyTime/> </ContentBox>}
@@ -66,14 +66,15 @@ min-width: 485px;
 align-items: center;
 display: flex;
 border-bottom: 1px solid #dee2e6;
-width:100%;
+width:40vw;
 `;
 
 const TabBox = styled.div`
 padding: 8px;
 text-align: center;
 width: 100px;
-background: #b2f2bb;
+color:#495057;
+background: linear-gradient(to right,#d3f9d8,#b2f2bb);
 cursor: pointer;
 box-sizing: content-box;
 position: relative;
@@ -85,6 +86,7 @@ margin-right: 2px;
 transform: scale(0.9);
 transition: all 0.2s linear;
 color: white;
+background: linear-gradient(to right, #69db7c, #38d9a9);
 }
 `;
 
@@ -93,7 +95,8 @@ border:none;
 padding: 8px;
 text-align: center;
 width: 100px;
-background: #51cf66;
+background: linear-gradient(to right, #69db7c, #38d9a9);
+color: white;
 cursor: pointer;
 box-sizing: content-box;
 position: relative;
@@ -116,7 +119,7 @@ display: none;
 `;
 
 const ActiveContentBox = styled.div`
-width: 100%;
+width: 40vw;
 min-width: 485px;
 border: none;
 align-items: center;

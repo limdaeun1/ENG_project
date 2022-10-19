@@ -19,9 +19,6 @@ const messagedata = {
       const response = await dispatch(postTranslate(messagedata)).unwrap();
       console.log(response)
       setTranslates(response)
-    //   console.log(translates)
-    //   setTranslates(response.categories)
-    //   setPeople(payload)
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +85,7 @@ const messagedata = {
     background: rgba(255, 255, 255, 0.4);
   }
   &::-webkit-scrollbar-thumb {
-    background: #d0ebff;
+    background: #d0f38b;
     border-radius: 6px;
   }
    `
@@ -112,7 +109,7 @@ overflow-x: hidden;
     background: rgba(255, 255, 255, 0.4);
   }
   &::-webkit-scrollbar-thumb {
-    background: #d0ebff;
+    background: #d0f38b;
     border-radius: 6px;
   }
   box-shadow: 5px 5px 5px #e9ecef

@@ -79,7 +79,7 @@ const SCWhiteBoard= (id) => {
     background: rgba(255, 255, 255, 0.4);
   }
   &::-webkit-scrollbar-thumb {
-    background: #d0ebff;
+    background: #d0f38b;
     border-radius: 6px;
   }
    
@@ -108,4 +108,5 @@ const SCWhiteBoard= (id) => {
       float: right;
       height: 3vh;
       width: 60px;
+      margin-left:0.5vw;
    `

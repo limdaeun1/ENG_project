@@ -335,14 +335,7 @@ const CSChat = () => {
     return x.type == 3;
   });
 
-  const newNotice = JSON.stringify(
-    filterdNotice[filterdNotice.length - 1]?.chatMessage
-  );
 
-  // console.log(participant)
-  // console.log(participant?.length)
-  // console.log(roomManager)
-  // console.log(newNotice);
 
   return (
     <Container>
@@ -353,11 +346,11 @@ const CSChat = () => {
           {toggleState === 1 ? (
             <ActiveTabBox onClick={() => toggleTab(1)}>채팅</ActiveTabBox>
           ) : (
-            <TabBox onClick={() => toggleTab(1)}>채팅</TabBox>
+            <UserTabBox onClick={() => toggleTab(1)}>채팅</UserTabBox>
           )}
 
           {toggleState === 2 ? (
-            <ActiveTabBox onClick={() => toggleTab(2)}>UserList</ActiveTabBox>
+            <UserActiveTabBox onClick={() => toggleTab(2)}>UserList</UserActiveTabBox>
           ) : (
             <TabBox onClick={() => toggleTab(2)}>UserList</TabBox>
           )}
@@ -493,7 +486,7 @@ const CSChat = () => {
                         ?(messages[i+1]?.time == messages[i].time //고침 다음이랑 시간이 같으면
                           ?(
                     <OtherChat key={uuidv4()}>
-                    <div style={{width:"50px"}} />
+                    <ImgBox2/>
                     {/* <ImgBox src={c.image} /> */}
                     <div>
                       <OtherMsg>{c.chatMessage}</OtherMsg>
@@ -503,7 +496,7 @@ const CSChat = () => {
                           :(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2/>
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -517,7 +510,7 @@ const CSChat = () => {
                           ?(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2 />
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -528,7 +521,7 @@ const CSChat = () => {
                           :(
                             <OtherChat key={uuidv4()}>
                               <MsgTimeBox2>
-                            <div style={{width:"50px"}} />
+                            <ImgBox2 />
                             <div>
                               <OtherMsg>{c.chatMessage}</OtherMsg>
                             </div>
@@ -564,6 +557,7 @@ const CSChat = () => {
         {/* 메세지 전송(notice = false: 메세지 전송 모드, notice=true: 공지 전송 모드 ) */}
         {notice === false ? (
           <SendBox>
+            <SendDiv>
             <SendBtnImg
               src={promotion}
               onClick={() => {
@@ -584,9 +578,11 @@ const CSChat = () => {
               }}
               src={send}
             />
+            </SendDiv>
           </SendBox>
         ) : (
           <SendBox>
+            <SendDiv>
             <SendBtnImg
               src={conversation}
               onClick={() => {
@@ -605,14 +601,15 @@ const CSChat = () => {
               }}
               src={send}
             />
+            </SendDiv>
           </SendBox>
         )}
           </> : null}
           {toggleState === 2 ? (
                   <UserContainer>
-                  <div style={{float:"right", display:"flex",margin:"2% 2%"}}>
+                  <UserBox>
                     {participant?.length}/{memberCount}명
-                  </div>
+                  </UserBox>
                   {participant?.map((user, i)=>{return <CSUserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
                   </UserContainer>
           ) : null}
@@ -624,7 +621,7 @@ const CSChat = () => {
 
         {/* 메모탭바 */}
         <TabContainer>
-          <ActiveTabBox>Memo</ActiveTabBox>
+          <MemoTabBox>Memo</MemoTabBox>
         </TabContainer>
         {/* 메모장 */}
         <div style={{ flexGrow: "1" }}>
@@ -644,20 +641,15 @@ const Container = styled.div`
   height: 30vh;
   min-width: 600px;
   width: 90vw;
-  /* background-color: #f0c07e; */
-  /* margin-top: 80px; */
 `;
 const LeftContainer = styled.div`
   width: 50vw;
   height: 30vh;
   min-width: 600px;
-  /* background-color: #e15fec; */
-  /* border:3px solid #e15fec; */
 `;
 
 const ContentsContainer = styled.div`
   flex-grow: 1; 
-  /* height : 250px;  */
   height: 25vh; 
   min-height: 150px;
   width: 48vw;
@@ -665,8 +657,6 @@ const ContentsContainer = styled.div`
  
   border: none;
     background: linear-gradient(to right, #effaf6, #e4fcf4);
-    /* box-shadow: 10px 10px 10px #e9ecef; */
-    /* border:3px solid #46a2d0; */
   border-radius: 5px;
 `
 
@@ -674,14 +664,10 @@ const ContentsContainer = styled.div`
 
 const ChatBox = styled.div`
   overflow-x: hidden;
-  /* min-height: 200px; */
   height: 20vh;
   min-height: 110px;
-  /* width: 100%; */
-  /* width: 50vw; */
   width: 48vw;
     min-width: 600px;
-  /* min-width: 600px; */
   display: block;
 
   &::-webkit-scrollbar {
@@ -694,7 +680,6 @@ const ChatBox = styled.div`
     background: #96f2d7;
     border-radius: 6px;
   }
-  /* border:2px solid black; */
   
 `;
 
@@ -738,6 +723,10 @@ const ImgBox = styled.img`
   height: 50px;
   object-fit: cover;
 `;
+
+const ImgBox2 =styled.div`
+width:50px;
+` 
 
 const OtherName = styled.div`
   border: none;
@@ -816,9 +805,21 @@ const SendBox = styled.div`
   align-items: center;
 `;
 
+// const SendBtnImg =styled.img`
+//   width: 30px;
+//   height:30px;
+//   cursor: pointer;
+// `
+
+const SendDiv = styled.div`
+  display:flex;
+  ;margin:auto;
+  ;width:90%;
+`
+
 const SendBtnImg =styled.img`
-  width: 30px;
-  height:30px;
+  width: 20px;
+  height:20px;
   cursor: pointer;
 `
 
@@ -847,7 +848,8 @@ const NoticeInputBox = styled.textarea`
   &::placeholder {
     color: #ced4da;
     font-style: italic;
-  }
+  };
+  margin-left: auto;
 `;
 
 const MemoBox = styled.div`
@@ -882,6 +884,12 @@ const UserContainer = styled.div`
   }
   /* border:3px solid yellow; */
 `;
+
+const UserBox = styled.div`
+float:right;
+display:flex;
+margin:2% 2%
+`
 
 const ScriptContainer = styled.div`
   width: 40vw;
@@ -942,7 +950,45 @@ const ActiveTabBox = styled.div`
   min-width: 100px;
   width:7vw;
   /* min-width: 55px; */
-  background: #51cf66;
+  color: white;
+  background: linear-gradient(to right, #69db7c, #38d9a9);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* margin-right: 0.2%; */
+  font-size: small;
+  /* color:white; */
+  border: none;
+`;
+const UserActiveTabBox = styled.div`
+  padding: 4px;
+  text-align: center;
+  min-width: 100px;
+  width:7vw;
+  /* min-width: 55px; */
+  color: white;
+  background: linear-gradient(to right, #74c0fc, #91a7ff);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* margin-right: 0.2%; */
+  font-size: small;
+  /* color:white; */
+  border: none;
+`;
+
+const MemoTabBox = styled.div`
+  padding: 4px;
+  text-align: center;
+  min-width: 100px;
+  width:7vw;
+  /* min-width: 55px; */
+  color: white;
+  background: linear-gradient(to right, #c0eb75, #8ce99a);
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -960,7 +1006,26 @@ const TabBox = styled.div`
   min-width: 95px;
   width: 6vw;
   /* min-width: 55px; */
-  background: #b2f2bb;
+  color:#495057;
+  background: linear-gradient(to right,#d3f9d8,#b2f2bb);
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-right: 0.2%;
+  font-size: small;
+  border: none;
+`;
+const UserTabBox = styled.div`
+  padding: 4px;
+  text-align: center;
+  min-width: 95px;
+  width: 6vw;
+  /* min-width: 55px; */
+  color:#495057;
+  background: linear-gradient(to right,#d0ebff,#dbe4ff);
   cursor: pointer;
   box-sizing: content-box;
   position: relative;
