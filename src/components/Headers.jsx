@@ -109,6 +109,7 @@ border: none;
   &:hover {
     transform: scale(1.2);
     transition: all 0.2s linear;
+    cursor: pointer;
   }
 `
 

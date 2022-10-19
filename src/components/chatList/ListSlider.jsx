@@ -12,13 +12,13 @@ function Slide() {
     <Container>
       <StyledSlider {...settings}>
             <CardBox>
-              <CardImg alt="인기 서비스" src={test11}/>
-            </CardBox>
-            <CardBox>
-              <CardImg alt="인기 서비스" src={test22}/>
-            </CardBox>
-            <CardBox>
               <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
+            </CardBox>
+            <CardBox>
+              <CardImg alt="설문조사 이벤트" src={test22}/>
+            </CardBox>
+            <CardBox>
+            <CardImg alt="사용 방법" src={test11}/>
             </CardBox>
       </StyledSlider>
     </Container>

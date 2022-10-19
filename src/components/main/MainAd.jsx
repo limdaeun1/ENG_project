@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
+import test22 from "../../img/test22.png";
 
 const MainAd = () => {
   return (
     <Container>
         <Ad1>
-            <img src ="https://ifh.cc/g/YSy0Pz.png"></img>
+        <img src ="https://ifh.cc/g/YSy0Pz.png"></img>
         </Ad1>
         <Ad2>
-            <img src ="https://ifh.cc/g/YSy0Pz.png"></img>
+            <img src ={test22}></img>
         </Ad2>
     </Container>
   )
@@ -18,7 +19,7 @@ export default MainAd
 
 const Container = styled.div`
 border:none;
-margin-top: 10%;
+margin-bottom: 10%;
     display: flex;
     justify-content:center;
     width: 100%;

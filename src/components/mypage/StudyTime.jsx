@@ -50,5 +50,6 @@ border: none;
     &:hover {
     transform: scale(1.1);
     transition: all 0.2s linear;
+    cursor: pointer;
   }
 `
