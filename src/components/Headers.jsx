@@ -93,7 +93,7 @@ const Div = styled.div`
 border: none;
   width: 100%;
  height: 140px;
- min-width: 800px;
+ min-width: 900px;
  font-size: 14px;
   text-align: center;
   display: flex;
