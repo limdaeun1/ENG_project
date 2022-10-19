@@ -124,12 +124,12 @@ const TopBar=styled.div`
 const Box=styled.div`
 display:flex;
 border: none;
-/* width: 95%; */
 min-width: 1200px;
 width: 95vw;
 min-height: 600px;
 height: 90vh;
 margin: auto;
+margin-top: 1%;
 `;
 
   const Container=styled.div`
@@ -137,6 +137,7 @@ margin: auto;
   display: flex;
   flex-direction: column;
   width: 25vw;
+  margin-top: 1.5%;
 `;
 
 
@@ -221,7 +222,7 @@ const ActiveTabBox = styled.div`
   text-align: center;
   min-width: 100px;
   width:7vw;
-  background: #51cf66;
+  background: linear-gradient(to right, #69db7c, #38d9a9);
   box-sizing: content-box;
   position: relative;
   outline: none;
@@ -229,6 +230,7 @@ const ActiveTabBox = styled.div`
   border-top-right-radius: 10px;
   font-size: small;
   border: none;
+  color: white;
 `;
 
 const TabBox = styled.div`
@@ -236,7 +238,7 @@ const TabBox = styled.div`
   text-align: center;
   min-width: 95px;
   width: 6vw;
-  background: #b2f2bb;
+  background: linear-gradient(to right,#d3f9d8,#b2f2bb);
   cursor: pointer;
   box-sizing: content-box;
   position: relative;
@@ -246,6 +248,7 @@ const TabBox = styled.div`
   margin-right: 0.2%;
   font-size: small;
   border: none;
+  color:#495057;
 `;
 
 const ActiveContentBox = styled.div`

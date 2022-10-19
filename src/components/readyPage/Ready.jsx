@@ -73,7 +73,7 @@ const Ready = () => {
                 </Text>
                 <Text2>
                   카메라 마이크 접근 권한 차단 시<br/>
-                  화상, 음성 기능을 이용하실 수 없습니다!<br/>
+                  정상적인 이용이 불가능 합니다! <br/>
                 </Text2>
             </CheckTextWrap>
             <RoomWrap>
@@ -90,7 +90,7 @@ export default  Ready;
 
 const Wrap = styled.div`
   width : 70%;
-  height : 700px;
+  height : 500px;
   max-width: 1200px;
   min-width: 800px;
   box-shadow: 0 2px 7px 1px rgb(64 60 67 / 16%);
