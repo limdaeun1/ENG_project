@@ -1,50 +1,163 @@
-import React from 'react'
-import styled from 'styled-components'
 
-const Footers = () => {
-  return (
-    <Footertxt>
-    <ul>
-      <li>FE이예솔</li>
-      <li>FE김보미</li>
-      <li>FE임다은</li>
-      <li>BE정동섭</li>
-      <li>BE정민우</li>
-      <li>BE임소윤</li>
-    </ul>
-  </Footertxt>
-  )
-}
+import React from 'react';
+import styled from "styled-components";
+import GitHub from "../img/GitHub.png";
+import instagram from "../img/instagram.png";
+import discord from "../img/discord.png";
 
-export default Footers
 
-const Footertxt = styled.div`
-border: none;
-font-size: 15px;
-  background-color: #ecebebe3;
-  height: 200px;
-  margin-top:10%;
-  width: 100%;
-  min-width: 800px;
-  ul {
-    display: flex;
-    height: 100%;
-    /* width:100%; */
+const Footer = () => {
+    return (
+        <FooterWrap>
+
+            <LogoNCopyRight>
+                <CopyRight>Copyright @2022 ENGFLUENCER.All rights reserved.</CopyRight>
+                <InfoBtnWrap>
+                    <InfoBtn>저작권표기</InfoBtn>
+                    <InfoBtn>만족도평가</InfoBtn>
+                </InfoBtnWrap>
+            </LogoNCopyRight>
+
+            <InfoWrap>
+                <RoleWrap>
+                  <InfoCateWrap>
+                      <ContactText>engfluencergangwon@gmail.com</ContactText>
+                      <SnsWrap>
+                          <Contact >
+                              <ContactInsta src={instagram}></ContactInsta>
+                          </Contact>
+                          <Contact>
+                              <ContactGit src={GitHub}></ContactGit>
+                          </Contact>
+                          <Contact >
+                              <Contactdiscord src={discord}></Contactdiscord>
+                          </Contact>
+                      </SnsWrap>
+                  </InfoCateWrap>
+                  <RoleCateWrap>
+                      <RoleTitle>Developer</RoleTitle>
+                      <FEBEWrap>
+                          <NameText>BE<br/>정민우ㅤ  임소윤ㅤ  정동섭</NameText>
+                      </FEBEWrap>
+                      <FEBEWrap>
+                          <NameText>FE<br/>이예솔ㅤ  임다은ㅤ  김보미</NameText>
+                      </FEBEWrap>                    
+                  </RoleCateWrap>
+            </RoleWrap>
+         </InfoWrap>
+        </FooterWrap>
+    );
+};
+
+const FooterWrap = styled.div`
+    height : 190px;
+    min-width : 800px;
+    width :100%;
+    background-color : #363a3e;
+    display : flex;
+    margin-top: 70px;
+    padding:10px;
     justify-content: center;
-    /* border: solid 1px; */
-    border: none;
-    li {
-      /* border: solid 1px; */
-      border: none;
-      list-style: none;
-      width: 10%;
-      color: gray;
-      min-width: 60px;
-      padding-top: 6%;
-      font-size: 0.9rem;
-      text-align : center;
-      justify-content : center;
-      align-items : center;
+    padding-top: 15px;
+`
+const LogoNCopyRight = styled.div`
+`
+
+const CopyRight = styled.p`
+    font-size : 14px;
+    font-family: "PretendardRegular";
+    width:315px;
+    color : #FFFFFF;
+    margin-top : 15px;
+    margin-bottom: 0px;
+`
+
+const InfoBtnWrap = styled.div`
+    display : flex;
+    gap : 13px;
+    margin-top : 70px;
+`
+const InfoBtn = styled.p`
+    font-size : 14px;
+    border : none;
+    background-color : transparent;
+    color : white;
+    text-align : left;
+    cursor:pointer;
+`
+
+const InfoWrap = styled.div`
+    width : 705px;
+    color : #FFFFFF;
+    margin-left : 117px;
+`
+
+const RoleWrap = styled.div`
+    display:flex;
+`
+
+const InfoCateWrap = styled.div`
+    display : grid;
+    width : 214px;
+    min-width:300px;
+`
+const RoleCateWrap = styled.div`
+    display:grid;
+    width : 50%;
+    min-width : 165px;
+`
+const RoleTitle = styled.p`
+    color : #FFFFFF;
+    font-size : 16px;
+    margin-bottom : 13px;
+`
+
+const FEBEWrap = styled.div`
+    display : flex;
+    min-width: 250px;
+    gap : 13px;
+`
+const NameText = styled.p`
+    color : #FFFFFF;
+    font-size : 14px;
+    /* margin-bottom : 8px; */
+    margin-right : 20;
+    font-family: "PretendardRegular";
+`
+const ContactText = styled.p`
+    color : #FFFFFF;
+    font-size : 15px;
+    margin-bottom : 8px;
+    font-family: "PretendardRegular";
+`
+const SnsWrap = styled.div`
+    width : 120px;
+    display :flex;
+`
+const Contact = styled.div`
+    color : #FFFFFF;
+    font-size : 16px;
+    margin-bottom : -25px;
+    margin-right : 12px;
+    &:hover{
+        cursor : pointer;
     }
-  }
-`;
+    padding: 5px;
+`
+const ContactInsta = styled.img`
+   width : 30px;
+    height: 30px;
+    margin-bottom: -2px;
+`
+const ContactGit = styled.img`
+   width : 30px;
+    height: 30px;
+`
+const Contactdiscord = styled.img`
+   width : 35px;
+  height: 35px;
+  margin-top: -1px;
+  margin-left: -2px;
+`
+
+export default Footer;

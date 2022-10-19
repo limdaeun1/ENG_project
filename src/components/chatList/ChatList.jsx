@@ -225,14 +225,22 @@ console.log(one)
 export default ChatList;
 
 const Container = styled.div`
-  border: none;
- 
-  margin: 0 20% 10% 23%;
+  margin: 0 auto 10% auto;
   font-size: 14px;
   width: 70%;
   max-width: 1200px;
-  min-width: 1000px;
+  min-width: 800px;
 `;
+
+const BigBox = styled.div`
+  border: none;
+  /* display: block; */
+  min-height: 500px;
+  width: 80%;
+  /* max-width: 80%; */
+  margin: 0 auto;
+`;
+
 
 const BlocTabsContiner = styled.div`
   border: none;
@@ -329,10 +337,3 @@ const ActiveContentBox = styled.div`
   justify-content: center;
 `;
 
-const BigBox = styled.div`
-  border: none;
-  /* display: block; */
-  min-height: 500px;
-  width: 80%;
-  /* max-width: 80%; */
-`;
