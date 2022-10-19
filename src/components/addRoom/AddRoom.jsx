@@ -75,16 +75,26 @@ const settings = {
         }
       }
     } catch (error) {
-      window.alert("방 만들기에 실패하였습니다!");
+      Swal.fire({
+        title: '방 만들기에 실패하였습니다!', 
+        icon: 'error', 
+      });
     }
   };
 
   const makeRoom = () => {
     if (type === true && password === "") {
-      alert("비밀번호를 입력하세요")
+      alert("")
+      Swal.fire({
+        title: '비밀번호를 입력하세요.', 
+        icon: 'warning', 
+      });
     }
     else if(studyName === ""||category === "" || memberCount ===""){
-      alert("필수값을 입력하세요")
+      Swal.fire({
+        title: '필수값을 입력하세요.', 
+        icon: 'warning', 
+      });
     }
    else{
     createRommhandle()

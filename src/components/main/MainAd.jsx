@@ -9,7 +9,8 @@ const MainAd = () => {
         <img src ="https://ifh.cc/g/YSy0Pz.png"></img>
         </Ad1>
         <Ad2>
-            <img src ={test22}></img>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
+            <img title="리뷰 작성하러 가기" src ={test22}></img></a>
         </Ad2>
     </Container>
   )
@@ -46,5 +47,9 @@ const Ad2 = styled.div`
         min-width: 300px; 
         border-radius: 20px;
         margin: 0% 15% 0% 2%;
+        &:hover {
+    transform: scale(1.03);
+    transition: all 0.2s linear;
+  }
     }
 `

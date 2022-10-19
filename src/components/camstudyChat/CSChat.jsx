@@ -238,7 +238,11 @@ const CSChat = () => {
   //채팅(type2)
   const submit = () => {
     if (inputRef.current.value == "") {
-      alert("메세지를 입력하세요");
+      Swal.fire({
+        title: '메세지를 입력하세요.', 
+        icon: 'warning', 
+      });
+
     }
     else {
       client.current.publish({
@@ -263,7 +267,10 @@ const CSChat = () => {
   //공지 등록
   const onSubmitNotice = () => {
     if (noticeRef.current.value == "") {
-      alert("공지사항을 입력하세요");
+      Swal.fire({
+        title: '공지사항을 입력하세요.', 
+        icon: 'warning', 
+      });
     } else {
       client.current.publish({
         destination: "/pub/chat/message",

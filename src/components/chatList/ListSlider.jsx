@@ -15,7 +15,8 @@ function Slide() {
               <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
             </CardBox>
             <CardBox>
-              <CardImg alt="설문조사 이벤트" src={test22}/>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
+              <CardImg alt="설문조사 이벤트" src={test22} title="리뷰 작성하러 가기"/></a>
             </CardBox>
             <CardBox>
             <CardImg alt="사용 방법" src={test11}/>

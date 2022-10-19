@@ -10,16 +10,19 @@ const LoginImg = () => {
   return (
     <Container>
         <Logo>
-            <img src="https://ifh.cc/g/vkrmFP.png" onClick={() => navigate("/")}></img>
+            <img title="메인페이지 이동" src="https://ifh.cc/g/vkrmFP.png" onClick={() => navigate("/")}></img>
         </Logo>
-        <Imgbox><Img></Img></Imgbox>
-        <Naver>
+        <Imgbox>
+        <a href="https://www.instagram.com/engfluencer_official">
+          <Img  title="Eng-Fluencer 공식 인스타그램 바로가기"></Img></a>
+          </Imgbox>
+        <Naver title="네이버 간편로그인">
             <a href={NAVER_AUTH_URL}>
             <img src="https://ifh.cc/g/CYPS0t.png"></img>
             <button>네이버 로그인</button>
             </a>
         </Naver>
-        <Kakao>
+        <Kakao title="카카오 간편로그인">
             <a href={KAKAO_AUTH_URL}>
             <img src="https://ifh.cc/g/8QQ5yW.png"></img>
             </a>
@@ -131,6 +134,8 @@ margin: auto;
         font-size: 15px;
         line-height: 45px;
         cursor: pointer;
+        color: white;
+        font-weight:bold;
     }
     &:hover {
     transform: scale(1.1);
