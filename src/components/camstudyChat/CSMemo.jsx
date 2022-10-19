@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { postMemo , getMemo } from "../../redux/modules/chatroom";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const CSMemo = (id) => {
   const dispatch = useDispatch();
@@ -22,7 +23,10 @@ const CSMemo = (id) => {
       if(response.data.data !== null) {
       setMemo(response.data.data) }
       else {
-        window.alert("해당 방의 저장된 메모가 없습니다!")
+        Swal.fire({
+          title: '해당 방의 저장된 메모가 없습니다!', 
+          icon: 'warning', 
+        });
       }
     } catch (error) {
       console.log(error);

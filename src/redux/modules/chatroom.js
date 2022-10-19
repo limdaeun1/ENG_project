@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/api";
+import Swal from "sweetalert2";
 
 
 //채팅방 목록 가져오기
@@ -62,7 +63,10 @@ export const createRoom = createAsyncThunk(
 async (payload, thunkApI) => {
     try {
     const data = await instance.post("/auth/chat/room" , payload);
-    window.alert("방을 생성하였습니다");
+    Swal.fire({
+      title: '방이 생성되었습니다.', 
+      icon: 'success', 
+    });
     return data
     } catch (error) {
     return thunkApI.rejectWithValue(error);

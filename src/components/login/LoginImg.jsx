@@ -67,6 +67,7 @@ height: auto;
     &:hover {
     transform: scale(1.1);
     transition: all 0.2s linear;
+  cursor: pointer;
   }
 `
 
@@ -129,6 +130,7 @@ margin: auto;
         border: solid 1px #03C75A;
         font-size: 15px;
         line-height: 45px;
+        cursor: pointer;
     }
     &:hover {
     transform: scale(1.1);

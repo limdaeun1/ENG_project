@@ -271,6 +271,11 @@ const AddRoomBtn = styled.div`
   color: white;
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: whitesmoke;
+}
 `;
 
 
@@ -293,6 +298,11 @@ const TabBox = styled.div`
   margin-right: 0.3%;
   margin-top: 0.3%;
   font-size: 0.9em;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: gray;
+}
 `;
 
 const AciveTabBox = styled.div`
@@ -316,6 +326,11 @@ const AciveTabBox = styled.div`
   margin-right: 0.3%;
   margin-top: 0.3%;
   font-size: 0.9em;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: gray;
+}
 `;
 
 const ReloadContainer = styled.div`
@@ -327,6 +342,10 @@ width:30px;
 height:30px;
 cursor:pointer;
 float: right;
+&:hover {
+transform: scale(1.2);
+transition: all 0.2s linear;
+}
 `
 
 const ActiveContentBox = styled.div`

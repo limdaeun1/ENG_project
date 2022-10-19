@@ -5,6 +5,7 @@ import { enterRoomCam } from '../../redux/modules/chatroom';
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Ready = () => {
@@ -41,7 +42,10 @@ const Ready = () => {
         window.alert (`${response.data.error.message}`);
       }
     } catch (error) {
-       window.alert("잘못된 요청입니다!");
+      Swal.fire({
+        title: '잘못된 요청입니다!', 
+        icon: 'error', 
+      });
     }
   };
 
