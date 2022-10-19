@@ -3,18 +3,19 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import test11 from "../../img/test11.png";
+import test22 from "../../img/test22.png";
 
 function Slide() {
 
-    const sliders = [1,2,3,4]
   return (
     <Container>
       <StyledSlider {...settings}>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2018/12/06/16/12/birds-3860034__480.jpg"/>
+              <CardImg alt="인기 서비스" src={test11}/>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252__480.jpg"/>
+              <CardImg alt="인기 서비스" src={test22}/>
             </CardBox>
             <CardBox>
               <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
@@ -44,9 +45,7 @@ const Container = styled.div`
   display: flex;
   width: 80%;
   justify-content: center;
-  margin:2% 0 13% 0 ;
-  /* background-color: red; */
-
+  margin:2% auto 13% auto;
 `;
 
 // 슬라이드 CSS
@@ -72,15 +71,6 @@ const StyledSlider = styled(Slider)`
   .slick-track {
     overflow-x: hidden;
   }
-
-  /* .slick-prev:before, .slick-next:before{ //얘는 양옆 버튼. 커스텀 해줘야 보임
-    	font-family: 'slick';
-        font-size: 30px;
-        line-height: 1;
-        opacity: .75;
-        color: #c2bebe99;
-        -webkit-font-smoothing: antialiased;
-    } */
 `;
 
 const CardBox = styled.div`
