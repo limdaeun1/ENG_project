@@ -120,6 +120,7 @@ width: 90vw;
 min-height: 600px;
 height: 90vh;
 margin: auto;
+margin-top: 1%;
 `;
 
 const CamBox=styled.div`

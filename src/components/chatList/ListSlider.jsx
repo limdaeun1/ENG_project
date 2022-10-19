@@ -12,13 +12,14 @@ function Slide() {
     <Container>
       <StyledSlider {...settings}>
             <CardBox>
-              <CardImg alt="인기 서비스" src={test11}/>
+              <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
+              <CardImg alt="인기 서비스" src={test22}/></a>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src={test22}/>
+              <CardImg alt="인기 서비스" src="https://ifh.cc/g/YSy0Pz.png"/>
             </CardBox>
             <CardBox>
-              <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
+              <CardImg alt="사이트 설정 확인" src={test11}/>
             </CardBox>
       </StyledSlider>
     </Container>
@@ -31,9 +32,9 @@ export default Slide;
 const settings = {
   dots: true,  // 슬라이드 밑에 점 보이게
   infinite: true,  // 무한으로 반복
-  speed: 500,
+  speed: 600,
   autoplay: true,
-  autoplaySpeed: 2000,  // 넘어가는 속도
+  autoplaySpeed: 4000,  // 넘어가는 속도
   slidesToShow: 1,  // 4장씩 보이게
   slidesToScroll: 1,  // 1장씩 뒤로 넘어가게
   centerMode: true,
