@@ -30,28 +30,34 @@ const SCWhiteBoard= (id) => {
   };
 
     return (
-      <>
+      <Container>
       <Div>
         <Textbox 
         placeholder="여기에 입력하세요"
         value={memo}
         onChange={(e)=>setMemo(e.target.value)}>
-        </Textbox>
+        </Textbox>      
+
       </Div>
-      <Btn onClick={SaveMemo}>저장하기</Btn>
+        <Btn onClick={SaveMemo}>저장하기</Btn>
       <Btn onClick={GetMemo}>불러오기</Btn>
-      </>
+      </Container>
       );
    };
    
    export default SCWhiteBoard;
+   const Container = styled.div`
+    height: 33vh;
+    min-height: 230px;
+    width: 25vw;
+    min-width: 320px;
+   `
 
    const Div = styled.div`
-    height: 370px;
-    min-width: 360px;
+    height: 27vh;
+    min-height: 230px;
+    min-width: 300px;
     width: 100%;
-    overflow: scroll;
-    overflow-x: hidden;
     border: none;
     border-radius: 8px;
     box-shadow: 10px 10px 10px #e9ecef;
@@ -59,7 +65,20 @@ const SCWhiteBoard= (id) => {
 
    const Textbox = styled.textarea`
     width: 100%;
-    height: 380px;
+    height: 27vh;
+    min-height: 225px;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0ebff;
+    border-radius: 6px;
+  }
+   
      resize: none;
     border:none;
     :focus {
@@ -71,20 +90,18 @@ const SCWhiteBoard= (id) => {
 
    const Btn = styled.button`
       font-weight: 600;
+       min-height: 20px;
       border-radius: 5px;
       cursor: pointer;
       transition: all 0.5s;
       color: #fff;
       border: none;
       font-size: 11px;
-      padding: 6px;
       background-color: #000000;
       &:hover {
         background-color: #666666;
       }
       float: right;
-      /* margin-top:10px;
-      margin-right:2%; */
+      height: 3vh;
       width: 60px;
-      margin: 4px;
    `

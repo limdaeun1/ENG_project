@@ -350,7 +350,7 @@ const SCChat = () => {
   // console.log(inputRef.current.value)
   // console.log(latesUser)
   return (
-    <>
+    <div >
 
 {/* 탭바 */}
 
@@ -628,25 +628,29 @@ const SCChat = () => {
         {participant?.map((user, i)=>{return <UserCard user = {user} key = {i} roomId={roomId} userId={userId} Authorization ={Authorization} client={client} roomManager ={roomManager}/>})}
         </UserContainer>) : null}
 
-    </>
+    </div>
   );
 };
 
 export default SCChat;
 
 const CamChatBox = styled.div`
-  height: 80%;
-  width: 90%;
+  height: 40vh;
+  min-height: 220px;
+  width: 25vw;
+  min-width: 320px;
   display: block;
   border-radius: 5px;
   background: linear-gradient(to right, #effaf6, #e4fcf4);
   box-shadow: 10px 10px 10px #e9ecef;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 `;
 const UserContainer = styled.div`
-width:90%;
-min-height:310px; 
-height:310px;
+  width: 25vw;
+  min-width: 320px;
+min-height: 220px;
+/* min-height:310px;  */
+height:40vh;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
   box-shadow: 10px 10px 10px #e9ecef;
@@ -663,14 +667,15 @@ height:310px;
   }
 `;
 const ChatBox = styled.div`
-  height: 250px;
+  height: 33vh;
+  min-height: 180px;
   /* min-width: 100px; */
   width: 100%;
   display: block;
   overflow-x: hidden;
   display: block;
   border-radius: 20px;
-  margin: 0px auto 10px auto;
+  margin: 0px auto 0px auto;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -714,7 +719,6 @@ const MyChat = styled.div`
   border: none;
   height: auto;
   margin: 10px 10px 0px 0px;
-  /* background-color: green; */
 `;
 const ImgBox = styled.img`
   border-radius: 10px;
@@ -740,14 +744,12 @@ const MsgTimeBox = styled.div`
 `
 
 const MsgTimeBox2 = styled.div`
-  /* margin-left:auto; */
   display:flex;
 `
 
 const MyMsg = styled.div`
   border: none;
   max-width: 230px;
-  /* display: inline-block; */
   width: fit-content;
   margin-left: auto;
   padding: 0px 10px 0px 10px;
@@ -774,7 +776,6 @@ const OtherMsg = styled.div`
   white-space: pre-line;
   margin-top: 10px;
   border-radius: 10px 10px 10px 0px;
-  /* padding: 0px 10px 0px 10px; */
   color: black;
   background-color: #f1f3f5;
 `;
@@ -789,8 +790,7 @@ const SendBox = styled.div`
   border: none;
   box-shadow: 4px 4px 4px #e9ecef;
   border-radius: 20px;
-  padding: 5px 10px 5px 10px;
-  margin: 0px 10px 0px 10px;
+  margin: 5px auto 0px auto;
   height: 30px;
   width: 90%;
   display: flex;
@@ -830,32 +830,36 @@ const NoticeInputBox = styled.textarea`
   }
 `;
 
+
 const TabContainer = styled.div`
   display: flex;
-  width: 380px;
-  height: 30px;
-  margin-left: 10px;
+  width:100%;
+ min-height: 30px;
+margin-top: 8px;
+margin-left: 10px;
+border:none;
 `;
 
 const ActiveTabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  min-width: 100px;
+  width:7vw;
   background: #51cf66;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
   font-size: small;
+  border: none;
 `;
 
 const TabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  min-width: 95px;
+  width: 6vw;
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -863,7 +867,7 @@ const TabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
+  border: none;
 `;
-
