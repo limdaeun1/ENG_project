@@ -240,7 +240,6 @@ const ExitBtn = styled.button`
   cursor: pointer;
 `
 const ManagerBtn = styled.button`
-  /* margin-left:auto; */
   width:40px;
   height: 30px;
   background: linear-gradient(#4c6ef5,#3b5bdb,#364fc7);
@@ -251,7 +250,6 @@ const ManagerBtn = styled.button`
   cursor: pointer;
 `
 const DeclareBtn = styled.button`
-  /* margin-left:auto; */
   width:40px;
   height: 30px;
   background: linear-gradient(#0ca678,#099268,#087f5b);

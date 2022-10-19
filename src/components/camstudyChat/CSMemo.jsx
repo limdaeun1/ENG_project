@@ -50,8 +50,10 @@ const CSMemo = (id) => {
    `
 
    const Textbox = styled.textarea`
-   width: 100%;
-    height: 250px;
+   width: 40vw;
+   min-width: 360px;
+    height: 22vh;
+    min-height: 125px;
     border-radius: 5px;
     background-color: #f4fce3;
     margin-left: 5px;
@@ -60,24 +62,33 @@ const CSMemo = (id) => {
     :focus {
       outline: none;
     }
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0f38b;
+    border-radius: 6px;
+  }
    `
 
    const Btn = styled.button`
       font-weight: 600;
+      height: 3vh;
+      min-height: 20px;
       border-radius: 5px;
       cursor: pointer;
       transition: all 0.5s;
       color: #fff;
       border: none;
       font-size: 11px;
-      padding: 6px;
       background-color: #000000;
       &:hover {
         background-color: #666666;
       }
       float: right;
-      /* margin-top:10px;
-      margin-right:2%; */
       width: 60px;
-      margin: 4px;
    `

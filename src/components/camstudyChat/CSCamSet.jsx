@@ -206,7 +206,7 @@ const mySessionId = this.state.mySessionId;
 const myUserName = this.state.myUserName;
 
 return (
-  <>
+  <div style={{display:"flex",flexDirection:"column"}}>
         <CamSmallBox1>
         {this.state.publisher !== undefined ? (
               <CSCamp streamManager={this.state.publisher} />   ) : null}
@@ -223,7 +223,7 @@ return (
         {this.state.subscribers[4] ? (     
             <CSCam streamManager={this.state.subscribers[4]}/> ) : null}
         </CamSmallBox2>
-  </>
+  </div>
     );
 };
 
@@ -298,15 +298,20 @@ const CamSmallBox1=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 166px;
+min-height: 220px;
+height: 29vh;
 border: none;
+/* background-color: #64a464; */
+background: #ebfbee;
 `;
 
 const CamSmallBox2=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 188px;
-margin-top: 20px;
+min-height: 220px;
+height: 29vh;
+/* margin-top: 20px; */
 border:none;
+background: #ebfbee;
 `;

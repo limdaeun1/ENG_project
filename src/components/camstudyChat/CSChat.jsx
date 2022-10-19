@@ -621,7 +621,9 @@ const CSChat = () => {
         </TabContainer>
         {/* 메모장 */}
         <div style={{ flexGrow: "1" }}>
-         <MemoBox><CSMemo id={roomId}/></MemoBox>
+         {/* <MemoBox> */}
+          <CSMemo id={roomId}/>
+          {/* </MemoBox> */}
         </div>
       </ScriptContainer>
     </Container>
@@ -632,19 +634,32 @@ export default CSChat;
 
 const Container = styled.div`
   display: flex;
-  height: 40%;
+  height: 30vh;
+  min-width: 600px;
+  width: 90vw;
+  /* background-color: #f0c07e; */
   /* margin-top: 80px; */
 `;
 const LeftContainer = styled.div`
-  width: 60%;
+  width: 50vw;
+  height: 30vh;
+  min-width: 600px;
+  /* background-color: #e15fec; */
+  /* border:3px solid #e15fec; */
 `;
 
 const ContentsContainer = styled.div`
   flex-grow: 1; 
-  height : 250px; 
+  /* height : 250px;  */
+  height: 25vh; 
+  min-height: 150px;
+  width: 48vw;
+    min-width: 600px;
+ 
   border: none;
     background: linear-gradient(to right, #effaf6, #e4fcf4);
-    box-shadow: 10px 10px 10px #e9ecef;
+    /* box-shadow: 10px 10px 10px #e9ecef; */
+    /* border:3px solid #46a2d0; */
   border-radius: 5px;
 `
 
@@ -652,8 +667,14 @@ const ContentsContainer = styled.div`
 
 const ChatBox = styled.div`
   overflow-x: hidden;
-  height: 200px;
-  width: 100%;
+  /* min-height: 200px; */
+  height: 20vh;
+  min-height: 110px;
+  /* width: 100%; */
+  /* width: 50vw; */
+  width: 48vw;
+    min-width: 600px;
+  /* min-width: 600px; */
   display: block;
 
   &::-webkit-scrollbar {
@@ -666,7 +687,11 @@ const ChatBox = styled.div`
     background: #96f2d7;
     border-radius: 6px;
   }
+  /* border:2px solid black; */
+  
 `;
+
+
 const InfoBox = styled.div`
   text-align: center;
   color: green;
@@ -770,12 +795,16 @@ const TimeMsg = styled.div`
 const SendBox = styled.div`
   background-color: white;
   border: none;
-  box-shadow: 4px 4px 4px #e9ecef;
+  /* box-shadow: 4px 4px 4px #e9ecef; */
   border-radius: 20px;
-  padding: 5px 10px 5px 10px;
-  margin: 5px 10px 0px 10px;
-  height: 30px;
-  width: 600x;
+  /* padding: 5px 10px 5px 10px; */
+  /* margin: 5px 10px 0px 10px; */
+  margin: auto;
+  height: 4vh;
+  min-height: 30px;
+  /* height: 3vh; */
+  width: 45vw ;
+ min-width: 550px;
   display: flex;
   align-items: center;
 `;
@@ -824,11 +853,15 @@ const MemoBox = styled.div`
 `;
 
 const UserContainer = styled.div`
-  width: 100%;
-  height: 250px;
+  /* width: 30vw;
+  height: 25vh; */
+  height: 25vh; 
+  min-height: 150px;
+  width: 48vw;
+    min-width: 600px;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
-  box-shadow: 10px 10px 10px #e9ecef;
+  /* box-shadow: 10px 10px 10px #e9ecef; */
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 8px;
@@ -840,39 +873,86 @@ const UserContainer = styled.div`
     background: #d0ebff;
     border-radius: 6px;
   }
+  /* border:3px solid yellow; */
 `;
 
 const ScriptContainer = styled.div`
-  width: 40%;
+  width: 40vw;
   margin: 0px 10px 0px 20px;
+  /* border:3px solid green; */
 `;
 
+// const TabContainer = styled.div`
+//   display: flex;
+//   width: 380px;
+//   min-height: 30px;
+//   height: 3vh;
+//   margin-left: 10px;
+// `;
+
+// const ActiveTabBox = styled.div`
+//   padding: 8px;
+//   text-align: center;
+//   width: 90px;
+//   background: #51cf66;
+//   cursor: pointer;
+//   box-sizing: content-box;
+//   position: relative;
+//   outline: none;
+//   border-top-left-radius: 10px;
+//   border-top-right-radius: 10px;
+//   margin-right: 2px;
+//   font-size: small;
+// `;
+
+// const TabBox = styled.div`
+//   padding: 8px;
+//   text-align: center;
+//   width: 90px;
+//   background: #b2f2bb;
+//   cursor: pointer;
+//   box-sizing: content-box;
+//   position: relative;
+//   outline: none;
+//   border-top-left-radius: 10px;
+//   border-top-right-radius: 10px;
+//   margin-right: 2px;
+//   font-size: small;
+// `;
 const TabContainer = styled.div`
   display: flex;
-  width: 380px;
-  height: 30px;
-  margin-left: 10px;
+  /* width: 84%; */
+  width:100%;
+ min-height: 30px;
+margin-top: 8px;
+margin-left: 10px;
+border:none;
 `;
 
 const ActiveTabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  min-width: 100px;
+  width:7vw;
+  /* min-width: 55px; */
   background: #51cf66;
-  cursor: pointer;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  /* margin-right: 0.2%; */
   font-size: small;
+  /* color:white; */
+  border: none;
 `;
 
 const TabBox = styled.div`
-  padding: 8px;
+  padding: 4px;
   text-align: center;
-  width: 90px;
+  min-width: 95px;
+  width: 6vw;
+  /* min-width: 55px; */
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -880,6 +960,7 @@ const TabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 2px;
+  margin-right: 0.2%;
   font-size: small;
+  border: none;
 `;

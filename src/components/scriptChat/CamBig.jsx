@@ -86,8 +86,10 @@ border: solid 1px green;
 background: #D9D9D9;
 border-radius: 20px;
 margin:0 auto 0 auto;
-width: 430px;
-height: 322px;
+min-width: 430px;
+width: 30vw;
+min-height: 322px;
+height: 40vh;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 

@@ -40,7 +40,7 @@ const SCLayout = () => {
 
     return (
       <>
-      {/* <Container> */}
+      
 
       <TopBar>
         <ButOut onClick={()=>navigate("/list")}>나가기</ButOut>
@@ -53,11 +53,12 @@ const SCLayout = () => {
 
         <Box>
 
-          {/* <SCCamSet id={id}/>   */}
-
+          <SCCamSet id={id}/>  
+<Container>
+{/* <div> */}
           <ScriptChatBox>
 
-            <ScriptContainer>
+            {/* <ScriptContainer> */}
               <TabContainer>
             {toggleState === 1
             ? <ActiveTabBox onClick={() => toggleTab(1)}>Script</ActiveTabBox>
@@ -90,54 +91,67 @@ const SCLayout = () => {
             
           </div>
 
-            </ScriptContainer>
+            {/* </ScriptContainer> */}
 
 
-            <SCChat/>
+            
           </ScriptChatBox>
+          <div >
+            <SCChat/>
+          </div>
 
+{/* </div> */}
+        </Container>
         </Box>
-        {/* </Container> */}
+
       </>
     );
   };
   
   export default SCLayout;
 
-//   const Container=styled.div`
-//   width: 100%;
-//   width: 1850px;
-//   height: 950px;
-//   margin: 20px auto;
-//   border: solid;
-// `;
-
-  const TopBar=styled.div`
+const TopBar=styled.div`
   border: none;
-  width: 100%;
-  min-width: 1200px;
+  width: 100vw;
+  height: 5vh;
+  min-height: 50px;
   display:flex;
   font-size: 10px;
+  align-items: center;
 `;
+const Box=styled.div`
+display:flex;
+border: none;
+/* width: 95%; */
+min-width: 1200px;
+width: 95vw;
+min-height: 600px;
+height: 90vh;
+margin: auto;
+`;
+
+  const Container=styled.div`
+  display: block;
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+`;
+
+
 
   const ButOut=styled.div`
 border: none;
   background: #40c057;
   border-radius: 20px;
-  width: 9%;
-  min-width: 80px;
-  max-width: 150px;
-  height: 3.1em;
-  margin-left: 6%;
-  margin-top: 2%;
+  width: 10vw;
+  min-width: 100px;
+  height: 6vh;
   text-align : center;
   font-weight: bold;
   font-size: middle;
-  align-items: center;
-  justify-content:space-between;
   display: inline-block;
   font-size: 1.5em;
-  line-height: 45px;
+  line-height: 6vh;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
   &:hover {
@@ -147,14 +161,11 @@ border: none;
 
 const InfoBar=styled.div`
 border: none;
+height: 6vh;
   background: #D3F9D8;
   border-radius: 20px;
-width: 75%;
-height: 2.9rem;
-min-width: 500px;
-max-width: 1500px;
-  margin-left: 6%;
-  margin-top: 2%;
+width: 90vw;
+min-width: 1100px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
   font-weight: bold;
@@ -163,7 +174,6 @@ max-width: 1500px;
   justify-content: center;
   display: flex;
   font-size: 10px;
-  line-height: 45px;
   font-family: "IBM Plex Sans KR", sans-serif;
 `;
 
@@ -171,37 +181,34 @@ const Room=styled.div`
 border:none;
 width: 35%;
 min-width:200px;
-height:3em;
+/* height:3em; */
 font-size:1.5em;
 `;
 
-const Box=styled.div`
-display:flex;
-border: none;
-width: 100%;
-min-width: 1200px;
-`;
 
 
 const ScriptChatBox=styled.div`
 border: none;
-height: 60%;
-width: 30%;
-min-width: 395px;
-margin-left: 30px;
+min-height: 300px;
+height: 40vh;
+width: 25vw;
+min-width: 320px;
+display: flex;
+  flex-direction: column;
 `;
 
-const ScriptContainer=styled.div`
-border: none;
-height: 430px;
-width: 100%;
-margin-top: 30px;
-`;
+// const ScriptContainer=styled.div`
+// border: none;
+// height: 40vh;
+// width: 100%;
+// border: 3px solid yellow;
+// /* margin-top: 30px; */
+// `;
 
 const TabContainer = styled.div`
   display: flex;
-  width: 84%;
-  height: 30px;
+  width:100%;
+ min-height: 30px;
 margin-top: 8px;
 margin-left: 10px;
 border:none;
@@ -210,15 +217,14 @@ border:none;
 const ActiveTabBox = styled.div`
   padding: 4px;
   text-align: center;
-  width: 23%;
-  min-width: 55px;
+  min-width: 100px;
+  width:7vw;
   background: #51cf66;
   box-sizing: content-box;
   position: relative;
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-right: 0.2%;
   font-size: small;
   border: none;
 `;
@@ -226,8 +232,8 @@ const ActiveTabBox = styled.div`
 const TabBox = styled.div`
   padding: 4px;
   text-align: center;
-  width: 23%;
-  min-width: 55px;
+  min-width: 95px;
+  width: 6vw;
   background: #b2f2bb;
   cursor: pointer;
   box-sizing: content-box;
@@ -241,7 +247,6 @@ const TabBox = styled.div`
 `;
 
 const ActiveContentBox = styled.div`
-  /* padding: 4%; */
   text-align: center;
   width: 89%;
   box-sizing: content-box;
@@ -257,11 +262,11 @@ const ContentBox = styled.div`
   background: white;
   padding: 4%;
   text-align: center;
+  height: 20vh;
   width: 89%;
   box-sizing: content-box;
   position: relative;
   outline: none;
   margin-right: 1%;
   display: none;
-  /* border: solid 1px purple; */
 `;

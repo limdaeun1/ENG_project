@@ -299,21 +299,24 @@ export default SCCamSet;
 
 const CamBox=styled.div`
 border: none;
-height: 100%;
-width: 70%;
-min-width:800px;
-margin:auto;
+min-height: 650px;
+width:70vw;
+min-width: 880px;
+border: 3px solid red;
 `;
 
 const CamSmallBox=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 270px;
-width:96%;
+height: 41vh;
+min-height: 240px;
+width:67vw;
+min-width:840px;
 margin-top: 40px;
 margin-left:2%;
 margin-right: 2%;
+border: 3px solid;
 `;
 
 
