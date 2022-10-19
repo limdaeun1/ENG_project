@@ -89,7 +89,6 @@ width: 26vw;
 min-height: 322px;
 height: auto;
 /* background-color: white; */
-background-color:#edf5ef;
 `;
 
 const Nick = styled.div`
