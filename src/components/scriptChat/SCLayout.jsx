@@ -54,8 +54,10 @@ const SCLayout = () => {
         <Box>
 
           <SCCamSet id={id}/>  
+
 <Container>
 {/* <div> */}
+
           <ScriptChatBox>
 
             {/* <ScriptContainer> */}

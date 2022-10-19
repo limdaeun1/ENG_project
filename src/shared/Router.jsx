@@ -10,6 +10,7 @@ import FeedBackPage from '../pages/FeedBackPage';
 import CreateRoomPage from '../pages/CreateRoomPage';
 import Loading from '../pages/Loading';
 import LoadingNaver from '../pages/LoadingNaver';
+import ReadyPage from '../pages/ReadyPage';
 
 
 
@@ -29,6 +30,7 @@ const Router = () => {
           <Route path="*" element={<div>없는 페이지입니다.</div>}  />
           <Route path="/login/kakao" element={<Loading />} exact />
           <Route path="/login/naver" element={<LoadingNaver />} exact />
+          <Route path="/enter/:id" element={<ReadyPage />} exact />
         </Routes>
       </BrowserRouter>
     </div>

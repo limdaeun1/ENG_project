@@ -1,20 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 import lock from "../../img/lock2.png";
-import next from "../../img/next.png";
 import { useNavigate } from "react-router-dom";
-import { enterRoomCam } from "../../redux/modules/chatroom";
-import { useDispatch } from "react-redux";
 import EnterModal from "./EnterModal";
 
 const ChatListCard = (room) => {
   const id = room.id
-  const category = room.category
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [modalVisibleId, setModalVisibleId] = useState("")
-  const payload = { id:id , password:"",}
 
+
+  //비밀번호 방들 선택시 비밀번호 입력 모달창띄움
   const onModalHandler = id => {
     setModalVisibleId(id)
   }
@@ -28,38 +24,22 @@ const ChatListCard = (room) => {
       EnterCam()
     }
   }
-
-  const EnterCam = async () => {
-    try {
-      const response = await dispatch(enterRoomCam(payload)).unwrap();
-      console.log(response);
-      if(response.data.success === true) {
-        if(room.category === "캠스터디" ) {
-         navigate("/camchat/"+id ,{state:room})
-        }
-        else {
-         navigate("/scriptchat/"+id ,{state:room})
-        }
-      }
-      else {
-        window.alert (`${response.data.error.message}`);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
+  //enter페이지로 이동
+  const EnterCam = () => {
+    navigate("/enter/"+id ,{state:room})
+  }
 
   return (
     <>
     <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
-      <Container onClick={() => enterhandler(id) }>
+      <Container onClick={() => enterhandler(id)} img={room.roomimage}>
           <PeopleParticipationBox>
           {room.lock===true ? <LockStatusBox src={lock}/> :<LockStatusBox2/> }
             <NumPeopleBox>{room.nowCount}명/{room.maxCount}명</NumPeopleBox>
           </PeopleParticipationBox>
         <TitleBox>{room.roomName}</TitleBox>
       </Container>
-
     </>
   );
 };
@@ -76,7 +56,7 @@ const Container = styled.div`
   cursor: pointer;
   height: 200px;
   width: 23%;
-  background-image: linear-gradient( rgba(145, 143, 143, 0.243), rgba(237, 231, 231, 0.187) ),url({room.roomimage});
+  background-image: linear-gradient( rgba(145, 143, 143, 0.243), rgba(237, 231, 231, 0.187) ),url(${props => props.img});
   background-size: cover;
   position: relative;
   transition: all 0.5s;

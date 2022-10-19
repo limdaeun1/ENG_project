@@ -15,6 +15,19 @@ export const getChatrooms = createAsyncThunk(
     }
   );
 
+//비밀번호 확인
+export const passwordCheck = createAsyncThunk(
+  "chatroom/passwordCheck",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await instance.post(`auth/chat/check/${payload.id}`,{password:payload.password});
+      return data
+    } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+    }
+  }
+);  
+
 //방 입장하기 (인원수+1)
 export const enterRoomCam = createAsyncThunk(
   "chatroom/enterRoomCam",

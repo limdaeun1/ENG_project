@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from 'styled-components';
-import { enterRoomCam } from "../../redux/modules/chatroom";
+import { passwordCheck } from "../../redux/modules/chatroom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -11,25 +11,23 @@ function EnterModal({ room , modalVisibleId, setModalVisibleId ,id}) {
     const [password, setPassWord] = useState("");
     const payload = { id:id , password:password,}
 
+    //모달창 닫기
     const onCloseHandler = () => {  //modalVisibleId이 빈값이 되면 모달이 안보임
         setModalVisibleId("")
     }
 
+    //비밀번호 검증 일치 시 enter페이지로 이동
     const EnterCam = async () => {
         try {
-          const response = await dispatch(enterRoomCam(payload)).unwrap();
+          const response = await dispatch(passwordCheck(payload)).unwrap();
           if(response.data.success === true) {
-            if(room.category === "캠스터디" )
-            navigate("/camchat/"+id ,{state:room})
-            else {
-            navigate("/scriptchat/"+id ,{state:room})
-            }
+            navigate("/enter/"+id ,{state:room})
           }
           else {
-            window.alert (`${response.data.error.message}`);
+            window.alert ("비밀번호가 일치하지 않습니다");
           }
         } catch (error) {
-          console.log(error);
+          window.alert ("비정상적인 접근입니다");
         }
       };
 
