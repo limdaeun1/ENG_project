@@ -229,7 +229,8 @@ const Container = styled.div`
   font-size: 14px;
   width: 70%;
   max-width: 1200px;
-  min-width: 800px;
+  min-width: 900px;
+  min-height:1210px;
 `;
 
 const BigBox = styled.div`

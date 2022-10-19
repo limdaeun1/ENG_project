@@ -24,7 +24,7 @@ margin-bottom: 10%;
     display: flex;
     justify-content:center;
     width: 100%;
-    min-width:800px;
+    min-width:900px;
     height: 250px;
 `
 

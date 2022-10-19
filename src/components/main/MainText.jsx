@@ -42,7 +42,7 @@ const Container = styled.div`
   border: none;
   height: auto;
   width: 100%;
-  min-width:800px;
+  min-width:900px;
   margin-top: 12%;
   margin-bottom:15% ;
   font-size: 40px;

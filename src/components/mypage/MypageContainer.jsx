@@ -26,8 +26,8 @@ const Bigcontainer = styled.div`
 border: none;
 width: 100%;
 height:100%;
-min-width:800px;
-min-height: 700px;
+min-width:900px;
+min-height: 1210px;
 display:flex;
 `;
 
