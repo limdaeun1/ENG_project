@@ -302,8 +302,6 @@ min-height: 740px;
 width:70vw;
 min-width: 880px;
 border-radius: 20px;
-background-color:#edf5ef;
-box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 margin: 1%;
 padding: 1%;
 justify-content: center;

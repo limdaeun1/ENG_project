@@ -77,7 +77,6 @@ render() {
 
 
 const Camsmall=styled.div`
-background-color:#edf5ef;
 border-radius: 20px;
 width: 18vw;
 min-width: 250px;

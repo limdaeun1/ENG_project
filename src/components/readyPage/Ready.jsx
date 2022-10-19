@@ -25,7 +25,7 @@ const Ready = () => {
     .catch((error) =>
     alert(""));
     Swal.fire({
-      title: '카메라, 마이크 접근 권한을 허용해주세요!', 
+      title: `카메라, 마이크 접근 권한을\n허용해주세요!`, 
       icon: 'warning', 
     });
   },[])
