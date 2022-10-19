@@ -73,7 +73,7 @@ const Container = styled.div`
   border: none;
   height: 600px;
   width: 100%;
-  min-width:800px;
+  min-width:900px;
   background-image: url(${Page3});
   background-size: cover;
   background-position: center;

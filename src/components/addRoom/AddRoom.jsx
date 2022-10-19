@@ -103,6 +103,7 @@ const settings = {
 
   return (
     <>
+    <Bigcontainer>
       <Container 
       // onSubmit={makeRoom}
       >
@@ -242,29 +243,35 @@ const settings = {
             <AddRoomBtn 
             onClick={makeRoom}
             >방만들기</AddRoomBtn>
+            <LeaveRoom onClick={()=>navigate("/list")}>뒤로 가기</LeaveRoom>
           </BtnContainer>
       </Container>
+      </Bigcontainer>
     </>
   );
 };
 
 export default AddRoom;
 
+const Bigcontainer = styled.div`
+border: none;
+width:100%;
+min-width:900px;
+min-height:1210px;
+`;
+
+
 const Container = styled.div`
 border: none;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  /* border:1px solid #2b8a3e; */
-  height: 100%;
-  /* margin: 50px auto 100px auto; */
-  margin: auto;
-  width:80%;
-  min-width: 700px;
-  max-width: 60%;
-  background-color: 
-  #e9ecef
-  ;
+  width:73%;
+  height: 1000px;
+  min-width: 600px;
+  margin:auto;
+  margin-top:120px;
+  background-color: #e9ecef;
   align-items: center;
   box-shadow: 4px 4px 4px #dee2e6;
 `;
@@ -290,6 +297,18 @@ const SlideContainer = styled.div`
   border: none;
   justify-content: center;
   /* border: 3px solid blue; */
+`;
+
+const LeaveRoom = styled.button`
+  display :block;
+  margin : 0 auto;
+  margin-bottom : 15px;
+  font-size : 15px;
+  text-decoration:underline;
+  color :  #929292;
+  cursor: pointer;
+  background : none;
+  border : none;
 `;
 
 const NameBox = styled.div`

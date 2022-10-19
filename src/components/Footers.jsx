@@ -55,7 +55,7 @@ const Footer = () => {
 
 const FooterWrap = styled.div`
     height : 190px;
-    min-width : 800px;
+    min-width : 900px;
     width :100%;
     background-color : #363a3e;
     display : flex;

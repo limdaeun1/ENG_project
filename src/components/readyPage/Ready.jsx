@@ -59,6 +59,7 @@ const Ready = () => {
   }
 
   return (
+    <Bigwrap>
     <Wrap>
       <AllLayout>
         <VideoWrap>
@@ -83,18 +84,30 @@ const Ready = () => {
       </Right>
       </AllLayout>
   </Wrap>
+  </Bigwrap>
   );
 }
 
 export default  Ready;
 
+const Bigwrap = styled.div`
+  width : 70%;
+  height : 600px;
+  max-width: 1200px;
+  min-width: 900px;
+  margin: 2% auto 10% auto;
+  border: none;
+  margin-top:100px;
+`;
+
 const Wrap = styled.div`
   width : 70%;
   height : 500px;
-  max-width: 1200px;
-  min-width: 800px;
+  max-width: 1000px;
+  min-width: 900px;
   box-shadow: 0 2px 7px 1px rgb(64 60 67 / 16%);
   margin: 2% auto 10% auto;
+  border: none;
 `;
 
 const AllLayout = styled.div`
