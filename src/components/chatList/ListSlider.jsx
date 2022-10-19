@@ -17,7 +17,7 @@ function Slide() {
               <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252__480.jpg"/>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2018/01/24/18/05/background-3104413__480.jpg"/>
+              <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
             </CardBox>
       </StyledSlider>
     </Container>

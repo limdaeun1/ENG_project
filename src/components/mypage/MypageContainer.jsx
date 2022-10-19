@@ -49,7 +49,7 @@ border: none;
 width: 200px;
 height: 600px;
 margin: 20% auto 0% auto;
-background-image: url('https://ifh.cc/g/NSZtWA.png');
+background-image: url('https://ifh.cc/g/H7vQCh.png');
 background-size: cover;
 background-position: center;
 `;
