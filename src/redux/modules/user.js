@@ -1,11 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../shared/api";
-// import Swal from "sweetalert2";
 
 const initialState = {
   };
-
-  // const swal= () =>{}
 
 export const user = createSlice({
    name: "user",
@@ -29,7 +26,6 @@ export const getKakao = createAsyncThunk(
     //주소창의 code 뽑아낸걸 payload로 받음
     try {
       const data = await instance.get(`/login/kakao?code=${code}`); //서버주소+코드정보(?서버주소?) 로 get요청을 보내면 response에 토큰을 받을수있다. 코드르 보내주면서 동시에 토큰을 받아옴.
-      // const data = await instance.get(`/auth/kakao?code=${code}`);
       const ACCESS_TOKEN1 = data.headers.authorization.substring(10,97);
       const ACCESS_TOKEN2 = data.headers.authorization.substring(97,105);
       const ACCESS_TOKEN3 = data.headers.authorization.substring(105);
@@ -44,14 +40,6 @@ export const getKakao = createAsyncThunk(
       const userImg = data.data.data.memberImg
       localStorage.setItem("userImg",userImg)
       window.location.assign("/"); //토큰 저장하면 자동으로 메인화면으로 이동
-      //  window.alert (`Welcome, ${user} !`);
-      // window.on('click', '#success', function(e) {
-      //   swal(
-      //     'Success',
-      //     'You clicked the <b style="color:green;">Success</b> button!',
-      //     'success'
-      //   )
-      // });
       return data;
 
 
@@ -70,7 +58,6 @@ export const getKakao = createAsyncThunk(
       //주소창의 code 뽑아낸걸 payload로 받음
       try {
         const data = await instance.get(`/login/naver?code=${code}&state=123`); //서버주소+코드정보(?서버주소?) 로 get요청을 보내면 response에 토큰을 받을수있다. 코드르 보내주면서 동시에 토큰을 받아옴.
-        // const data = await instance.get(`/auth/kakao?code=${code}`);
         console.log(data);
         const ACCESS_TOKEN1 = data.headers.authorization.substring(10,97);
         const ACCESS_TOKEN2 = data.headers.authorization.substring(97,105);

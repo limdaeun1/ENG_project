@@ -214,17 +214,16 @@ render() {
       <>
           <CamBox>
           {this.state.publisher !== undefined ? (
-            <>
-            <CamBig streamManager={this.state.publisher}/>
-            </>
+                <>
+                <CamBig streamManager={this.state.publisher}/>
+                </>
           ) : null}
-            <CamSmallBox>
-          {this.state.subscribers.map((sub, i) => (
-            <div key={i} >
-              <CamSmall streamManager={sub}/>
-            </div> 
-          ))}
-            </CamSmallBox>
+                <CamSmallBox>
+                {this.state.subscribers.map((sub, i) => (
+                    <div key={i} >
+                    <CamSmall streamManager={sub}/>
+                    </div>  ))}
+                </CamSmallBox>
           </CamBox>
       </>
   );
@@ -299,21 +298,27 @@ export default SCCamSet;
 
 const CamBox=styled.div`
 border: none;
-height: 100%;
-width: 70%;
-min-width:800px;
-margin:auto;
+min-height: 740px;
+width:70vw;
+min-width: 880px;
+border-radius: 20px;
+margin: 1%;
+padding: 1%;
+justify-content: center;
+align-items: center;
 `;
 
 const CamSmallBox=styled.div`
 display:flex;
 border: none;
 border-radius: 20px;
-height: 270px;
-width:96%;
+height: 41vh;
+min-height: 240px;
+width:67vw;
+min-width:887px;
 margin-top: 40px;
-margin-left:2%;
-margin-right: 2%;
+margin: 4% 0 0 -1%;
+justify-content: center;
 `;
 
 

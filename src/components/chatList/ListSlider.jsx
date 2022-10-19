@@ -3,21 +3,23 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import test11 from "../../img/test11.png";
+import test22 from "../../img/test22.png";
 
 function Slide() {
 
-    const sliders = [1,2,3,4]
   return (
     <Container>
       <StyledSlider {...settings}>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2018/12/06/16/12/birds-3860034__480.jpg"/>
+              <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
+              <CardImg title="리뷰 작성하러 가기" alt="설문조사 참여" src={test22}/></a>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252__480.jpg"/>
+              <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://cdn.pixabay.com/photo/2018/01/24/18/05/background-3104413__480.jpg"/>
+              <CardImg alt="이용 방법" src={test11}/>
             </CardBox>
       </StyledSlider>
     </Container>
@@ -30,9 +32,9 @@ export default Slide;
 const settings = {
   dots: true,  // 슬라이드 밑에 점 보이게
   infinite: true,  // 무한으로 반복
-  speed: 500,
+  speed: 600,
   autoplay: true,
-  autoplaySpeed: 2000,  // 넘어가는 속도
+  autoplaySpeed: 4000,  // 넘어가는 속도
   slidesToShow: 1,  // 4장씩 보이게
   slidesToScroll: 1,  // 1장씩 뒤로 넘어가게
   centerMode: true,
@@ -44,9 +46,7 @@ const Container = styled.div`
   display: flex;
   width: 80%;
   justify-content: center;
-  margin:2% 0 13% 0 ;
-  /* background-color: red; */
-
+  margin:2% auto 13% auto;
 `;
 
 // 슬라이드 CSS
@@ -72,15 +72,6 @@ const StyledSlider = styled(Slider)`
   .slick-track {
     overflow-x: hidden;
   }
-
-  /* .slick-prev:before, .slick-next:before{ //얘는 양옆 버튼. 커스텀 해줘야 보임
-    	font-family: 'slick';
-        font-size: 30px;
-        line-height: 1;
-        opacity: .75;
-        color: #c2bebe99;
-        -webkit-font-smoothing: antialiased;
-    } */
 `;
 
 const CardBox = styled.div`

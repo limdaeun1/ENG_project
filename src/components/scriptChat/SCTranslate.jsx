@@ -19,9 +19,6 @@ const messagedata = {
       const response = await dispatch(postTranslate(messagedata)).unwrap();
       console.log(response)
       setTranslates(response)
-    //   console.log(translates)
-    //   setTranslates(response.categories)
-    //   setPeople(payload)
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +26,7 @@ const messagedata = {
   console.log(translates)
 
     return (
-      <>
+     <Container>
       <Div>
 
         <Textbox 
@@ -45,49 +42,77 @@ const messagedata = {
         </Translatebox>
 
       </Div>
+      </Container>
       
-      </>
       );
    };
    
    export default SCTranslate;
-
+   const Container = styled.div`
+   height: 35vh;
+   min-height: 250px;
+   width: 25vw;
+    min-width: 320px;
+  `
    const Div = styled.div`
-    height: 370px;
-    min-width: 360px;
+    height: 35vh;
+    min-height: 250px;
+    min-width: 300px;
     width: 100%;
-    overflow: scroll;
-    overflow-x: hidden;
     border: none;
     border-radius: 8px;
-    box-shadow: 10px 10px 10px #e9ecef;
+    display: flex;
+    flex-direction: column;
    `
 
    const Textbox = styled.textarea`
     width: 100%;
-    height: 155px;
+    height: 15vh;
+    min-height: 110px;
      resize: none;
-    /* border:solid 1px red; */
     border: none;
+    box-shadow: 5px 5px 5px #e9ecef;
     :focus {
       outline: none;
     }
     background-color: #e2f4e6;
     border-radius: 10px;
+    overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0f38b;
+    border-radius: 6px;
+  }
    `
 
 const Translatebox = styled.div`
 width: 100%;
-height: 155px;
+height: 15vh;
+min-height: 110px;
  resize: none;
-/* border:solid 1px red; */
 border: none;
 :focus {
   outline: none;
 }
 background-color: #e2f4e6;
 border-radius: 10px;
-margin-top: 48px;
+overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d0f38b;
+    border-radius: 6px;
+  }
+  box-shadow: 5px 5px 5px #e9ecef
 `
 
    const Btn = styled.button`
@@ -98,15 +123,10 @@ margin-top: 48px;
       color: #fff;
       border: none;
       font-size: 11px;
-      padding: 6px;
       background-color: #40c057;
       &:hover {
         background-color: #89f6ab;
-      }
-      float: right;
-      /* margin-top:10px;
-      margin-right:2%; */
+      };
+      margin:1% 0 1% auto;
       width: 60px;
-      margin-bottom: 10px;
-      margin-top: 10px;
    `

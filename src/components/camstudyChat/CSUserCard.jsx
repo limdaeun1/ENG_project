@@ -104,54 +104,6 @@ const declareBtn =() =>{
 }
 
   return (
-  //   <>
-  //   {roomManager == userId ? (
-  //      user?.memberId == userId ? (
-  //        <UserBox>
-  //          <UserImgBox
-  //            src={user?.memberImg}
-  //          />
-  //          <UserNameBox>👑{user?.memberName}</UserNameBox>
-  //        </UserBox>
-  //      ) : (
-  //        <UserBox>
-  //          <UserImgBox
-  //            src={user?.memberImg}
-  //          />
-  //          <UserNameBox>{user?.memberName}</UserNameBox>
-  //          <BtnBox>
-  //          <ManagerBtn
-  //          onClick={() => {
-  //            managerBtn()
-  //          }}
-  //          >방장</ManagerBtn>
-  //            <ExitBtn
-  //            onClick={() => {
-  //              banBtn()
-  //            }}
-  //          >
-  //            OUT
-  //          </ExitBtn>
-  //          </BtnBox>
-
-  //        </UserBox>
-  //      )
-  //    ) : roomManager == user?.memberId ? (
-  //      <UserBox>
-  //        <UserImgBox
-  //          src={user?.memberImg}
-  //        />
-  //        <UserNameBox  >👑{user?.memberName}</UserNameBox>
-  //      </UserBox>
-  //    ) : (
-  //      <UserBox>
-  //        <UserImgBox
-  //          src={user?.memberImg}
-  //        />
-  //        <UserNameBox >{user?.memberName}</UserNameBox>
-  //      </UserBox>
-  //    )}
-  //  </>
   <>
      {roomManager == userId ? (
       // 방장이 본인이면서 해당 카드가 본인일때
@@ -278,7 +230,7 @@ const BtnBox = styled.div`
   padding:5px;
 `
 const ExitBtn = styled.button`
-  margin-left:10px;
+ margin:0px 10px 0px 10px;
   width:40px;
   height: 30px;
   background: linear-gradient(#f03e3e,#e03131, #c92a2a);

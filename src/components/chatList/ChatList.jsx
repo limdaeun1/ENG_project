@@ -225,14 +225,22 @@ console.log(one)
 export default ChatList;
 
 const Container = styled.div`
-  border: none;
- 
-  margin: 0 20% 10% 23%;
+  margin: 0 auto 10% auto;
   font-size: 14px;
   width: 70%;
   max-width: 1200px;
-  min-width: 1000px;
+  min-width: 800px;
 `;
+
+const BigBox = styled.div`
+  border: none;
+  /* display: block; */
+  min-height: 500px;
+  width: 80%;
+  /* max-width: 80%; */
+  margin: 0 auto;
+`;
+
 
 const BlocTabsContiner = styled.div`
   border: none;
@@ -263,6 +271,11 @@ const AddRoomBtn = styled.div`
   color: white;
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: whitesmoke;
+}
 `;
 
 
@@ -285,6 +298,11 @@ const TabBox = styled.div`
   margin-right: 0.3%;
   margin-top: 0.3%;
   font-size: 0.9em;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: gray;
+}
 `;
 
 const AciveTabBox = styled.div`
@@ -308,6 +326,11 @@ const AciveTabBox = styled.div`
   margin-right: 0.3%;
   margin-top: 0.3%;
   font-size: 0.9em;
+  &:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: gray;
+}
 `;
 
 const ReloadContainer = styled.div`
@@ -319,6 +342,10 @@ width:30px;
 height:30px;
 cursor:pointer;
 float: right;
+&:hover {
+transform: scale(1.2);
+transition: all 0.2s linear;
+}
 `
 
 const ActiveContentBox = styled.div`
@@ -329,10 +356,3 @@ const ActiveContentBox = styled.div`
   justify-content: center;
 `;
 
-const BigBox = styled.div`
-  border: none;
-  /* display: block; */
-  min-height: 500px;
-  width: 80%;
-  /* max-width: 80%; */
-`;

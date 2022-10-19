@@ -72,7 +72,7 @@ render() {
               <p>{this.getNicknameTag()}</p>
             </Nick>
           </Cam>
-          
+       
           </>
         ) : null}
     </>
@@ -82,13 +82,13 @@ render() {
 
 
 const Cam=styled.div`
-border: solid 1px green;
-background: #D9D9D9;
 border-radius: 20px;
-margin:0 auto 0 auto;
-width: 430px;
-height: 322px;
-box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+margin:2% auto 0 auto;
+min-width: 430px;
+width: 26vw;
+min-height: 322px;
+height: auto;
+/* background-color: white; */
 `;
 
 const Nick = styled.div`
@@ -103,6 +103,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 height: 20px;
+margin: 0 auto;
 `
 
 const Mute = styled.img`

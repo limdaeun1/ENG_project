@@ -41,13 +41,11 @@ export default MainText
 const Container = styled.div`
   border: none;
   height: auto;
-  width: 90%;
+  width: 100%;
+  min-width:800px;
   margin-top: 12%;
   margin-bottom:15% ;
-  margin-left: 5%;
-  margin-right: 5%;
   font-size: 40px;
-  /* display: flex; */
 `
 
 const TextBox = styled.h1`
@@ -59,10 +57,6 @@ const TextBox = styled.h1`
  font-size: 2.5rem;
  margin-bottom: 4%;
  margin-top: -20px;
- /* ::selection {
-     background: red;
-     color: white;
-   } */
 `
 
 const Box = styled.article`
@@ -71,17 +65,18 @@ const Box = styled.article`
    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px;
    &:hover {
      box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+     transform: scale(0.9);
+    transition: all 0.2s linear;
    }
    border-radius: 5px;
    cursor: pointer;
-   margin-left: 3rem;
-   margin-right: 2rem;
-   margin-bottom: 2rem;
+   margin-left: 2rem;
+   margin-right: 3rem;
    border-radius: 15px;
    font-size: 1.1rem;
-   margin-top: 70px;
-   padding: 10px;
-   width: 350px;
+   margin-top: 150px;
+   width: 380px;
+   height:500px;
 `;
 
 const Box2 = styled.article`
@@ -90,15 +85,16 @@ const Box2 = styled.article`
    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px;
    &:hover {
      box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+     transform: scale(0.9);
+    transition: all 0.2s linear;
    }
    border-radius: 5px;
    cursor: pointer;
-   margin-left: 2rem;
-   margin-right: 2rem;
-   margin-bottom: 2rem;
+   margin-left: 1rem;
+   margin-right: 1rem;
    border-radius: 15px;
    font-size: 1.1rem;
-   margin-bottom: 50px;
+   margin-bottom: 130px;
    padding: 10px;
 `;
 
@@ -108,24 +104,26 @@ const Box3 = styled.article`
    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px;
    &:hover {
      box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+     transform: scale(0.9);
+    transition: all 0.2s linear;
    }
    border-radius: 5px;
    cursor: pointer;
-   margin-left: 2rem;
+   margin-left: 3rem;
    margin-right: 2rem;
-   margin-bottom: 2rem;
    border-radius: 15px;
    font-size: 1.1rem;
-   margin-top: 70px;
-   padding: 10px;
+   margin-top: 150px;
+   width: 380px;
+   height:500px;
 `;
 
 const Boximg = styled.div`
     border: none;
-    width: 98%;
+    width: 100%;
     min-width:190px;
     min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2022/01/17/14/10/video-conference-6944846__480.jpg');
+    background-image: url('https://ifh.cc/g/PyXTkX.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -135,8 +133,8 @@ const Boximg2 = styled.div`
     border: none;
     width: 100%;
     min-width:200px;
-    min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2020/06/28/15/26/video-conference-5349687__480.png');
+    min-height: 340px;
+    background-image: url('https://ifh.cc/g/xdba1W.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -147,7 +145,7 @@ const Boximg3 = styled.div`
     width: 100%;
     min-width:200px;
     min-height: 200px;
-    background-image: url('https://cdn.pixabay.com/photo/2021/05/15/19/40/computer-6256527__480.jpg');
+    background-image: url('https://ifh.cc/g/LYpCnV.png');
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -161,7 +159,6 @@ const Boxtext = styled.div`
     line-height: 2.5rem;
     font-size: 1.05rem;
 `
-
 const Bigbox =styled.div`
     display: flex;
     justify-content:space-between;

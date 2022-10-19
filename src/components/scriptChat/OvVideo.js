@@ -31,4 +31,5 @@ const StVideo = styled.video`
    width: 100%;
    height: 100%;
    border-radius: 20px;
+   background-color:none ;
 `;

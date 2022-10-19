@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import Mymodal from './Mymodal';
 import Swal from "sweetalert2";
-
+import memo from '../../img/memo.png'
 
 const MyMemo = () => {
   const { isLoading, error, mypagelist } = useSelector((state) => state.mypage);
@@ -40,17 +40,23 @@ Toast.fire({
 
   return (
     <>
-    <Div>
-      {mypagelist?.memoDtoList.map((memo) => (
-      <Box key={memo.roomId}  >
-        <Mymodal id={memo.roomId} modalVisibleId={modalVisibleId}
-        setModalVisibleId={setModalVisibleId} day={memo.createDate} content={memo.contents} name={memo.roomName}/>
-        <P3 onClick={()=>showModal(memo.roomId)}>{memo.createDate}</P3>
-        <Roomname onClick={()=>showModal(memo.roomId)}>{memo.roomName}</Roomname>
-        <P2 onClick={()=>showModal(memo.roomId)}>{memo.contents}</P2>
-      </Box>
-      ))}
-    </Div>  
+        {
+      mypagelist?.memoDtoList?.length == 0 
+      ?(<ImgContainer  >
+      <ImgBox  src = {memo} />
+      </ImgContainer>) 
+      :(<Div>
+        {mypagelist?.memoDtoList.map((memo) => (
+        <Box key={memo.roomId}  >
+          <Mymodal id={memo.roomId} modalVisibleId={modalVisibleId}
+          setModalVisibleId={setModalVisibleId} day={memo.createDate} content={memo.contents} name={memo.roomName}/>
+          <P3 onClick={()=>showModal(memo.roomId)}>{memo.createDate}</P3>
+          <Roomname onClick={()=>showModal(memo.roomId)}>{memo.roomName}</Roomname>
+          <P2 onClick={()=>showModal(memo.roomId)}>{memo.contents}</P2>
+        </Box>
+        ))}
+      </Div>)
+    }
     </>
   )
 }
@@ -60,7 +66,6 @@ export default MyMemo
 const Box = styled.div`
     border: none;
     width: 210px;
-    /* min-width: 200px; */
     align-items: center;
     justify-content: center;
     margin: 10px;
@@ -74,8 +79,6 @@ const Box = styled.div`
 `
 
 const Div = styled.div`
-  /* max-width: 485px; */
-  /* width: 100%; */
   height: auto;
   display: grid;
   grid-template-columns: 200px 200px 500px;
@@ -97,7 +100,6 @@ const Roomname = styled.h3`
 `
 
 const P2 = styled.p`
-  /* white-space : nowrap; */
   overflow : hidden;
   text-overflow : ellipsis;
   max-width: 200px;
@@ -116,4 +118,13 @@ const P3 = styled.p`
   text-align: center;
   cursor: pointer;
 
+`
+const ImgContainer = styled.div`
+  text-align:center;
+  display:block;
+`
+
+const ImgBox = styled.img`
+  width:15vw
+  ;min-width:200px;
 `

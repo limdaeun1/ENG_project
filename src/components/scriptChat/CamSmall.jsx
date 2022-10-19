@@ -77,12 +77,10 @@ render() {
 
 
 const Camsmall=styled.div`
-border: solid 1px green;
-background: #D9D9D9;
 border-radius: 20px;
-width: 300px;
-height: 227px;
-box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+width: 18vw;
+min-width: 250px;
+min-height: 227px;
 margin: 5px;
 /* 여기 카메라 부분 나중에 4명 들어오면 수정하기 */
 `;

@@ -52,50 +52,45 @@ const CSLayout = () => {
   
   export default CSLayout;
 
-  const TopBar=styled.div`
+const TopBar=styled.div`
   border: none;
-  width: 100%;
-  min-width: 800px;
+  width: 100vw;
+  height: 5vh;
+  min-height: 50px;
   display:flex;
   font-size: 10px;
-  margin-top: -10px;
+  align-items: center;
 `;
 
-  const ButOut=styled.div`
-  border: none;
+
+
+const ButOut=styled.div`
+border: none;
   background: #40c057;
   border-radius: 20px;
-  width: 6%;
-  min-width: 80px;
-  max-width: 150px;
-  height: 2.6em;
-  margin-left: 6%;
-  margin-top: 2%;
+  width: 10vw;
+  min-width: 100px;
+  height: 6vh;
   text-align : center;
   font-weight: bold;
   font-size: middle;
-  align-items: center;
-  justify-content:space-between;
   display: inline-block;
   font-size: 1.5em;
-  line-height: 40px;
+  line-height: 6vh;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   font-family: "IBM Plex Sans KR", sans-serif;
-    &:hover {
+  &:hover {
     background-color: #89f6ab;
   }
 `;
 
 const InfoBar=styled.div`
-  border: none;
+border: none;
+height: 6vh;
   background: #D3F9D8;
   border-radius: 20px;
-  width: 75%;
-  height: 2.3rem;
-  min-width: 500px;
-  max-width: 1500px;
-  margin-left: 3%;
-  margin-top: 2%;
+width: 90vw;
+min-width: 1100px;
   box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
   text-align : center;
   font-weight: bold;
@@ -104,7 +99,6 @@ const InfoBar=styled.div`
   justify-content: center;
   display: flex;
   font-size: 10px;
-  line-height: 45px;
   font-family: "IBM Plex Sans KR", sans-serif;
 `;
 
@@ -112,43 +106,43 @@ const Room=styled.div`
 border:none;
 width: 35%;
 min-width:200px;
-height:3em;
 font-size:1.5em;
 `;
 
 
 const Box=styled.div`
+display:flex;
+flex-direction: column;
 border: none;
-display:block;
-width: 100%;
-height: 100%;
-min-width: 800px;
-/* margin-top: -40px; */
+/* width: 95%; */
+min-width: 1200px;
+width: 90vw;
+min-height: 600px;
+height: 90vh;
+margin: auto;
+margin-top: 1%;
 `;
 
 const CamBox=styled.div`
 border: none;
 background: #ebfbee;
 border-radius: 20px;
-height: auto;
-width: 75%;
-margin: 10px auto 0px auto;
-min-width: 750px;
+height: 62vh;
+min-height: 400px;
+width: 90vw;
+margin:auto;
+min-width: 1000px;
 box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
 `;
 
 const ScriptChatBox=styled.div`
-/* border: solid 1px green; */
-margin: 5px auto 5px auto;
-min-height: 40%;
-/* min-height: 400px; */
-/* height: 50%; */
-min-width: 750px;
-width: 75%;
+height: 28vh;
+margin:auto;
+width: 90vw;
+min-width: 1000px;
+/* width: 75%; */
 display: block;
 align-items: center;
 justify-content: center;
 border-radius: 20px;
-/* margin-top:-67px; */
-/* box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%); */
 `;

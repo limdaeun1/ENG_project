@@ -17,15 +17,15 @@ const MypageContent = () => {
     <Container>
     <BlocTabsContiner>
             {toggleState === 1 
-            ? <AciveTabBox onClick={() => toggleTab(1)}>내 공부 시간</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(1)} >내 공부 시간</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(1)}>Study Time</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(1)} >Study Time</TabBox>}
 
             {toggleState === 2 
-            ? <AciveTabBox onClick={() => toggleTab(2)}> 내 메모</AciveTabBox> 
-            :<TabBox onClick={() => toggleTab(2)} >내 메모</TabBox>}
+            ? <AciveTabBox onClick={() => toggleTab(2)}> My Memo</AciveTabBox> 
+            :<TabBox onClick={() => toggleTab(2)} > My Memo</TabBox>}
     </BlocTabsContiner>
 
-           <div style={{flexGrow : "1"}}>
+           <div style={{flexGrow : "1", width:"40vw"}}>
             {toggleState === 1 
             ? <ActiveContentBox > <StudyTime/> </ActiveContentBox>
             :<ContentBox  > <StudyTime/> </ContentBox>}
@@ -43,98 +43,86 @@ const MypageContent = () => {
 export default MypageContent
 
 const Bigcontainer = styled.section`
-border: solid 1px red;
-  width: 80%;
-  align-items: center;
-  justify-content: center;
+border: none;
+width: 100%;
+align-items: center;
+justify-content: center;
 `;
 
 const Container = styled.div`
-border: solid 1px blue;
-/* border: none; */
-    width: 50%;
-    min-width: 490px;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-    place-content:center ;
-    margin:5% auto 0% auto;
-    
+border: none;
+width: 50%;
+min-width: 490px;
+height: auto;
+align-items: center;
+justify-content: center;
+place-content:center ;
+margin:5% auto 0% auto;
 `;
 
 const BlocTabsContiner = styled.div`
 border: none;
 min-width: 485px;
 align-items: center;
-  display: flex;
-  border-bottom: 1px solid #dee2e6;
-  width:100%;
+display: flex;
+border-bottom: 1px solid #dee2e6;
+width:40vw;
 `;
 
-
-
 const TabBox = styled.div`
-  padding: 8px;
-  text-align: center;
-  width: 100px;
-  background: #b2f2bb;
-  cursor: pointer;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.274); */
-  box-sizing: content-box;
-  position: relative;
-  outline: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  margin-right: 2px;
-  &:hover {
-    transform: scale(0.9);
-    transition: all 0.2s linear;
-    color: white;
-  }
+padding: 8px;
+text-align: center;
+width: 100px;
+color:#495057;
+background: linear-gradient(to right,#d3f9d8,#b2f2bb);
+cursor: pointer;
+box-sizing: content-box;
+position: relative;
+outline: none;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+margin-right: 2px;
+&:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: white;
+background: linear-gradient(to right, #69db7c, #38d9a9);
+}
 `;
 
 const AciveTabBox = styled.div`
-  border:none;
-  padding: 8px;
-  text-align: center;
-  width: 100px;
-  background: #51cf66;
-  cursor: pointer;
-  box-sizing: content-box;
-  position: relative;
-  outline: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  margin-right: 2px;
-  /* ::selection {
-     background: red;
-     color: white;
-   } */
-   &:hover {
-    transform: scale(0.9);
-    transition: all 0.2s linear;
-    color: white;
-  }
+border:none;
+padding: 8px;
+text-align: center;
+width: 100px;
+background: linear-gradient(to right, #69db7c, #38d9a9);
+color: white;
+cursor: pointer;
+box-sizing: content-box;
+position: relative;
+outline: none;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+margin-right: 2px;
+&:hover {
+transform: scale(0.9);
+transition: all 0.2s linear;
+color: white;
+}
 `;
 
 const ContentBox = styled.div`
 border: none;
-  background: white;
-  padding: 10%;
-  /* max-width: 1000px;
-  min-width: 705px;
-  min-height: 500px; */
-  display: none;
-  /* align-items: center;
-  justify-content: center; */
+background: white;
+padding: 10%;
+display: none;
 `;
 
 const ActiveContentBox = styled.div`
-width: 100%;
+width: 40vw;
 min-width: 485px;
 border: none;
-  /* display: block; */
-  align-items: center;
-  justify-content: center;
-  display: inline-block;
+align-items: center;
+justify-content: center;
+display: inline-block;
 `;

@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 const Headers = () => {
   const navigate = useNavigate();
-  // let dispatch = useDispatch();
   const userlogin = useSelector((state) => state.user);
   
   const logoutHandler = () => {
@@ -24,7 +23,6 @@ const Headers = () => {
       
    }).then(result => {
       if (result.isConfirmed) {
-    // Swal.fire('로그아웃이 완료되었습니다.', 'Eng-FLUENCER', 'success');
     localStorage.clear();
   
     navigate("/");
@@ -60,15 +58,11 @@ const Headers = () => {
   
   return (
     <Div>
-      <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")}></Logo>
+      <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")} title="메인페이지 이동"></Logo>
       <Btnbox>
         <Btnboxsmall1>
         <Img>
         <img src="https://ifh.cc/g/5fWtMJ.png"></img>
-        {/* https://ifh.cc/g/KYvFwj.png
-        bigger.ver
-        https://ifh.cc/g/5fWtMJ.png
-        smaller.ver */}
         </Img>
         </Btnboxsmall1>
         <Btnboxsmall2>
@@ -82,8 +76,8 @@ const Headers = () => {
             ) : (
               <Btn1
                 onClick={() => {
-                  logincheck()
-                }}
+                  logincheck() 
+                }} title="My page"
                 > My page</Btn1>
             )}
             </Btnboxsmall2>
@@ -96,7 +90,6 @@ const Headers = () => {
 export default Headers
 
 const Div = styled.div`
-/* border: solid 1px; */
 border: none;
   width: 100%;
  height: 140px;
@@ -108,14 +101,15 @@ border: none;
 `
 
 const Logo = styled.img`
-/* border: solid 1px; */
 border: none;
   width: 10%;
-  min-width: 150px;
+  max-width:150px;
+  min-width: 130px;
   margin-left: 1%;
   &:hover {
     transform: scale(1.2);
     transition: all 0.2s linear;
+    cursor: pointer;
   }
 `
 
@@ -124,7 +118,6 @@ const Btn = styled.button`
   min-width: 70px;
   height: 27px;
   font-size: 0.8rem;
-  /* 14px; */
   background-color: #4fc166;
   border: none;
   border-radius: 10px;
@@ -132,7 +125,6 @@ const Btn = styled.button`
   cursor: pointer;
   transition: all 0.5s;
   margin-right: 10%;
-  /* margin-top: 8px; */
   &:hover {
     background-color: #89f6ab;
     transform: scale(1.1);
@@ -147,14 +139,12 @@ const Btn1 = styled.button`
   min-width: 70px;
   height: 27px;
   font-size: 0.8rem;
-  /* 14px; */
   background-color: #4fc166;
   border: none;
   border-radius: 10px;
   color: white;
   cursor: pointer;
   transition: all 0.5s;
-  /* margin-top: 8px; */
   &:hover {
     background-color: #89f6ab;
     transform: scale(1.1);
@@ -169,8 +159,6 @@ border: none;
 margin-left:60%;
     width: 35px;
     height: 15px;
-    /* background-image: url('https://ifh.cc/g/L9Q8RN.png'); 
-    background-size: cover; */
     background-position: center;
     z-index: 1;
     `
@@ -180,7 +168,6 @@ display: block;
 width: 20%;
 min-width:230px;
 height: 70px;
-/* border: solid 1px; */
 border: none;
 margin-top: 70px;
 `;
@@ -189,7 +176,6 @@ const Btnboxsmall1 = styled.div`
 display: flex;
 width: 100%;
 height: 15px;
-/* border: solid 1px red; */
 border: none;
 `;
 
@@ -197,6 +183,5 @@ const Btnboxsmall2 = styled.div`
 display: flex;
 width: 100%;
 height: 52px;
-/* border: solid 1px red; */
 border: none;
 `;
