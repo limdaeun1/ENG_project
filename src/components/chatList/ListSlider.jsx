@@ -13,13 +13,13 @@ function Slide() {
       <StyledSlider {...settings}>
             <CardBox>
               <a href = "https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
-              <CardImg alt="인기 서비스" src={test22}/></a>
+              <CardImg title="리뷰 작성하러 가기" alt="설문조사 참여" src={test22}/></a>
             </CardBox>
             <CardBox>
-              <CardImg alt="인기 서비스" src="https://ifh.cc/g/YSy0Pz.png"/>
+              <CardImg alt="사이트 설정 확인" src="https://ifh.cc/g/YSy0Pz.png"/>
             </CardBox>
             <CardBox>
-              <CardImg alt="사이트 설정 확인" src={test11}/>
+              <CardImg alt="이용 방법" src={test11}/>
             </CardBox>
       </StyledSlider>
     </Container>
