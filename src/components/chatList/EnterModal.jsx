@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { passwordCheck } from "../../redux/modules/chatroom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 function EnterModal({ room , modalVisibleId, setModalVisibleId ,id}) {
@@ -24,10 +25,16 @@ function EnterModal({ room , modalVisibleId, setModalVisibleId ,id}) {
             navigate("/enter/"+id ,{state:room})
           }
           else {
-            window.alert ("비밀번호가 일치하지 않습니다");
+            Swal.fire({
+              title: '비밀번호가 일치하지 않습니다.', 
+              icon: 'error', 
+            });
           }
         } catch (error) {
-          window.alert ("비정상적인 접근입니다");
+          Swal.fire({
+            title: '비정상적인 접근입니다.', 
+            icon: 'error', 
+          });
         }
       };
 

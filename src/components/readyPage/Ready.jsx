@@ -5,6 +5,7 @@ import { enterRoomCam } from '../../redux/modules/chatroom';
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Ready = () => {
@@ -22,7 +23,11 @@ const Ready = () => {
               videoRef.current.srcObject = stream; 
             }) 
     .catch((error) =>
-    alert("카메라, 마이크 접근 권한을 허용해주세요!"));
+    alert(""));
+    Swal.fire({
+      title: '카메라, 마이크 접근 권한을 허용해주세요!', 
+      icon: 'warning', 
+    });
   },[])
 
   //방 입장하기 
@@ -41,7 +46,10 @@ const Ready = () => {
         window.alert (`${response.data.error.message}`);
       }
     } catch (error) {
-       window.alert("잘못된 요청입니다!");
+      Swal.fire({
+        title: '잘못된 요청입니다!', 
+        icon: 'error', 
+      });
     }
   };
 

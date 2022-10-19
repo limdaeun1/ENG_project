@@ -58,7 +58,7 @@ const Headers = () => {
   
   return (
     <Div>
-      <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")}></Logo>
+      <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")} title="메인페이지 이동"></Logo>
       <Btnbox>
         <Btnboxsmall1>
         <Img>
@@ -76,8 +76,8 @@ const Headers = () => {
             ) : (
               <Btn1
                 onClick={() => {
-                  logincheck()
-                }}
+                  logincheck() 
+                }} title="My page"
                 > My page</Btn1>
             )}
             </Btnboxsmall2>
@@ -109,6 +109,7 @@ border: none;
   &:hover {
     transform: scale(1.2);
     transition: all 0.2s linear;
+    cursor: pointer;
   }
 `
 

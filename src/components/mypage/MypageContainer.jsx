@@ -12,8 +12,9 @@ const MypageContainer = () => {
     <MypageContent/>
     </Container>
     <Bannerbox>
-    <Banner>
-    </Banner>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeFAflIpcLJwVxI0Yy6oIjft-70ZmZiTpq3v9NY_1j83B8Y_A/viewform?usp=sf_link">
+    <Banner title="설문조사 참여 바로가기">
+    </Banner> </a>
     </Bannerbox>
     </Bigcontainer>
     </> )
@@ -52,4 +53,8 @@ margin: 20% auto 0% auto;
 background-image: url('https://ifh.cc/g/H7vQCh.png');
 background-size: cover;
 background-position: center;
+&:hover {
+    transform: scale(1.03);
+    transition: all 0.2s linear;
+  }
 `;

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { createRoom } from "../../redux/modules/chatroom";
 import { useNavigate } from "react-router-dom";
 import reload from "../../img/reload.png"
+import Swal from "sweetalert2";
 
 const AddRoom = () => {
   const dispatch = useDispatch();
@@ -74,16 +75,26 @@ const settings = {
         }
       }
     } catch (error) {
-      window.alert("방 만들기에 실패하였습니다!");
+      Swal.fire({
+        title: '방 만들기에 실패하였습니다!', 
+        icon: 'error', 
+      });
     }
   };
 
   const makeRoom = () => {
     if (type === true && password === "") {
-      alert("비밀번호를 입력하세요")
+      alert("")
+      Swal.fire({
+        title: '비밀번호를 입력하세요.', 
+        icon: 'warning', 
+      });
     }
     else if(studyName === ""||category === "" || memberCount ===""){
-      alert("필수값을 입력하세요")
+      Swal.fire({
+        title: '필수값을 입력하세요.', 
+        icon: 'warning', 
+      });
     }
    else{
     createRommhandle()
@@ -348,6 +359,10 @@ const AddRoomBtn = styled.button`
   border-radius: 10px;
   border:none;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+  }
 `;
 
 const SelectBox = styled.select`
@@ -422,10 +437,19 @@ const CardImg = styled.img`
   object-fit:cover;
   margin: 0px;
   box-shadow: 2px 2px 2px #a6a7a9;
+  &:hover {
+    transform: scale(0.9);
+    transition: all 0.2s linear;
+    overflow:hidden ;
+  }
 `;
 const ReloadImg = styled.img`
   width: 20px;
   height: 20px;
   cursor: pointer;
   margin: 0 0 auto 2%;
+  &:hover {
+    transform: scale(1.2);
+    transition: all 0.2s linear;
+  }
 `;

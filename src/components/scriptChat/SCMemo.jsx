@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { postMemo , getMemo } from "../../redux/modules/chatroom";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const SCWhiteBoard= (id) => {
   const dispatch = useDispatch();
@@ -22,7 +23,10 @@ const SCWhiteBoard= (id) => {
       if(response.data.data !== null) {
       setMemo(response.data.data) }
       else {
-        window.alert("해당 방의 저장된 메모가 없습니다!")
+        Swal.fire({
+          title: '해당 방의 저장된 메모가 없습니다!', 
+          icon: 'warning', 
+        });
       }
     } catch (error) {
       console.log(error);
@@ -75,7 +79,7 @@ const SCWhiteBoard= (id) => {
     background: rgba(255, 255, 255, 0.4);
   }
   &::-webkit-scrollbar-thumb {
-    background: #d0ebff;
+    background: #d0f38b;
     border-radius: 6px;
   }
    
@@ -104,4 +108,5 @@ const SCWhiteBoard= (id) => {
       float: right;
       height: 3vh;
       width: 60px;
+      margin-left:0.5vw;
    `

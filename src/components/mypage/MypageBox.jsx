@@ -72,11 +72,12 @@ border: none;
   width: 10rem;
   height: 10rem;
   margin: 0.5em 1.5em 0.5em 1em;
-  border-radius: 50%;
+  border-radius: 15%;
   height: 80%;
   &:hover {
     transform: scale(1.1);
     transition: all 0.2s linear;
+    cursor: pointer;
   }
 `;
 
