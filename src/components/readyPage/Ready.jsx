@@ -23,7 +23,11 @@ const Ready = () => {
               videoRef.current.srcObject = stream; 
             }) 
     .catch((error) =>
-    alert("카메라, 마이크 접근 권한을 허용해주세요!"));
+    alert(""));
+    Swal.fire({
+      title: '카메라, 마이크 접근 권한을 허용해주세요!', 
+      icon: 'warning', 
+    });
   },[])
 
   //방 입장하기 
