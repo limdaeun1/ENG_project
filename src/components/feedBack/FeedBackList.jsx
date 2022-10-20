@@ -17,8 +17,6 @@ const FeedBackList = () => {
 
 export default FeedBackList;
 const Container = styled.div`
-  /* width: 100%;F
-  width: 1040px; */
 
   display: flex;
   flex-direction: column;
@@ -49,7 +47,6 @@ const AddRoomBtn = styled.button`
   font-weight: 600;
   width: 100px;
   background: #fcc419;
-  /* position: relative; */
   outline: none;
   border-radius: 10px;
 `;

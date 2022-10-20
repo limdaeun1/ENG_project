@@ -52,7 +52,6 @@ const NameBox = styled.div`
 `;
 
 const InputBox = styled.input`
-  /* background-color: #40c057; */
   width: 300px;
   height: 25px;
   border-radius: 5px;

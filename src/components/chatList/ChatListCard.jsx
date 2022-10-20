@@ -115,10 +115,3 @@ const NumPeopleBox = styled.div`
   font-weight: 600;
   font-size: 0.7rem;
 `;
-
-const ParticipationBtn = styled.img`
-  width: 30px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
-`;
