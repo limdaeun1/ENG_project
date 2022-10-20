@@ -20,10 +20,6 @@ const AddRoom = () => {
   const [password, setPassWord] = useState("");
   console.log(password)
 
-  // useEffect(() => {
-  //   setPassWord("");
-  // }, [type]);
-
   const img =["https://cdn.pixabay.com/photo/2022/06/14/19/37/leaves-7262727__340.jpg",
 "https://cdn.pixabay.com/photo/2022/07/03/22/00/cat-7300029__340.jpg",
 "https://cdn.pixabay.com/photo/2022/04/20/20/23/bee-7146136__340.jpg",
@@ -33,7 +29,6 @@ const AddRoom = () => {
 
 const basicImg = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
 const [preview, setPreview] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png")
-// console.log(preview)
 
 const settings = {
   dots: true,
@@ -42,8 +37,6 @@ const settings = {
   slidesToShow: 3,
   slidesToScroll: 1
 };
-
-
 
   const roomData = {
       roomName : studyName,  
@@ -107,9 +100,6 @@ const settings = {
       <Container 
       // onSubmit={makeRoom}
       >
-        {/* <form style={{backgroundColor:"blue",width:"500px"}}> */}
-          {/* <div style={{display:"flex"}}>
-            <div style={{dislpaly:"flex", flexDirection:"column"}}> */}
            <Inputcontainer>
             <NameBox>방제목</NameBox>
             <>
@@ -156,15 +146,8 @@ const settings = {
           </div>
       </div>
           </SlideContainer>
-
-
-
 </Inputcontainer>
-
-
-
-
-          
+         
           <Inputcontainer>
           {category === "캠스터디" 
           ?(     
@@ -226,19 +209,8 @@ const settings = {
             <div style={{fontSize:"9px", color:"green"}}>완료</div>
           )}
           </div> }
-          
-
           </Inputcontainer>
-          {/* </div>
-          <div>
-            채팅박스
-          </div>
-          </div> */}
-          
 
-
-
-        {/* </form>           */}
         <BtnContainer>
             <AddRoomBtn 
             onClick={makeRoom}
@@ -287,16 +259,12 @@ const Inputcontainer = styled.div`
   border: none;
 `;
 const SlideContainer = styled.div`
-  /* width: 350px; */
   width: 70%;
-  /* min-width: 200px; */
   height: 100%;
-  /* margin: auto; */
   margin: 0px auto 0px auto;
   align-items:center;
   border: none;
   justify-content: center;
-  /* border: 3px solid blue; */
 `;
 
 const LeaveRoom = styled.button`
@@ -312,8 +280,6 @@ const LeaveRoom = styled.button`
 `;
 
 const NameBox = styled.div`
-  /* background-color: #69db7c; */
-  /* color: white; */
   width: 80px;
   height: 30px;
   font-size: 14px;
@@ -332,9 +298,6 @@ const InputBox = styled.input`
   margin: 0 auto 0 auto;
   border:none;
   outline:none;
-  /* @media screen and (max-width: 700px) {
-    width: 77%;
-  } */
   &:focus {
     border: solid 1px #8ce99a;
   }
@@ -350,9 +313,6 @@ const PasswordBox = styled.input`
   outline:none;
   transition: border-color 300ms ease-in-out;
   outline: none;
-  /* @media screen and (max-width: 700px) {
-    width: 77%;
-  } */
   &:focus {
     border: solid 1px #8ce99a;
   }
@@ -370,7 +330,6 @@ const AddRoomBtn = styled.button`
   padding: 10px;
   text-align: center;
   font-size: 15px;
-  /* color: white; */
   font-weight: 600;
   width: 100px;
   background: #fcc419;
@@ -391,9 +350,6 @@ const SelectBox = styled.select`
   margin: 0 auto 0 auto;
   outline: none;
   border:none;
-  /* @media screen and (max-width: 700px) {
-    width: 77%;
-  } */
   &:focus {
     border: solid 1px #8ce99a;
   }
@@ -402,14 +358,11 @@ const SelectBox = styled.select`
 
 
 const StyledSlider = styled(Slider)`
-/* padding: 10px; */
   .slick-list {
     width: 100%;
     min-width: 300px;
-    /* margin: auto; */
     height: 100%;
     align-items: center;
-    /* border:2px solid red; */
   }
   .slick-slide img {
     display: block;
@@ -422,17 +375,12 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-dots {
-    /* bottom: -50px; */
-    /* margin-top: 120px; */
   }
   .slick-arrow {
-    /* margin: auto; */
-    /* border: 1px solid black; */
   }
 
   .slick-track {
     overflow-x: hidden;
-    /* border:3px solid black; */
     min-width: 400px;
     width: 100%;
     align-items: center;
@@ -440,10 +388,8 @@ const StyledSlider = styled(Slider)`
   }
 `;
 const CardBox = styled.div`
-  /* cursor: pointer; */
   justify-content: center;
   align-items: center;
-  /* margin: auto; */
   width: 100%;
   height: 100%;
 `;
@@ -452,7 +398,6 @@ const CardImg = styled.img`
   width: 140px;
   height: 140px;
   border-radius: 10px;
-  /* margin: 0px 0px 0px 0px; */
   object-fit:cover;
   margin: 0px;
   box-shadow: 2px 2px 2px #a6a7a9;

@@ -57,11 +57,6 @@ const CSChat = () => {
     return () => disconnect();
   }, []);
   
-
-  // const scrollToElement = () =>
-  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
-
-
   const scrollToBottom = () => {
     if (chattingRef.current) {
       chattingRef.current.scrollTop = chattingRef.current.scrollHeight;
@@ -337,7 +332,6 @@ const CSChat = () => {
     const { name, value } = event.target;
     setChat({ [name]: value });
   };
-  // console.log(chat)
 
   //공지등록상태 열고닫기
   const changeNotice = () => {
