@@ -2,37 +2,70 @@ import { useState } from "react";
 import styled from "styled-components";
 import lock from "../../img/lock2.png";
 import { useNavigate } from "react-router-dom";
-import EnterModal from "./EnterModal";
+import Swal from 'sweetalert2'
+import { passwordCheck } from "../../redux/modules/chatroom";
+import { useDispatch } from "react-redux";
 
 const ChatListCard = (room) => {
   const id = room.id
   const navigate = useNavigate();
-  const [modalVisibleId, setModalVisibleId] = useState("")
+  const dispatch = useDispatch();
 
-
-  //비밀번호 방들 선택시 비밀번호 입력 모달창띄움
-  const onModalHandler = id => {
-    setModalVisibleId(id)
-  }
 
   //비번방이면 비번입력 모달창을 띄우고 , 아니면 방으로 입장
-  const enterhandler = (id) => { 
+  const enterhandler = async(id) => { 
     if(room.lock===true) {
-      onModalHandler(id)
+        const{ value: password } = await  Swal.fire({
+          title: '비밀번호를 입력해 주세요',
+          input: 'password',
+          inputLabel: 'Password',
+          inputPlaceholder: 'Enter your password',
+          inputAttributes: {
+            maxlength: 10,
+            autocapitalize: 'off',
+            autocorrect: 'off'
+          }
+        })
+        if (password) {
+          EnterCam(password)
+        }
     }
+
     else {
-      EnterCam()
+      EnterCamroom()
     }
   }
   
   //enter페이지로 이동
-  const EnterCam = () => {
+  const EnterCamroom = () => {
     navigate("/enter/"+id ,{state:room})
   }
 
+
+  const EnterCam = async (password) => {
+    try {    
+      const payload = { id:id , password:password,}
+      const response = await dispatch(passwordCheck(payload)).unwrap();
+      console.log(response)
+      if(response.data.success === true) {
+        navigate("/enter/"+id ,{state:room})
+      }
+      else {
+        Swal.fire({
+          title: `${response.data.error.message}` , 
+          icon: 'error', 
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: '비정상적인 접근입니다.', 
+        icon: 'error', 
+      });
+    }
+  };
+
   return (
     <>
-    <EnterModal room={room} modalVisibleId={modalVisibleId} setModalVisibleId={setModalVisibleId} id={id}/>
       <Container onClick={() => enterhandler(id)} img={room.roomimage}>
           <PeopleParticipationBox>
           {room.lock===true ? <LockStatusBox src={lock}/> :<LockStatusBox2/> }
@@ -114,11 +147,4 @@ const NumPeopleBox = styled.div`
   color:white;
   font-weight: 600;
   font-size: 0.7rem;
-`;
-
-const ParticipationBtn = styled.img`
-  width: 30px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
 `;

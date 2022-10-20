@@ -311,7 +311,6 @@ border: none;
 border-radius: 20px;
 min-height: 220px;
 height: 29vh;
-/* margin-top: 20px; */
 border:none;
 background: #ebfbee;
 `;

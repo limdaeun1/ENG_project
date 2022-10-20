@@ -57,11 +57,6 @@ const CSChat = () => {
     return () => disconnect();
   }, []);
   
-
-  // const scrollToElement = () =>
-  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
-
-
   const scrollToBottom = () => {
     if (chattingRef.current) {
       chattingRef.current.scrollTop = chattingRef.current.scrollHeight;
@@ -306,7 +301,7 @@ const CSChat = () => {
     navigate("/list");
   };
 
-  //엔터키 제어
+  //엔터키 제어+엔터로 채팅보내기
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && e.shiftKey) {
       // [shift] + [Enter] 치면 리턴
@@ -317,13 +312,26 @@ const CSChat = () => {
     }
   };
 
+
+  //엔터키 제어+엔터로 공지보내기
+  const NoticeHandleKeyPress = (e) => {
+    if (e.key === "Enter" && e.shiftKey) {
+      // [shift] + [Enter] 치면 리턴
+      return;
+    } else if (e.key === "Enter") {
+      //[Enter]치면 전송
+      onSubmitNotice();
+      changeNotice();
+    }
+  };
+
+
    //채팅창 전송 후 초기화
   const changeHandler = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     setChat({ [name]: value });
   };
-  // console.log(chat)
 
   //공지등록상태 열고닫기
   const changeNotice = () => {
@@ -591,7 +599,7 @@ const CSChat = () => {
             />
             <NoticeInputBox
               ref={noticeRef}
-              onKeyUp={handleKeyPress}
+              onKeyUp={NoticeHandleKeyPress}
               placeholder="공지사항을 입력하세요"
             />
             <SendBtnImg
@@ -690,6 +698,7 @@ const InfoBox = styled.div`
   width: 100%;
   font-size: 14px;
   margin: 10px 0px 10px 0px;
+  white-space: pre-line;
 `;
 
 const EnterExitBox = styled.div`
