@@ -709,6 +709,7 @@ const InfoBox = styled.div`
   width: 100%;
   font-size: 14px;
   margin: 10px 0px 10px 0px;
+   white-space: pre-line;
 `;
 
 const EnterExitBox = styled.div`
