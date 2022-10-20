@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, {keyframes}  from 'styled-components'
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const LoginImg = () => {
@@ -16,11 +17,16 @@ const LoginImg = () => {
         <a href="https://www.instagram.com/engfluencer_official">
           <Img  title="Eng-Fluencer 공식 인스타그램 바로가기"></Img></a>
           </Imgbox>
-        <Naver title="네이버 간편로그인">
-            <a href={NAVER_AUTH_URL}>
+        <Naver title="네이버 간편로그인" onClick={   () =>{
+          Swal.fire({
+      title: `검수 진행 중 입니다.`, 
+      icon: 'info', 
+    })
+    }}>
+            {/* <a href={NAVER_AUTH_URL}> */}
             <img src="https://ifh.cc/g/CYPS0t.png"></img>
             <button>네이버 로그인</button>
-            </a>
+            {/* </a> */}
         </Naver>
         <Kakao title="카카오 간편로그인">
             <a href={KAKAO_AUTH_URL}>
