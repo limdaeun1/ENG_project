@@ -335,6 +335,18 @@ const SCChat = () => {
     }
   };
 
+   //엔터키 제어+엔터로 공지보내기
+   const NoticeHandleKeyPress = (e) => {
+    if (e.key === "Enter" && e.shiftKey) {
+      // [shift] + [Enter] 치면 리턴
+      return;
+    } else if (e.key === "Enter") {
+      //[Enter]치면 전송
+      onSubmitNotice();
+      changeNotice();
+    }
+  };
+
   //채팅창 전송 후 초기화
   const changeHandler = (event) => {
     event.preventDefault();
@@ -604,7 +616,7 @@ const SCChat = () => {
             />
             <NoticeInputBox
               ref={noticeRef}
-              // onKeyUp={handleKeyPress}
+              onKeyUp={NoticeHandleKeyPress}
               placeholder="공지사항을 입력하세요"
             />
 
