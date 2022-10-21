@@ -24,7 +24,7 @@ const messagedata = {
     }
   };
   console.log(translates)
-
+const testmessage="안녕하세요\n배고프네여"
     return (
      <Container>
       <Div>
@@ -38,7 +38,8 @@ const messagedata = {
         <Btn onClick={Translatemap}>번역하기</Btn>
 
         <Translatebox>
-        {translates === "" ? <p></p>: <p>{translates}</p>}
+        {translates === "" ? <Box></Box>: <Box>{translates}</Box>}
+        {/* <Box>{testmessage}</Box> */}
         </Translatebox>
 
       </Div>
@@ -72,6 +73,7 @@ const messagedata = {
      resize: none;
     border: none;
     box-shadow: 5px 5px 5px #e9ecef;
+    text-transform:capitalize ;
     :focus {
       outline: none;
     }
@@ -96,6 +98,7 @@ height: 15vh;
 min-height: 110px;
  resize: none;
 border: none;
+box-shadow: 5px 5px 5px #e9ecef;
 :focus {
   outline: none;
 }
@@ -112,7 +115,18 @@ overflow-x: hidden;
     background: #d0f38b;
     border-radius: 6px;
   }
-  box-shadow: 5px 5px 5px #e9ecef
+`
+
+const Box = styled.div`
+border: none;
+width: 99%;
+height: 15vh;
+min-height: 100px;
+float: left;
+white-space:pre-line ;
+word-break: keep-all;
+text-align:left;
+text-indent:10px;
 `
 
    const Btn = styled.button`
