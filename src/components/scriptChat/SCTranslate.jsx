@@ -18,13 +18,13 @@ const messagedata = {
     try {
       const response = await dispatch(postTranslate(messagedata)).unwrap();
       console.log(response)
-      setTranslates(response)
+      const str = response.split('\\n').join('<br>').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'); 
+      setTranslates(str)
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(translates)
-const testmessage="안녕하세요\n배고프네여"
+  
     return (
      <Container>
       <Div>
