@@ -8,10 +8,10 @@ const dispatch = useDispatch();
 const [message, setMessage] = useState("");
 const [translates, setTranslates] = useState("");
 
-
 const messagedata = {
     message : message,
   }
+
 
 
   const Translatemap = async (payload) => {
@@ -24,22 +24,23 @@ const messagedata = {
     }
   };
   console.log(translates)
-const testmessage="안녕하세요\n배고프네여"
+
+
     return (
      <Container>
       <Div>
-
+      <pre>
         <Textbox 
         placeholder="번역할 내용을 입력하세요"
         value={message}
         onChange={(e)=>setMessage(e.target.value)}
             name="message">
         </Textbox>
+        </pre>
         <Btn onClick={Translatemap}>번역하기</Btn>
 
         <Translatebox>
-        {translates === "" ? <Box></Box>: <Box>{translates}</Box>}
-        {/* <Box>{testmessage}</Box> */}
+        {translates === "" ? <Box ></Box>: <Box>{translates}</Box>}
         </Translatebox>
 
       </Div>
@@ -74,6 +75,7 @@ const testmessage="안녕하세요\n배고프네여"
     border: none;
     box-shadow: 5px 5px 5px #e9ecef;
     text-transform:capitalize ;
+    white-space:normal ;
     :focus {
       outline: none;
     }
@@ -90,7 +92,7 @@ const testmessage="안녕하세요\n배고프네여"
     background: #d0f38b;
     border-radius: 6px;
   }
-   `
+  `
 
 const Translatebox = styled.div`
 width: 100%;
@@ -98,6 +100,7 @@ height: 15vh;
 min-height: 110px;
  resize: none;
 border: none;
+white-space:pre-line;
 box-shadow: 5px 5px 5px #e9ecef;
 :focus {
   outline: none;
@@ -116,9 +119,8 @@ overflow-x: hidden;
     border-radius: 6px;
   }
 `
-
 const Box = styled.div`
-border: none;
+border: solid 1px red;
 width: 99%;
 height: 15vh;
 min-height: 100px;
