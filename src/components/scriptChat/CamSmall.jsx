@@ -63,9 +63,9 @@ render() {
             <Nick>
             <Iconbox>
               {this.state.micOn ?
-              <Mute src={mute} onClick={()=>this.subscribeToAudio()}></Mute> : <Mute2 src={muteon} onClick={()=>this.subscribeToAudio()}></Mute2>}
+              <Mute src={muteon} onClick={()=>this.subscribeToAudio()}></Mute> : <Mute2 src={mute} onClick={()=>this.subscribeToAudio()}></Mute2>}
               {this.state.videoOn ?
-              <Videooff  src={videooff} onClick={()=>this.subscribeToVideo()}></Videooff> : <Videooff2  src={videoon} onClick={()=>this.subscribeToVideo()}></Videooff2>}
+              <Videooff  src={videoon} onClick={()=>this.subscribeToVideo()}></Videooff> : <Videooff2  src={videooff} onClick={()=>this.subscribeToVideo()}></Videooff2>}
             </Iconbox>
               <p>{this.getNicknameTag()}</p></Nick>
           </Camsmall>
