@@ -18,13 +18,12 @@ const messagedata = {
     try {
       const response = await dispatch(postTranslate(messagedata)).unwrap();
       console.log(response)
-      setTranslates(response)
+      const str = response.split('\\n').join('<br>').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'); 
+      setTranslates(str)
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(translates)
-
 
     return (
      <Container>

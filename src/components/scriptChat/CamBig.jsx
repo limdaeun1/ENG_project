@@ -65,9 +65,9 @@ render() {
             <Nick>
             <Iconbox>
               {this.state.micOn ? 
-              <Mute src={mute} onClick={()=>this.publishAudio()}></Mute> : <Mute2 src={muteon} onClick={()=>this.publishAudio()}></Mute2>}
+              <Mute src={muteon} onClick={()=>this.publishAudio()}></Mute> : <Mute2 src={mute} onClick={()=>this.publishAudio()}></Mute2>}
               {this.state.videoOn ?
-              <Videooff  src={videooff} onClick={()=>this.publishVideo()}></Videooff> :  <Videooff2  src={videoon} onClick={()=>this.publishVideo()}></Videooff2>}
+              <Videooff  src={videoon} onClick={()=>this.publishVideo()}></Videooff> :  <Videooff2  src={videooff} onClick={()=>this.publishVideo()}></Videooff2>}
             </Iconbox>
               <p>{this.getNicknameTag()}</p>
             </Nick>

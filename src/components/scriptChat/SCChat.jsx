@@ -118,7 +118,7 @@ const SCChat = () => {
         Authorization: Authorization,
       },
       debug: function (str) {
-        console.log(str);
+        // console.log(str);
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
@@ -198,7 +198,7 @@ const SCChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        console.log(content)
+        // console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }    
@@ -277,8 +277,8 @@ const SCChat = () => {
   };
 
   client.current.onStompError = function (frame) {
-    console.log("Broker reported error: " + frame.headers["message"]);
-    console.log("Additional details: " + frame.body);
+    // console.log("Broker reported error: " + frame.headers["message"]);
+    // console.log("Additional details: " + frame.body);
   };
 
   //공지 등록
