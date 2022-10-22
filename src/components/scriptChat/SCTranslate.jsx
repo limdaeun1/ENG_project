@@ -119,7 +119,7 @@ overflow-x: hidden;
   }
 `
 const Box = styled.div`
-border: solid 1px red;
+border: none;
 width: 99%;
 height: 15vh;
 min-height: 100px;
