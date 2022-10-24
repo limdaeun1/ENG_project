@@ -18,16 +18,15 @@ const Ready = () => {
 
   //카메라,마이크 권한 요청.
   useEffect(()=> {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video: true ,audio:true })
     .then(function (stream) {
               videoRef.current.srcObject = stream; 
             }) 
     .catch((error) =>
-    alert(""));
     Swal.fire({
-      title: `카메라, 마이크 접근 권한을\n허용해주세요!`, 
+      title: `주소창에서 카메라, 마이크\n접근 권한을 허용해주세요!`, 
       icon: 'warning', 
-    });
+    }));
   },[])
 
   //방 입장하기 
