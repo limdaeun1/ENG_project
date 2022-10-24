@@ -739,13 +739,14 @@ width:50px;
 
 const OtherName = styled.div`
   border: none;
-  width: 50px;
-  text-align: center;
+  width: 100%;
+  text-align: left;
   font-weight: bold;
   font-size: 13px;
   align-items: center;
   justify-content: center;
   line-height: 30px;
+  margin-left: 5px;
 `;
 
 const MsgTimeBox = styled.div`
