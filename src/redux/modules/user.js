@@ -32,6 +32,12 @@ export const getKakao = createAsyncThunk(
       localStorage.setItem(process.env.REACT_APP_TOKEN_A, ACCESS_TOKEN1 )
       localStorage.setItem(process.env.REACT_APP_TOKEN_B, ACCESS_TOKEN2 )
       localStorage.setItem(process.env.REACT_APP_TOKEN_C, ACCESS_TOKEN3)
+      const ACCESS_TOKEN4 = Math.random().toString(36).substring(2) 
+      const ACCESS_TOKEN5 = Math.random().toString(36).substring(2) 
+      const ACCESS_TOKEN6 = (Math.random()*1000).toString(36).substring(2) 
+      localStorage.setItem(process.env.REACT_APP_TOKEN_D, ACCESS_TOKEN4)
+      localStorage.setItem(process.env.REACT_APP_TOKEN_E, ACCESS_TOKEN5)
+      localStorage.setItem(process.env.REACT_APP_TOKEN_F, ACCESS_TOKEN6)
       
       const user = data.data.data.memberName
       localStorage.setItem("name", user )
@@ -65,6 +71,12 @@ export const getKakao = createAsyncThunk(
         localStorage.setItem(process.env.REACT_APP_TOKEN_A, ACCESS_TOKEN1 )
         localStorage.setItem(process.env.REACT_APP_TOKEN_B, ACCESS_TOKEN2 )
         localStorage.setItem(process.env.REACT_APP_TOKEN_C, ACCESS_TOKEN3)
+        const ACCESS_TOKEN4 = Math.random().toString(36).substring(2) 
+        const ACCESS_TOKEN5 = Math.random().toString(36).substring(2) 
+        const ACCESS_TOKEN6 = (Math.random()*1000).toString(36).substring(2) 
+        localStorage.setItem(process.env.REACT_APP_TOKEN_D, ACCESS_TOKEN4)
+        localStorage.setItem(process.env.REACT_APP_TOKEN_E, ACCESS_TOKEN5)
+        localStorage.setItem(process.env.REACT_APP_TOKEN_F, ACCESS_TOKEN6)
 
         const user = data.data.data.memberName
         localStorage.setItem("name", user )

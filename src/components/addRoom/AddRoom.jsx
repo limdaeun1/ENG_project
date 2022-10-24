@@ -18,6 +18,7 @@ const AddRoom = () => {
   const [memberCount, setMemberCount] = useState("");
   const [type, setType] = useState(false)
   const [password, setPassWord] = useState("");
+  const videoRef = React.useRef(null); 
   console.log(password)
 
   const img =["https://cdn.pixabay.com/photo/2022/06/14/19/37/leaves-7262727__340.jpg",
@@ -75,9 +76,12 @@ const settings = {
     }
   };
 
+  useEffect(()=> {
+    navigator.mediaDevices.getUserMedia({ video: true ,audio:true })
+  },[])
+
   const makeRoom = () => {
     if (type === true && password === "") {
-      alert("")
       Swal.fire({
         title: '비밀번호를 입력하세요.', 
         icon: 'warning', 
