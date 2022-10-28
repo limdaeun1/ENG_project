@@ -114,7 +114,6 @@ const Box=styled.div`
 display:flex;
 flex-direction: column;
 border: none;
-/* width: 95%; */
 min-width: 1200px;
 width: 90vw;
 min-height: 600px;
@@ -140,7 +139,6 @@ height: 28vh;
 margin:auto;
 width: 90vw;
 min-width: 1000px;
-/* width: 75%; */
 display: block;
 align-items: center;
 justify-content: center;

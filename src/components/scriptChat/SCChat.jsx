@@ -61,16 +61,15 @@ const SCChat = () => {
     return () => disconnect();
   }, []);
 
-  //기존 스크룰
-  // const scrollToElement = () =>
-  //   chattingRef.current?.scrollIntoView({ behavior: "smooth" });
+//   기존 스크룰
+//   const scrollToElement = () =>
+//     chattingRef.current?.scrollIntoView({ behavior: "smooth" });
 
 //   window.onbeforeunload = function (e) {
 //     // e.preventDefault()
 //       disconnect();
 // };
 
-// window.addEventListener('beforeunload', navigate("/"));
 
 
 
@@ -112,7 +111,6 @@ const SCChat = () => {
   const connect = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
-      // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
       brokerURL: process.env.REACT_APP_CHAT_WEBSOCKET,
       connectHeaders: {
         Authorization: Authorization,
@@ -138,14 +136,9 @@ const SCChat = () => {
           }),
         });
         var heartbeat_msg = '--heartbeat--', heartbeat_interval = null;
-        // missed_heartbeats = 0;
         if (heartbeat_interval === null) {
-          // missed_heartbeats = 0;
           heartbeat_interval = setInterval(function() {
               try {
-                  // missed_heartbeats++;
-                  // if (missed_heartbeats >= 6)
-                      // throw new Error("Too many missed heartbeats.");
                   client.current.publish({                                     
                     destination: "/pub/chat/message", 
                     headers: { Authorization: Authorization },
@@ -154,15 +147,10 @@ const SCChat = () => {
                       type: 8,                        
                       message: heartbeat_msg,
                       roomId: roomId.id,
-                      // userId:userId,
                     }),
                   });
               } catch(e) {
                   clearInterval(heartbeat_interval);
-                  // const heartbeat_interval = null;
-                  // console.warn("Closing connection. Reason: " + e.message);
-                  // console.log("짱많이 보냄")
-                  // disconnect();
               }
           }, 3000);
       }
@@ -172,12 +160,8 @@ const SCChat = () => {
   };
  //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
-    // return new SockJS("http://54.180.142.30/ws-stomp");
     return new SockJS(process.env.REACT_APP_CHAT_SOCK);
   };
-
-
-  // console.log(latesUser)
 
   //구독
   const subscribe = () => {
@@ -188,7 +172,6 @@ const SCChat = () => {
 
       //van처리
       if(content.type === 4){
-        // console.log(content.vanId)
         if(content.vanId == userId) {
           ban()
         }
@@ -198,13 +181,11 @@ const SCChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        // console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }    
       
       else if(content.type === 8){
-        // console.log(content)
         if(content.vanId == userId) {
           moveList()
         }
@@ -215,7 +196,6 @@ const SCChat = () => {
 
        //참가자목록
       else if (content.type === 9) {
-        // console.log(content)
         const a = content.enterMembers
         setParticipant(a)
       } 
@@ -277,8 +257,8 @@ const SCChat = () => {
   };
 
   client.current.onStompError = function (frame) {
-    // console.log("Broker reported error: " + frame.headers["message"]);
-    // console.log("Additional details: " + frame.body);
+    console.log("Broker reported error: " + frame.headers["message"]);
+    console.log("Additional details: " + frame.body);
   };
 
   //공지 등록
@@ -658,13 +638,11 @@ const CamChatBox = styled.div`
   border-radius: 5px;
   background: linear-gradient(to right, #effaf6, #e4fcf4);
   box-shadow: 10px 10px 10px #e9ecef;
-  /* padding-bottom: 10px; */
 `;
 const UserContainer = styled.div`
   width: 25vw;
   min-width: 320px;
 min-height: 220px;
-/* min-height:310px;  */
 height:40vh;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
@@ -684,7 +662,6 @@ height:40vh;
 const ChatBox = styled.div`
   height: 33vh;
   min-height: 180px;
-  /* min-width: 100px; */
   width: 100%;
   display: block;
   overflow-x: hidden;

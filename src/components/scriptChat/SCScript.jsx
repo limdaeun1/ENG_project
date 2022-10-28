@@ -22,9 +22,6 @@ const SCScript = () => {
     }
   };
 
-  const handleNow = () => {
-    setIsNow(true);
-  };
 
   const handleAuc = () => {
     setIsNow(false);
@@ -35,7 +32,6 @@ const SCScript = () => {
       people: people,
       tag: tag,
     };
-    console.log(payload);
     dispatch(getScriptlist(payload));
     handleAuc();
   };
@@ -99,7 +95,6 @@ const Container = styled.div`
   height: 35vh;
   min-height: 250px;
   text-align: center;
-  /* border: 3px solid green; */
 `;
 const ScriptBox = styled.div`
   border: none;
@@ -122,12 +117,8 @@ const ScriptBox = styled.div`
     border-radius: 6px;
   }
   border-radius: 10px;
-  /* line-height: 1.8; */
   background-color: #e2f4e6;
   box-shadow: 10px 10px 10px #e9ecef;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* border: 3px solid red; */
 `;
 
 const Box = styled.div`
@@ -143,7 +134,6 @@ const People = styled.div`
   width: 70px;
   min-width: 50px;
   margin: 1vw;
-  /* float:left; */
   background-color: #f7f8f0;
   font-weight: 450;
   transition: all 0.5s;
@@ -152,10 +142,9 @@ const People = styled.div`
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px,
       rgb(51, 51, 51) 0px 0px 0px 1.3px;
   }
-  /* margin-top: -5px; */
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 10px;
 `;
-//좀 더 손봐야함
+
 const Box2 = styled.div`
   width: 100%;
   p {

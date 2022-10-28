@@ -184,7 +184,6 @@ const Room=styled.div`
 border:none;
 width: 35%;
 min-width:200px;
-/* height:3em; */
 font-size:1.5em;
 `;
 
@@ -199,14 +198,6 @@ min-width: 320px;
 display: flex;
   flex-direction: column;
 `;
-
-// const ScriptContainer=styled.div`
-// border: none;
-// height: 40vh;
-// width: 100%;
-// border: 3px solid yellow;
-// /* margin-top: 30px; */
-// `;
 
 const TabContainer = styled.div`
   display: flex;

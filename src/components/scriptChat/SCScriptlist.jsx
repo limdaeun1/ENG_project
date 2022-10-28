@@ -8,17 +8,12 @@ const SCScriptlist = () => {
   const {isLoading, scriptlist2} = useSelector((state) => state.script);
   const [isNow2,setIsNow2] = useState(true);
   const [story,setStory] = useState("");
- 
-  const handleNow = ()=>{
-    setIsNow2(true);
- }
+
  
  const handleAuc = (i)=>{
      setIsNow2(false);
      setStory(scriptlist2.scriptResponseDto[i].story)
  }
-
- console.log(story)
   if (isLoading) {
     return <>
      <Box>
@@ -26,7 +21,6 @@ const SCScriptlist = () => {
      </Box>
     </>}
 
-console.log(isNow2)
   return (
     <Box>
       {isNow2 ? <> 
@@ -76,7 +70,6 @@ const P = styled.p`
   white-space:pre-wrap;
   padding-right: 10px;
   text-align: left;
-  /* background-color: white; */
   border-radius: 10px;
   margin-top: -10px;
   margin-right: 23px;
