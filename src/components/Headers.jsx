@@ -24,10 +24,8 @@ const Headers = () => {
    }).then(result => {
       if (result.isConfirmed) {
     localStorage.clear();
-  
     navigate("/");
     window.location.reload(); 
-
       }
    })
   };
@@ -38,14 +36,12 @@ const Headers = () => {
       title: '로그인이 필요한 서비스입니다.',
       text: '로그인 페이지로 이동하시겠습니까?',
       icon: 'info',
-      
       showCancelButton: true, 
       confirmButtonColor: '#3085d6', 
       cancelButtonColor: '#d33',
       confirmButtonText: '이동',
       cancelButtonText: '취소', 
-      reverseButtons: true, 
-      
+      reverseButtons: true,   
    }).then(result => {
       if (result.isConfirmed) { 
          navigate("/login");
@@ -53,9 +49,6 @@ const Headers = () => {
    });
   }
 
-  
-
-  
   return (
     <Div>
       <Logo src = "https://ifh.cc/g/g8oOgd.png"  onClick={() => navigate("/")} title="메인페이지 이동"></Logo>
@@ -81,7 +74,6 @@ const Headers = () => {
                 > My page</Btn1>
             )}
             </Btnboxsmall2>
-
       </Btnbox>
     </Div>
   )

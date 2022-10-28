@@ -24,20 +24,17 @@ const MyMemo = () => {
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
- 
+
 Toast.fire({
     icon: 'success',
     title: 'Wait...'
 })
-  
   if (isLoading) {
     return <div>...</div>;
   }
-
   if (error) {
     return <div>{error.message}</div>;
   }
-
   return (
     <>
         {

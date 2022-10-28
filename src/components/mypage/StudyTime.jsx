@@ -11,7 +11,6 @@ const StudyTime = () => {
   if (isLoading) {
     return <div>...</div>;
   }
-
   if (error) {
     return <div>{error.message}</div>;
   }

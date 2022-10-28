@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components'
 import { useNavigate } from "react-router-dom";
 import { enterRoomCam } from '../../redux/modules/chatroom';
@@ -160,7 +160,6 @@ const Text2 = styled.div`
 const RoomWrap = styled.div`
   margin : 0  auto;
 `;
-
 
 const EnterRoom = styled.button`
   width : 150px;

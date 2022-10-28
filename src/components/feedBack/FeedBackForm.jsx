@@ -6,27 +6,27 @@ const FeedBackForm = () => {
     <div>
       <Inputcontainer>
             <NameBox><p>UserID1</p></NameBox>
-            <InputBox placeholder="피드백을 남겨주세요" />
+            <InputBox placeholder="피드백을 남겨주세요." />
           </Inputcontainer>
 
           <Inputcontainer>
             <NameBox><p>UserID2</p></NameBox>
-            <InputBox placeholder="피드백을 남겨주세요" />
+            <InputBox placeholder="피드백을 남겨주세요." />
           </Inputcontainer>
 
           <Inputcontainer>
             <NameBox><p>UserID3</p></NameBox>
-            <InputBox placeholder="피드백을 남겨주세요"/>
+            <InputBox placeholder="피드백을 남겨주세요."/>
           </Inputcontainer>
 
           <Inputcontainer>
             <NameBox><p>UserID4</p></NameBox>
-            <InputBox placeholder="피드백을 남겨주세요"/>
+            <InputBox placeholder="피드백을 남겨주세요."/>
           </Inputcontainer>
 
           <Inputcontainer>
             <NameBox><p>UserID5</p></NameBox>
-            <InputBox placeholder="피드백을 남겨주세요"/>
+            <InputBox placeholder="피드백을 남겨주세요."/>
           </Inputcontainer>
     </div>
   )
