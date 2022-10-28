@@ -4,12 +4,10 @@ import GitHub from "../img/GitHub.png";
 import instagram from "../img/instagram.png";
 import discord from "../img/discord.png";
 
-
 const Footer = () => {
 
     return (
         <FooterWrap>
-
             <LogoNCopyRight>
                 <CopyRight>Copyright @2022 ENGFLUENCER.All rights reserved.</CopyRight>
                 <InfoBtnWrap>
@@ -18,7 +16,6 @@ const Footer = () => {
                     <InfoBtn title="만족도 평가 바로가기">만족도평가</InfoBtn></a>
                 </InfoBtnWrap>
             </LogoNCopyRight>
-
             <InfoWrap>
                 <RoleWrap>
                   <InfoCateWrap>

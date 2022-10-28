@@ -30,7 +30,6 @@ const MainPhoto = () => {
    });
   }
 
-
   return (
     <>
     <Container>
@@ -105,7 +104,6 @@ margin-left: 50%;
     font-weight: 700;
     font-size: 15px;
   }
-
 `
 
 const Btn = styled.button`

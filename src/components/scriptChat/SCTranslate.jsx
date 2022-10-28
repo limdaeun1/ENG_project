@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { postTranslate, getTranslate } from "../../redux/modules/translate";
-import { useState, useEffect } from "react";
+import { postTranslate } from "../../redux/modules/translate";
+import { useState} from "react";
 
 const SCTranslate= (id) => {
 const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const messagedata = {
   const Translatemap = async (payload) => {
     try {
       const response = await dispatch(postTranslate(messagedata)).unwrap();
-      console.log(response)
       const str = response.split('\\n').join('<br>').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'); 
       setTranslates(str)
     } catch (error) {
@@ -130,7 +129,7 @@ text-align:left;
 text-indent:10px;
 `
 
-   const Btn = styled.button`
+ const Btn = styled.button`
       font-weight: 600;
       border-radius: 5px;
       cursor: pointer;
@@ -144,4 +143,4 @@ text-indent:10px;
       };
       margin:1% 0 1% auto;
       width: 60px;
-   `
+  `

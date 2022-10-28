@@ -3,7 +3,6 @@ import styled, {keyframes}  from 'styled-components'
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-
 const LoginImg = () => {
     const navigate = useNavigate();
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`; 
@@ -23,11 +22,9 @@ const LoginImg = () => {
       icon: 'info', 
     })
     }}>
-            {/* <a href={NAVER_AUTH_URL}> */}
-            <img src="https://ifh.cc/g/CYPS0t.png"></img>
-            <button>네이버 로그인</button>
-            {/* </a> */}
-        </Naver>
+      <img src="https://ifh.cc/g/CYPS0t.png"></img>
+      <button>네이버 로그인</button>
+      </Naver>
         <Kakao title="카카오 간편로그인">
             <a href={KAKAO_AUTH_URL}>
             <img src="https://ifh.cc/g/8QQ5yW.png"></img>

@@ -9,7 +9,6 @@ import NonCard from "./NonCard";
 import reolad from "../../img/reload.png"
 import ListSlider from "./ListSlider";
 
-
 const ChatList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ console.log(one)
     return roomlist.category === "캠스터디";
   });
 
-
   if (isLoading) {
     return <div>
        <ListSlider/>
@@ -48,13 +46,11 @@ console.log(one)
             ) : (
               <TabBox onClick={() => toggleTab(1)}>스크립트</TabBox>
             )}
-
             {toggleState === 2 ? (
               <AciveTabBox onClick={() => toggleTab(2)}>캠스터디</AciveTabBox>
             ) : (
               <TabBox onClick={() => toggleTab(2)}>캠스터디</TabBox>
             )}
-
             <AddRoomBtn
               onClick={() => {
                 addRoom();
@@ -63,7 +59,6 @@ console.log(one)
               방만들기
             </AddRoomBtn>
           </BlocTabsContiner>
-
           <div style={{ flexGrow: "1" }}>
             {toggleState === 1 ? (
               one.length !== 0 ? (
@@ -80,7 +75,6 @@ console.log(one)
                 </div>
               )
             ) : null}
-
             {toggleState === 2 ? (
               two.length !== 0 ? (
                 <ActiveContentBox>
@@ -97,11 +91,9 @@ console.log(one)
       </Container>
     </div>
   }
-
   if (error) {
     return <div>{error.message}</div>;
   }
-
   return (<>
   
       <Container>
@@ -119,9 +111,6 @@ console.log(one)
             ) : (
               <TabBox onClick={() => toggleTab(2)}>캠스터디</TabBox>
             )}
-
-        
-
             <AddRoomBtn
               onClick={() => {
                 addRoom();
@@ -130,7 +119,6 @@ console.log(one)
               방만들기
             </AddRoomBtn>
           </BlocTabsContiner>
-
           <div style={{ flexGrow: "1" }}>
             {toggleState === 1 ? (
               one.length !== 0 ? (
@@ -141,8 +129,6 @@ console.log(one)
                     onClick={()=>{dispatch(getChatrooms())}} />
                   </ReloadContainer>
                 <ActiveContentBox>
-
-
                   {one.map((room) => {
                     return (
                       <ChatListCard
@@ -167,13 +153,11 @@ console.log(one)
                     onClick={()=>{dispatch(getChatrooms())}} />
                   </ReloadContainer>
                 <ActiveContentBox>
-
                   <NonCard></NonCard>
                 </ActiveContentBox>
                 </div>
               )
             ) : null}
-
             {toggleState === 2 ? (
               two.length !== 0 ? (
                 <>
@@ -196,8 +180,7 @@ console.log(one)
                         roomimage={room.roomImage}
                       />
                     );
-                  })}
-                  
+                  })}      
                 </ActiveContentBox>
                 </>
               ) : (
@@ -213,8 +196,6 @@ console.log(one)
                 </>
               )
             ) : null}
-
-         
           </div>
         </BigBox>
       </Container>
@@ -242,7 +223,6 @@ const BigBox = styled.div`
   margin: 0 auto;
 `;
 
-
 const BlocTabsContiner = styled.div`
   border: none;
   display: flex;
@@ -261,9 +241,7 @@ const AddRoomBtn = styled.div`
   font-weight: 600;
   letter-spacing:0.8px;
   background: linear-gradient(to right, #91a7ff, #748ffc);
-  /* background: linear-gradient(to right,  #91a7ff, #748ffc); */
   box-shadow: 3px 0px 3px #d5d6d6;
-  /* position: relative; */
   outline: none;
   margin-top: 0.3%;
   border-top-left-radius: 10px;
@@ -283,10 +261,8 @@ color: whitesmoke;
 const TabBox = styled.div`
   padding: 1.2% 3% 1.2% 3%;
   text-align: center;
-  /* min-width: 70px; */
   width: 10%;
   min-width: 55px;
-  /* height: %; */
   color:#495057;
   background: linear-gradient(to right,#d3f9d8,#b2f2bb);
   letter-spacing:0.8px;
@@ -309,10 +285,8 @@ color: gray;
 const AciveTabBox = styled.div`
   padding: 1.2% 3% 1.2% 3%;
   text-align: center;
-  /* min-width: 70px; */
   width: 10%;
   min-width: 55px;
-  /* height: %; */
   color: white;
   font-weight: 600;
   letter-spacing:0.5px;
