@@ -82,7 +82,6 @@ width: 18vw;
 min-width: 250px;
 min-height: 227px;
 margin: 5px;
-/* 여기 카메라 부분 나중에 4명 들어오면 수정하기 */
 `;
 
 const Nick = styled.div`
