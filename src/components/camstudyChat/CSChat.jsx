@@ -93,13 +93,11 @@ const CSChat = () => {
   const connect = () => {
     client.current = new StompJs.Client({
       //websocket 주소만 입력 가능 * ws://, wss:// 로 시작
-      // brokerURL: "ws://54.180.142.30/ws-stomp/websocket",
       brokerURL: process.env.REACT_APP_CHAT_WEBSOCKET,
       connectHeaders: {
         Authorization: Authorization,
       },
       debug: function (str) {
-        // console.log(str);
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
@@ -119,14 +117,9 @@ const CSChat = () => {
           }),
         });
         var heartbeat_msg = '--heartbeat--', heartbeat_interval = null;
-        // missed_heartbeats = 0;
         if (heartbeat_interval === null) {
-          // missed_heartbeats = 0;
           heartbeat_interval = setInterval(function() {
               try {
-                  // missed_heartbeats++;
-                  // if (missed_heartbeats >= 6)
-                      // throw new Error("Too many missed heartbeats.");
                   client.current.publish({                                     
                     destination: "/pub/chat/message", 
                     headers: { Authorization: Authorization },
@@ -135,15 +128,10 @@ const CSChat = () => {
                       type: 8,                        
                       message: heartbeat_msg,
                       roomId: roomId.id,
-                      // userId:userId,
                     }),
                   });
               } catch(e) {
                   clearInterval(heartbeat_interval);
-                  // const heartbeat_interval = null;
-                  // console.warn("Closing connection. Reason: " + e.message);
-                  // console.log("짱많이 보냄")
-                  // disconnect();
               }
           }, 3000);
       }
@@ -154,7 +142,6 @@ const CSChat = () => {
 
   //sockjs 미지원 브라우저를 위한 websocketfactory연결
   client.webSocketFactory = () => {
-    // return new SockJS("http://54.180.142.30/ws-stomp");
     return new SockJS(process.env.REACT_APP_CHAT_SOCK);
   };
 
@@ -166,7 +153,6 @@ const CSChat = () => {
       
        //van처리
        if(content.type === 4){
-        // console.log(content.vanId)
         if(content.vanId == userId) {
           ban()
         }
@@ -176,13 +162,11 @@ const CSChat = () => {
       }
       //방장 & 참가자 수 관리
       else if (content.type === 5){
-        // console.log(content)
         setMemberCount(content?.maxMember)
         setRoomManager(content?.managerId)
       }      
 
       else if(content.type === 8){
-        // console.log(content)
         if(content.vanId == userId) {
           moveList()
         }
@@ -193,7 +177,6 @@ const CSChat = () => {
 
        //참가자목록
       else if (content.type === 9) {
-        // console.log(content)
         const a = content.enterMembers
         setParticipant(a)
       } 
@@ -223,8 +206,6 @@ const CSChat = () => {
             image: content.image,
           },
         ]); 
-
-      // setTimeout(() => scrollToElement(), 50);
     }
 
 
@@ -255,8 +236,8 @@ const CSChat = () => {
   };
 
   client.current.onStompError = function (frame) {
-    // console.log("Broker reported error: " + frame.headers["message"]);
-    // console.log("Additional details: " + frame.body);
+    console.log("Broker reported error: " + frame.headers["message"]);
+    console.log("Additional details: " + frame.body);
   };
 
   //공지 등록
@@ -338,10 +319,6 @@ const CSChat = () => {
     setNoitce(!notice);
     setChat({ content: "" });
   };
-
-  const filterdNotice = messages.filter(function (x) {
-    return x.type == 3;
-  });
 
 
 
@@ -755,7 +732,6 @@ const MsgTimeBox = styled.div`
 `
 
 const MsgTimeBox2 = styled.div`
-  /* margin-left:auto; */
   display:flex;
 `
 
@@ -788,7 +764,6 @@ const OtherMsg = styled.div`
   white-space: pre-line;
   margin-top: 10px;
   border-radius: 10px 10px 10px 0px;
-  /* padding: 0px 10px 0px 10px; */
   color: black;
   background-color: #f1f3f5;
 `;
@@ -801,25 +776,15 @@ const TimeMsg = styled.div`
 const SendBox = styled.div`
   background-color: white;
   border: none;
-  /* box-shadow: 4px 4px 4px #e9ecef; */
   border-radius: 20px;
-  /* padding: 5px 10px 5px 10px; */
-  /* margin: 5px 10px 0px 10px; */
   margin: auto;
   height: 4vh;
   min-height: 30px;
-  /* height: 3vh; */
   width: 45vw ;
  min-width: 550px;
   display: flex;
   align-items: center;
 `;
-
-// const SendBtnImg =styled.img`
-//   width: 30px;
-//   height:30px;
-//   cursor: pointer;
-// `
 
 const SendDiv = styled.div`
   display:flex;
@@ -872,15 +837,12 @@ const MemoBox = styled.div`
 `;
 
 const UserContainer = styled.div`
-  /* width: 30vw;
-  height: 25vh; */
   height: 25vh; 
   min-height: 150px;
   width: 48vw;
     min-width: 600px;
   background: linear-gradient(to right,#e7f5ff,#e3fafc );
   border-radius: 5px;
-  /* box-shadow: 10px 10px 10px #e9ecef; */
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 8px;
@@ -892,7 +854,6 @@ const UserContainer = styled.div`
     background: #d0ebff;
     border-radius: 6px;
   }
-  /* border:3px solid yellow; */
 `;
 
 const UserBox = styled.div`
@@ -904,49 +865,10 @@ margin:2% 2%
 const ScriptContainer = styled.div`
   width: 40vw;
   margin: 0px 10px 0px 20px;
-  /* border:3px solid green; */
 `;
 
-// const TabContainer = styled.div`
-//   display: flex;
-//   width: 380px;
-//   min-height: 30px;
-//   height: 3vh;
-//   margin-left: 10px;
-// `;
-
-// const ActiveTabBox = styled.div`
-//   padding: 8px;
-//   text-align: center;
-//   width: 90px;
-//   background: #51cf66;
-//   cursor: pointer;
-//   box-sizing: content-box;
-//   position: relative;
-//   outline: none;
-//   border-top-left-radius: 10px;
-//   border-top-right-radius: 10px;
-//   margin-right: 2px;
-//   font-size: small;
-// `;
-
-// const TabBox = styled.div`
-//   padding: 8px;
-//   text-align: center;
-//   width: 90px;
-//   background: #b2f2bb;
-//   cursor: pointer;
-//   box-sizing: content-box;
-//   position: relative;
-//   outline: none;
-//   border-top-left-radius: 10px;
-//   border-top-right-radius: 10px;
-//   margin-right: 2px;
-//   font-size: small;
-// `;
 const TabContainer = styled.div`
   display: flex;
-  /* width: 84%; */
   width:100%;
  min-height: 30px;
 margin-top: 8px;
@@ -959,7 +881,6 @@ const ActiveTabBox = styled.div`
   text-align: center;
   min-width: 100px;
   width:7vw;
-  /* min-width: 55px; */
   color: white;
   background: linear-gradient(to right, #69db7c, #38d9a9);
   box-sizing: content-box;
@@ -967,9 +888,7 @@ const ActiveTabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  /* margin-right: 0.2%; */
   font-size: small;
-  /* color:white; */
   border: none;
 `;
 const UserActiveTabBox = styled.div`
@@ -977,7 +896,6 @@ const UserActiveTabBox = styled.div`
   text-align: center;
   min-width: 100px;
   width:7vw;
-  /* min-width: 55px; */
   color: white;
   background: linear-gradient(to right, #74c0fc, #91a7ff);
   box-sizing: content-box;
@@ -985,9 +903,7 @@ const UserActiveTabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  /* margin-right: 0.2%; */
   font-size: small;
-  /* color:white; */
   border: none;
 `;
 
@@ -996,7 +912,6 @@ const MemoTabBox = styled.div`
   text-align: center;
   min-width: 100px;
   width:7vw;
-  /* min-width: 55px; */
   color: white;
   background: linear-gradient(to right, #c0eb75, #8ce99a);
   box-sizing: content-box;
@@ -1004,9 +919,7 @@ const MemoTabBox = styled.div`
   outline: none;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  /* margin-right: 0.2%; */
   font-size: small;
-  /* color:white; */
   border: none;
 `;
 
@@ -1015,7 +928,6 @@ const TabBox = styled.div`
   text-align: center;
   min-width: 95px;
   width: 6vw;
-  /* min-width: 55px; */
   color:#495057;
   background: linear-gradient(to right,#d3f9d8,#b2f2bb);
   cursor: pointer;
@@ -1033,7 +945,6 @@ const UserTabBox = styled.div`
   text-align: center;
   min-width: 95px;
   width: 6vw;
-  /* min-width: 55px; */
   color:#495057;
   background: linear-gradient(to right,#d0ebff,#dbe4ff);
   cursor: pointer;

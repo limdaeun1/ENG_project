@@ -111,9 +111,6 @@ const declareBtn =() =>{
               src={user?.memberImg}
             />
             <UserNameBox>👑{user?.memberName}</UserNameBox>
-            <BtnBox>
-              {/* <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn> */}
-            </BtnBox>
             
           </UserBox>
         ) : (
@@ -178,9 +175,6 @@ const declareBtn =() =>{
             src={user?.memberImg}
           />
           <UserNameBox >{user?.memberName}</UserNameBox>
-          <BtnBox>
-          {/* <DeclareBtn onClick={()=>{declareBtn()}}>신고</DeclareBtn> */}
-            </BtnBox>
         </UserBox>
         )
         :(
