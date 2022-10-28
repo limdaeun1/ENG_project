@@ -301,7 +301,6 @@ border-radius: 20px;
 min-height: 220px;
 height: 29vh;
 border: none;
-/* background-color: #64a464; */
 background: #ebfbee;
 `;
 

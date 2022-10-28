@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
 
-
 function Mymodal({day, name, content, modalVisibleId, setModalVisibleId ,id}) {
 
     const onCloseHandler = () => {
@@ -21,6 +20,7 @@ function Mymodal({day, name, content, modalVisibleId, setModalVisibleId ,id}) {
         </>
     );
 }
+
 export default Mymodal;
 
 const Container = styled.div`

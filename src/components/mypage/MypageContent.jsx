@@ -2,14 +2,12 @@ import { useState } from "react";
 import styled from 'styled-components'
 import MyMemo from "./MyMemo";
 import StudyTime from "./StudyTime";
-import Nonmypage from "./Nonmypage";
 
 const MypageContent = () => {
     const [toggleState, setToggleState] = useState(1);
     const toggleTab = (index) => {
         setToggleState(index);
       };
-
       
   return (
     <>
@@ -24,7 +22,6 @@ const MypageContent = () => {
             ? <AciveTabBox onClick={() => toggleTab(2)}> My Memo</AciveTabBox> 
             :<TabBox onClick={() => toggleTab(2)} > My Memo</TabBox>}
     </BlocTabsContiner>
-
            <div style={{flexGrow : "1", width:"40vw"}}>
             {toggleState === 1 
             ? <ActiveContentBox > <StudyTime/> </ActiveContentBox>

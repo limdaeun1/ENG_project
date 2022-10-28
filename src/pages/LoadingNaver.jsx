@@ -37,9 +37,7 @@ Toast.fire({
 
   return (
     <Div>
-    {/* <img src="https://cdn.jjalbot.com/2021/12/tPaZBIZ-K/tPaZBIZ-K.gif" /> */}   
-    {/* 스피너 gif */}
-  </Div>
+    </Div>
   )
 }
 

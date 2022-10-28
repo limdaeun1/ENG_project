@@ -19,7 +19,6 @@ const CSMemo = (id) => {
   const GetMemo = async () => {
     try {
       const response = await dispatch(getMemo(id.id.id)).unwrap();
-      console.log(response.data.data)
       if(response.data.data !== null) {
       setMemo(response.data.data) }
       else {

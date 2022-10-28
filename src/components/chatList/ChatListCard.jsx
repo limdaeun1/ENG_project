@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import lock from "../../img/lock2.png";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +45,6 @@ const ChatListCard = (room) => {
     try {    
       const payload = { id:id , password:password,}
       const response = await dispatch(passwordCheck(payload)).unwrap();
-      console.log(response)
       if(response.data.success === true) {
         navigate("/enter/"+id ,{state:room})
       }
@@ -101,13 +99,6 @@ const Container = styled.div`
   }
 `;
 
-const Round = styled.div`
-  min-width: 10px;
-  min-height: 10px;
-  border-radius: 100%;
-  background-color: #2f9e44;
-`
-
 const TitleBox = styled.div`
   background-color: #fbfeffb0;
   padding: 5px;
@@ -119,17 +110,20 @@ const TitleBox = styled.div`
   font-weight: 600;
   color:#000000f9;;
 `;
+
 const LockStatusBox = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 6%;
   margin-top: -1.5%;
 `;
+
 const LockStatusBox2 = styled.img`
   width: 30px;
   height: 30px;
   display: none;
 `;
+
 const PeopleParticipationBox = styled.div`
   display: flex;
   margin-left: auto;

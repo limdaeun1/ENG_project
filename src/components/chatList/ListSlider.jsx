@@ -53,7 +53,6 @@ const Container = styled.div`
 const StyledSlider = styled(Slider)`
   .slick-list {
     max-width: 800px;
-    /* min-width: 300px; */
     width:95%;
     border-radius: 20px;
     justify-content: center;
