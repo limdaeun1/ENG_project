@@ -9,9 +9,10 @@
  Eng-Fluencer와 함께 재밌는 영어 스터디를 시작해보세요!
 </div>
 
-#### [잉플루언서 바로가기](https://engfluencer.co.kr)
 #### [팀 잉플루언서 노션](https://funky-orchid-464.notion.site/EngFluencer-f8d17d3ef6b24ed3bd3e32690b48ec6e)
 #### [팀 잉플루언서 발표영상](https://youtu.be/eI4iiOFWUNg)
+
+<img width="1000" alt="스크린샷 2022-12-30 오전 3 58 09" src="https://user-images.githubusercontent.com/110998265/209997000-23347c73-b154-4d80-ba33-89792fcd44ac.png">
 
 ## 메인기능
 
