@@ -9,8 +9,9 @@
  Eng-Fluencer와 함께 재밌는 영어 스터디를 시작해보세요!
 </div>
 
-#### https://engfluencer.co.kr
-#### 개발자 Discord : https://discord.com/invite/dG8WHNwX
+#### [잉플루언서 바로가기](https://engfluencer.co.kr)
+#### [팀 잉플루언서 노션](https://funky-orchid-464.notion.site/EngFluencer-f8d17d3ef6b24ed3bd3e32690b48ec6e)
+#### [팀 잉플루언서 발표영상](https://youtu.be/eI4iiOFWUNg)
 
 ## 메인기능
 
